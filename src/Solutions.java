@@ -1,3 +1,4 @@
+import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
 import org.testng.collections.Lists;
@@ -12,11 +13,11 @@ public class Solutions {
 
     // Big O(n^2) :(
     public static int[] twoSum(int[] nums, int target) {
-        for (int i = 0 ; i < nums.length ; i++){
-            for (int k = 0; k < nums.length ; k++){
-                if (i != k){
-                    if (nums[i] + nums[k] == target){
-                        return new int []{i, k};
+        for (int i = 0; i < nums.length; i++) {
+            for (int k = 0; k < nums.length; k++) {
+                if (i != k) {
+                    if (nums[i] + nums[k] == target) {
+                        return new int[]{i, k};
                     }
                 }
             }
@@ -41,6 +42,7 @@ public class Solutions {
             returnedValues.add(clonedArray[i] + extraCandies >= max);
         }
         return returnedValues;
+
     }
 
     @Test
@@ -50,8 +52,29 @@ public class Solutions {
         Assert.assertSame(expected, result);
     }
 
-    public static void main(String[] args) {
-
+    // https://leetcode.com/problems/reverse-string/
+    // Changed return value to test
+    // Big O(n)
+    public static char[] reverseString(char @NotNull [] s) {
+        char tempChar;
+        for (int i = 0; i < s.length / 2; i++) {
+            tempChar = s[i];
+            s[i] = s[s.length - i - 1];
+            s[(s.length - i - 1)] = tempChar;
+        }
+        return s;
     }
+
+    @Test
+    public void reverseStringTest(){
+        char[] result = reverseString(new char[]{'h', 'e', 'l', 'l', 'o'});
+        char[] expected = new char[]{'o', 'l', 'l', 'e', 'h'};
+        Assert.assertArrayEquals(result, expected);
+    }
+
+
+    public static void main(String[] args) {
+    }
+
 
 }

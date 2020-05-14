@@ -72,6 +72,7 @@ public class Solutions {
         Assert.assertArrayEquals(result, expected);
     }
 
+    // https://leetcode.com/problems/search-a-2d-matrix/
     public static boolean searchMatrix(int[][] matrix, int target) {
         for (int[] array : matrix) {
             if (Arrays.binarySearch(array, target) > -1) {

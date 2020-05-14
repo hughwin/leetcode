@@ -66,14 +66,37 @@ public class Solutions {
     }
 
     @Test
-    public void reverseStringTest(){
+    public void reverseStringTest() {
         char[] result = reverseString(new char[]{'h', 'e', 'l', 'l', 'o'});
         char[] expected = new char[]{'o', 'l', 'l', 'e', 'h'};
         Assert.assertArrayEquals(result, expected);
     }
 
+    public static boolean searchMatrix(int[][] matrix, int target) {
+        for (int[] array : matrix) {
+            if (Arrays.binarySearch(array, target) > -1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Test
+    public void searchMatrixTest(){
+        int[][] matrix = new int[][]{new int[]{1,2,3,4}, new int[]{5,6,7,8}};
+        boolean result = searchMatrix(matrix, 1);
+        Assert.assertSame(true, result);
+
+        boolean failResult = searchMatrix(matrix, 10);
+        Assert.assertSame(false, failResult);
+
+    }
+
 
     public static void main(String[] args) {
+        int[][] matrix = new int[][]{new int[]{1,2,3,4}, new int[]{5,6,7,8}};
+        System.out.println(searchMatrix(matrix, 2));
+        System.out.println(searchMatrix(matrix, 10));
     }
 
 

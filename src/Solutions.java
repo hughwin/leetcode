@@ -83,8 +83,8 @@ public class Solutions {
     }
 
     @Test
-    public void searchMatrixTest(){
-        int[][] matrix = new int[][]{new int[]{1,2,3,4}, new int[]{5,6,7,8}};
+    public void searchMatrixTest() {
+        int[][] matrix = new int[][]{new int[]{1, 2, 3, 4}, new int[]{5, 6, 7, 8}};
         boolean result = searchMatrix(matrix, 1);
         Assert.assertSame(true, result);
 
@@ -94,10 +94,25 @@ public class Solutions {
     }
 
 
+
+    // TODO: Finish this.
+    // https://leetcode.com/problems/reverse-linked-list-ii/
+    // Definition for singly-linked list.
+
+    // https://leetcode.com/problems/delete-node-in-a-bst/
+
+    // https://leetcode.com/problems/length-of-last-word/
+    public static int lengthOfLastWord(String s) {
+            String[] stringArray = s.split(" ");
+            if(stringArray.length == 0 || stringArray.length == 1){return 0;}
+            String lastWord = stringArray[stringArray.length - 1];
+            return lastWord.length();
+    }
+
+
+
     public static void main(String[] args) {
-        int[][] matrix = new int[][]{new int[]{1,2,3,4}, new int[]{5,6,7,8}};
-        System.out.println(searchMatrix(matrix, 2));
-        System.out.println(searchMatrix(matrix, 10));
+        System.out.println(lengthOfLastWord("Hello you"));
     }
 
 

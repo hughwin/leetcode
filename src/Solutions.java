@@ -117,14 +117,17 @@ public class Solutions {
     }
 
     public static ListNode reverseBetween(ListNode head, int m, int n) {
-        int count = 1;
 
+        if(m == n){return head;}
+
+        int count = 1;
+        ListNode headCopy = head;
         ListNode beforeReverse = null;
         ListNode afterReverse = null;
 
         ArrayList<ListNode> nodesToBeReversed = new ArrayList<>();
 
-        while (count <= n + 1) {
+        while (head != null) {
 
             if (count == m - 1) {
                 beforeReverse = head;
@@ -141,15 +144,47 @@ public class Solutions {
 
             for (int i = nodesToBeReversed.size() - 1; i >= 0; i--) {
 
+                if (beforeReverse == null){
+                    beforeReverse = nodesToBeReversed.get(i);
+                    headCopy = beforeReverse;
+                }
+                else {
+                    beforeReverse.next = nodesToBeReversed.get(i);
+                    beforeReverse = beforeReverse.next;
+                }
             }
 
-        return head;
+            beforeReverse.next = afterReverse;
+
+        return headCopy;
     }
 
+    @Test
+    public void reverseBetweenTest(){
 
+        ListNode resultHead = new ListNode(1);
+        ListNode rb = new ListNode(2);
+        ListNode rc = new ListNode(3);
+        ListNode rd = new ListNode(4);
+        ListNode re = new ListNode(5);
+        resultHead.next = rb;
+        rb.next = rc;
+        rc.next = rd;
+        rd.next = re;
 
+        ListNode expectedHead = new ListNode(1);
+        ListNode b = new ListNode(4);
+        ListNode c = new ListNode(3);
+        ListNode d = new ListNode(2);
+        ListNode e = new ListNode(5);
+        expectedHead.next = b;
+        b.next = c;
+        c.next = d;
+        d.next = e;
 
-    // https://leetcode.com/problems/delete-node-in-a-bst/
+        Assert.assertSame(expectedHead, reverseBetween(expectedHead, 2, 4));
+
+    }
 
     // https://leetcode.com/problems/length-of-last-word/
     public static int lengthOfLastWord(String s) {
@@ -264,18 +299,6 @@ public class Solutions {
 
 
     public static void main(String[] args) {
-        ListNode a = new ListNode(1);
-        ListNode b = new ListNode(2);
-        ListNode c = new ListNode(3);
-        ListNode d = new ListNode(4);
-        ListNode e = new ListNode(5);
-
-        a.next = b;
-        b.next = c;
-        c.next = d;
-        d.next = e;
-
-        System.out.println(reverseBetween(a, 2, 4));
     }
 
 

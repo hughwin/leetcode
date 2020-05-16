@@ -212,9 +212,6 @@ public class Solutions {
         Assert.assertSame(99, romanToInt("XCIX"));
     }
 
-
-
-
     public static void main(String[] args) {
         System.out.println(romanToInt("XCI"));
     }

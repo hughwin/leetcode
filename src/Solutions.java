@@ -103,16 +103,60 @@ public class Solutions {
 
     // https://leetcode.com/problems/length-of-last-word/
     public static int lengthOfLastWord(String s) {
-            String[] stringArray = s.split(" ");
-            if(stringArray.length == 0 || stringArray.length == 1){return 0;}
-            String lastWord = stringArray[stringArray.length - 1];
-            return lastWord.length();
+        String[] stringArray = s.split(" ");
+        if (stringArray.length == 0 || stringArray.length == 1) {
+            return 0;
+        }
+        String lastWord = stringArray[stringArray.length - 1];
+        return lastWord.length();
+    }
+
+    // https://leetcode.com/problems/maximum-depth-of-binary-tree/
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+
+    public static int maxDepth(TreeNode root) {
+        return depthCalculator(root, 0);
+    }
+
+    public static int depthCalculator(TreeNode node, int depth){
+        if (node == null){return depth;}
+        return Math.max(depthCalculator(node.left, depth + 1), depthCalculator(node.right, depth + 1));
+    }
+
+    @Test
+    public void maxDepthCalculatorTest(){
+        TreeNode root = new TreeNode();
+        root.left = new TreeNode();
+        root.right = new TreeNode();
+        int correctDepth = 2;
+        Assert.assertSame(correctDepth, maxDepth(root));
     }
 
 
 
     public static void main(String[] args) {
-        System.out.println(lengthOfLastWord("Hello you"));
+        TreeNode root = new TreeNode();
+
+        System.out.println(maxDepth(root));
+
     }
 
 

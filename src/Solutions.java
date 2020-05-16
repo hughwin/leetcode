@@ -94,8 +94,6 @@ public class Solutions {
 
     }
 
-
-    // TODO: Finish this.
     // https://leetcode.com/problems/reverse-linked-list-ii/
     // Definition for singly-linked list.
 

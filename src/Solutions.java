@@ -5,6 +5,7 @@ import org.testng.collections.Lists;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class Solutions {
@@ -150,13 +151,72 @@ public class Solutions {
         Assert.assertSame(correctDepth, maxDepth(root));
     }
 
+    public static int romanToInt(String s) {
+
+        int sum = 0;
+
+        if (s.length() == 0){
+            return sum;
+        }
+
+        HashMap<Character, Integer> romanNumerals = new HashMap<>();
+        romanNumerals.put('I', 1);
+        romanNumerals.put('V', 5);
+        romanNumerals.put('X', 10);
+        romanNumerals.put('L', 50);
+        romanNumerals.put('C', 100);
+        romanNumerals.put('D', 500);
+        romanNumerals.put('M', 1000);
+
+
+        for (int i = 0; i < s.length() ; i++) {
+            if (i < s.length() - 1) {
+                if (s.charAt(i) == 'I' && s.charAt(i + 1) == 'V') {
+                    sum += 4;
+                    i += 1;
+                    continue;
+                }
+                if (s.charAt(i) == 'I' && s.charAt(i + 1) == 'X') {
+                    sum += 9;
+                    i += 1;
+                    continue;
+                }
+                if (s.charAt(i) == 'X' && s.charAt(i + 1) == 'L') {
+                    sum += 40;
+                    i += 1;
+                    continue;
+                }
+                if (s.charAt(i) == 'X' && s.charAt(i + 1) == 'C') {
+                    sum += 90;
+                    i += 1;
+                    continue;
+                }
+                if (s.charAt(i) == 'C' && s.charAt(i + 1) == 'D') {
+                    sum += 400;
+                    i += 1;
+                    continue;
+                }
+                if (s.charAt(i) == 'C' && s.charAt(i + 1) == 'M') {
+                    sum += 900;
+                    i += 1;
+                    continue;
+                }
+            }
+                sum += romanNumerals.get(s.charAt(i));
+        }
+        return sum;
+    }
+
+    @Test
+    public void romanNumeralTest(){
+        Assert.assertSame(99, romanToInt("XCIX"));
+    }
+
+
 
 
     public static void main(String[] args) {
-        TreeNode root = new TreeNode();
-
-        System.out.println(maxDepth(root));
-
+        System.out.println(romanToInt("XCI"));
     }
 
 

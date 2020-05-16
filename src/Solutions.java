@@ -95,10 +95,59 @@ public class Solutions {
     }
 
 
-
     // TODO: Finish this.
     // https://leetcode.com/problems/reverse-linked-list-ii/
     // Definition for singly-linked list.
+
+    public static class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+    public static ListNode reverseBetween(ListNode head, int m, int n) {
+        int count = 1;
+
+        ListNode beforeReverse = null;
+        ListNode afterReverse = null;
+
+        ArrayList<ListNode> nodesToBeReversed = new ArrayList<>();
+
+        while (count <= n + 1) {
+
+            if (count == m - 1) {
+                beforeReverse = head;
+            }
+            if (count >= m && count <= n) {
+                nodesToBeReversed.add(head);
+            }
+            if (count == n + 1){
+                afterReverse = head;
+            }
+            head = head.next;
+            count++;
+        }
+
+            for (int i = nodesToBeReversed.size() - 1; i >= 0; i--) {
+
+            }
+
+        return head;
+    }
+
+
+
 
     // https://leetcode.com/problems/delete-node-in-a-bst/
 
@@ -202,18 +251,31 @@ public class Solutions {
                     continue;
                 }
             }
-                sum += romanNumerals.get(s.charAt(i));
+            sum += romanNumerals.get(s.charAt(i));
         }
         return sum;
     }
 
     @Test
-    public void romanNumeralTest(){
+    public void romanNumeralTest() {
         Assert.assertSame(99, romanToInt("XCIX"));
     }
 
+
+
     public static void main(String[] args) {
-        System.out.println(romanToInt("XCI"));
+        ListNode a = new ListNode(1);
+        ListNode b = new ListNode(2);
+        ListNode c = new ListNode(3);
+        ListNode d = new ListNode(4);
+        ListNode e = new ListNode(5);
+
+        a.next = b;
+        b.next = c;
+        c.next = d;
+        d.next = e;
+
+        System.out.println(reverseBetween(a, 2, 4));
     }
 
 

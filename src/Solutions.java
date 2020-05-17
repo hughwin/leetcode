@@ -3,10 +3,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.testng.collections.Lists;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Solutions {
 
@@ -294,9 +291,52 @@ public class Solutions {
         Assert.assertSame(99, romanToInt("XCIX"));
     }
 
+    public static boolean isPalindrome(ListNode head) {
+        ArrayList<Integer> values = new ArrayList<>();
+        while (head != null){
+            values.add(head.val);
+            head = head.next;
+        }
+        ArrayList<Integer> reversed = (ArrayList<Integer>) values.clone();
+        Collections.reverse(reversed);
+        if (values.equals(reversed)){
+            return true;
+        }
+        return  false;
+    }
+
+    @Test
+    public void isPalindromeTest(){
+        ListNode a = new ListNode(1);
+        ListNode b = new ListNode(2);
+        a.next = b;
+        b.next = new ListNode(2);
+        System.out.println(isPalindrome(a));
+    }
+
+    public static List<Integer> findDisappearedNumbers(int[] nums) {
+
+        int highest = nums.length;
+        HashSet<Integer> numbersInNums = new HashSet();
+
+        List<Integer> missingNumbers = new ArrayList<>();
+
+        for (int i = 0; i < highest ; i++){
+            numbersInNums.add(nums[i]);
+        }
+
+        for (int i = 1; i <= highest; i++){
+            if (!numbersInNums.contains(i)){
+                missingNumbers.add(i);
+            }
+        }
+        return missingNumbers;
+    }
+
 
 
     public static void main(String[] args) {
+        System.out.println(findDisappearedNumbers(new int[]{1,1}));
     }
 
 

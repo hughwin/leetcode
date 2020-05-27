@@ -358,21 +358,45 @@ public class Solutions {
         List<String> fizzBuzzList = new ArrayList<>();
 
         for (int i = 1; i <= n; i++){
-            if (n % 5 == 0 && n % 3 == 0) {
+            if (i % 5 == 0 && i % 3 == 0) {
                 fizzBuzzList.add("FizzBuzz");
                 continue;
             }
-            if (n % 3 == 0 ){
+            if (i % 3 == 0 ){
                 fizzBuzzList.add("Fizz");
                 continue;
             }
-            if (n % 5 == 0){
+            if (i % 5 == 0){
                 fizzBuzzList.add("Buzz");
                 continue;
             }
             fizzBuzzList.add(i + "");
         }
     return fizzBuzzList;
+    }
+
+    @Test
+    public void fizzBuzzTest(){
+        List<String> expected = new ArrayList<>();
+        expected.add("1");
+        expected.add("2");
+        expected.add("Fizz");
+        expected.add("4");
+        expected.add("Buzz");
+        expected.add("Fizz");
+        expected.add("7");
+        expected.add("8");
+        expected.add("Fizz");
+        expected.add("Buzz");
+        expected.add("11");
+        expected.add("Fizz");
+        expected.add("13");
+        expected.add("14");
+        expected.add("FizzBuzz");
+
+        List<String> actual = fizzBuzz(15);
+
+        Assert.assertEquals(true, expected.equals(actual));
     }
 
 

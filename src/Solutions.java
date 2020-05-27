@@ -1,8 +1,9 @@
 import org.junit.Assert;
 import org.junit.Test;
-//import org.testng.collections.Lists;
 
 import java.util.*;
+
+//import org.testng.collections.Lists;
 
 public class Solutions {
 
@@ -52,7 +53,7 @@ public class Solutions {
     // https://leetcode.com/problems/reverse-string/
     // Changed return value to test
     // Big O(n)
-    public static char[] reverseString(char [] s) {
+    public static char[] reverseString(char[] s) {
         char tempChar;
         for (int i = 0; i < s.length / 2; i++) {
             tempChar = s[i];
@@ -112,7 +113,9 @@ public class Solutions {
 
     public static ListNode reverseBetween(ListNode head, int m, int n) {
 
-        if(m == n){return head;}
+        if (m == n) {
+            return head;
+        }
 
         int count = 1;
         ListNode headCopy = head;
@@ -129,32 +132,31 @@ public class Solutions {
             if (count >= m && count <= n) {
                 nodesToBeReversed.add(head);
             }
-            if (count == n + 1){
+            if (count == n + 1) {
                 afterReverse = head;
             }
             head = head.next;
             count++;
         }
 
-            for (int i = nodesToBeReversed.size() - 1; i >= 0; i--) {
+        for (int i = nodesToBeReversed.size() - 1; i >= 0; i--) {
 
-                if (beforeReverse == null){
-                    beforeReverse = nodesToBeReversed.get(i);
-                    headCopy = beforeReverse;
-                }
-                else {
-                    beforeReverse.next = nodesToBeReversed.get(i);
-                    beforeReverse = beforeReverse.next;
-                }
+            if (beforeReverse == null) {
+                beforeReverse = nodesToBeReversed.get(i);
+                headCopy = beforeReverse;
+            } else {
+                beforeReverse.next = nodesToBeReversed.get(i);
+                beforeReverse = beforeReverse.next;
             }
+        }
 
-            beforeReverse.next = afterReverse;
+        beforeReverse.next = afterReverse;
 
         return headCopy;
     }
 
     @Test
-    public void reverseBetweenTest(){
+    public void reverseBetweenTest() {
 
         ListNode resultHead = new ListNode(1);
         ListNode rb = new ListNode(2);
@@ -215,13 +217,15 @@ public class Solutions {
         return depthCalculator(root, 0);
     }
 
-    public static int depthCalculator(TreeNode node, int depth){
-        if (node == null){return depth;}
+    public static int depthCalculator(TreeNode node, int depth) {
+        if (node == null) {
+            return depth;
+        }
         return Math.max(depthCalculator(node.left, depth + 1), depthCalculator(node.right, depth + 1));
     }
 
     @Test
-    public void maxDepthCalculatorTest(){
+    public void maxDepthCalculatorTest() {
         TreeNode root = new TreeNode();
         root.left = new TreeNode();
         root.right = new TreeNode();
@@ -233,7 +237,7 @@ public class Solutions {
 
         int sum = 0;
 
-        if (s.length() == 0){
+        if (s.length() == 0) {
             return sum;
         }
 
@@ -247,7 +251,7 @@ public class Solutions {
         romanNumerals.put('M', 1000);
 
 
-        for (int i = 0; i < s.length() ; i++) {
+        for (int i = 0; i < s.length(); i++) {
             if (i < s.length() - 1) {
                 if (s.charAt(i) == 'I' && s.charAt(i + 1) == 'V') {
                     sum += 4;
@@ -292,20 +296,20 @@ public class Solutions {
 
     public static boolean isPalindrome(ListNode head) {
         ArrayList<Integer> values = new ArrayList<>();
-        while (head != null){
+        while (head != null) {
             values.add(head.val);
             head = head.next;
         }
         ArrayList<Integer> reversed = (ArrayList<Integer>) values.clone();
         Collections.reverse(reversed);
-        if (values.equals(reversed)){
+        if (values.equals(reversed)) {
             return true;
         }
-        return  false;
+        return false;
     }
 
     @Test
-    public void isPalindromeTest(){
+    public void isPalindromeTest() {
         ListNode a = new ListNode(1);
         ListNode b = new ListNode(2);
         a.next = b;
@@ -324,8 +328,8 @@ public class Solutions {
             numbersInNums.add(num);
         }
 
-        for (int i = 1; i <= highest; i++){
-            if (!numbersInNums.contains(i)){
+        for (int i = 1; i <= highest; i++) {
+            if (!numbersInNums.contains(i)) {
                 missingNumbers.add(i);
             }
         }
@@ -337,8 +341,8 @@ public class Solutions {
     public static int peakIndexInMountainArray(int[] a) {
         int max = a[0];
         int indexToReturn = 0;
-        for (int i = 0 ; i < a.length ; i++){
-            if (a[i] > max){
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] > max) {
                 max = a[i];
                 indexToReturn = i;
             }
@@ -347,36 +351,69 @@ public class Solutions {
     }
 
     @Test
-    public void peakIndexInMountainArrayTest(){
-        int expected = peakIndexInMountainArray(new int[]{1,3,2});
+    public void peakIndexInMountainArrayTest() {
+        int expected = peakIndexInMountainArray(new int[]{1, 3, 2});
         int actual = 1;
         Assert.assertSame(expected, actual);
     }
 
-    public static List<String> fizzBuzz(int n){
+    public static List<String> fizzBuzz(int n) {
 
         List<String> fizzBuzzList = new ArrayList<>();
 
-        for (int i = 1; i <= n; i++){
+        for (int i = 1; i <= n; i++) {
             if (i % 5 == 0 && i % 3 == 0) {
                 fizzBuzzList.add("FizzBuzz");
                 continue;
             }
-            if (i % 3 == 0 ){
+            if (i % 3 == 0) {
                 fizzBuzzList.add("Fizz");
                 continue;
             }
-            if (i % 5 == 0){
+            if (i % 5 == 0) {
                 fizzBuzzList.add("Buzz");
                 continue;
             }
             fizzBuzzList.add(i + "");
         }
-    return fizzBuzzList;
+        return fizzBuzzList;
+    }
+
+    public static List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        inOrderList(root, list);
+        return list;
+    }
+
+    private static void inOrderList(TreeNode root, List<Integer> list) {
+        if (root == null)
+            return;
+        inOrderList(root.left, list);
+        list.add(root.val);
+        inOrderList(root.right, list);
     }
 
     @Test
-    public void fizzBuzzTest(){
+    public void inOrderTraversalTest(){
+        TreeNode root = new TreeNode(5);
+        TreeNode left = new TreeNode(2);
+        TreeNode right = new TreeNode(7);
+        root.left = left;
+        root.right = right;
+    }
+
+    public static int firstUniqChar(String s) {
+        for (int i = 0; i < s.length() ; i++){
+            if(i == s.lastIndexOf(s.charAt(i)) && i == s.indexOf(s.charAt(i))){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+
+    @Test
+    public void fizzBuzzTest() {
         List<String> expected = new ArrayList<>();
         expected.add("1");
         expected.add("2");
@@ -399,10 +436,8 @@ public class Solutions {
         Assert.assertEquals(true, expected.equals(actual));
     }
 
-
-
     public static void main(String[] args) {
-        System.out.println(fizzBuzz(3));
+        System.out.println(firstUniqChar("lleetcode"));
     }
 
 

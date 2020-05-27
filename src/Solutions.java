@@ -320,8 +320,8 @@ public class Solutions {
 
         List<Integer> missingNumbers = new ArrayList<>();
 
-        for (int i = 0; i < highest ; i++){
-            numbersInNums.add(nums[i]);
+        for (int num : nums) {
+            numbersInNums.add(num);
         }
 
         for (int i = 1; i <= highest; i++){
@@ -353,10 +353,32 @@ public class Solutions {
         Assert.assertSame(expected, actual);
     }
 
+    public static List<String> fizzBuzz(int n){
+
+        List<String> fizzBuzzList = new ArrayList<>();
+
+        for (int i = 1; i <= n; i++){
+            if (n % 5 == 0 && n % 3 == 0) {
+                fizzBuzzList.add("FizzBuzz");
+                continue;
+            }
+            if (n % 3 == 0 ){
+                fizzBuzzList.add("Fizz");
+                continue;
+            }
+            if (n % 5 == 0){
+                fizzBuzzList.add("Buzz");
+                continue;
+            }
+            fizzBuzzList.add(i + "");
+        }
+    return fizzBuzzList;
+    }
+
 
 
     public static void main(String[] args) {
-        System.out.println(peakIndexInMountainArray(new int[]{1,3,2}));
+        System.out.println(fizzBuzz(3));
     }
 
 

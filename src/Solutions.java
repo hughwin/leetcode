@@ -302,10 +302,7 @@ public class Solutions {
         }
         ArrayList<Integer> reversed = (ArrayList<Integer>) values.clone();
         Collections.reverse(reversed);
-        if (values.equals(reversed)) {
-            return true;
-        }
-        return false;
+        return values.equals(reversed);
     }
 
     @Test
@@ -394,7 +391,7 @@ public class Solutions {
     }
 
     @Test
-    public void inOrderTraversalTest(){
+    public void inOrderTraversalTest() {
         TreeNode root = new TreeNode(5);
         TreeNode left = new TreeNode(2);
         TreeNode right = new TreeNode(7);
@@ -403,14 +400,13 @@ public class Solutions {
     }
 
     public static int firstUniqChar(String s) {
-        for (int i = 0; i < s.length() ; i++){
-            if(i == s.lastIndexOf(s.charAt(i)) && i == s.indexOf(s.charAt(i))){
+        for (int i = 0; i < s.length(); i++) {
+            if (i == s.lastIndexOf(s.charAt(i)) && i == s.indexOf(s.charAt(i))) {
                 return i;
             }
         }
         return -1;
     }
-    
 
     @Test
     public void fizzBuzzTest() {
@@ -433,12 +429,31 @@ public class Solutions {
 
         List<String> actual = fizzBuzz(15);
 
-        Assert.assertEquals(true, expected.equals(actual));
+        Assert.assertTrue(expected.equals(actual));
+    }
+
+    public static int heightChecker(int[] heights) {
+        int[] unsortedArray = heights.clone();
+        Arrays.sort(heights);
+
+        int count = 0;
+
+        for (int i = 0; i < heights.length; i++) {
+            if (heights[i] != unsortedArray[i]) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    @Test
+    public void heightCheckerTest(){
+        int expected = 5;
+        int actual = heightChecker(new int[]{5,1,2,3,4});
+        Assert.assertSame(expected, actual);
     }
 
     public static void main(String[] args) {
-        System.out.println(firstUniqChar("lleetcode"));
     }
-
-
 }
+

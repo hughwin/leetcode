@@ -317,7 +317,7 @@ public class Solutions {
     public static List<Integer> findDisappearedNumbers(int[] nums) {
 
         int highest = nums.length;
-        HashSet<Integer> numbersInNums = new HashSet();
+        HashSet<Integer> numbersInNums = new HashSet<Integer>();
 
         List<Integer> missingNumbers = new ArrayList<>();
 
@@ -429,7 +429,7 @@ public class Solutions {
 
         List<String> actual = fizzBuzz(15);
 
-        Assert.assertTrue(expected.equals(actual));
+        Assert.assertEquals(expected, actual);
     }
 
     public static int heightChecker(int[] heights) {
@@ -447,13 +447,35 @@ public class Solutions {
     }
 
     @Test
-    public void heightCheckerTest(){
+    public void heightCheckerTest() {
         int expected = 5;
-        int actual = heightChecker(new int[]{5,1,2,3,4});
+        int actual = heightChecker(new int[]{5, 1, 2, 3, 4});
         Assert.assertSame(expected, actual);
     }
 
+    public static List<Integer> findDuplicates(int[] nums) {
+        HashSet<Integer> hashSet = new HashSet<>();
+        List<Integer> duplicates = new ArrayList<>();
+
+        for (int num : nums) {
+            if (!hashSet.add(num)) {
+                duplicates.add(num);
+            }
+        }
+        return duplicates;
+    }
+
+    @Test
+    public void findDuplicatesTest(){
+        List<Integer> expected = new ArrayList<>();
+        expected.add(2);
+        expected.add(3);
+        List<Integer> actual = findDuplicates(new int[]{4,3,2,7,8,2,3,1});
+        Assert.assertEquals(expected,actual);
+    }
+
     public static void main(String[] args) {
+//        List duplicates = findDuplicates(new int[]{1,2,3,1})
     }
 }
 

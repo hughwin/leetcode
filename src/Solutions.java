@@ -516,6 +516,18 @@ public class Solutions {
         Assert.assertSame(expected, actual);
     }
 
+    public static int hammingWeight(int n) {
+        String s = Integer.toBinaryString(n);
+        String ones = s.replace("0", "");
+        return ones.length();
+    }
+
+    @Test
+    public void hammingWeight(){
+        Assert.assertSame(3, hammingWeight(011000100000));
+        Assert.assertSame(2, hammingWeight(000110));
+    }
+
 
     public static void main(String[] args) {
     }

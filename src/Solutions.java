@@ -477,7 +477,7 @@ public class Solutions {
     public static boolean hasCycle(ListNode head) {
         HashSet<ListNode> exitingValues = new HashSet<>();
         while (head != null){
-            if (exitingValues.add(head) == false){
+            if (!exitingValues.add(head)){
                 return true;
             }
             head = head.next;
@@ -487,17 +487,37 @@ public class Solutions {
 
     @Test
     public void hasCycleTest(){
-        boolean expected = true;
         ListNode a = new ListNode(1);
         ListNode b = new ListNode(2);
         a.next = b;
         b.next = a;
         boolean actual = hasCycle(a);
+        Assert.assertSame(true, actual);
+    }
+
+    public static int missingNumber(int[] nums) {
+        HashSet<Integer> allNums = new HashSet<>();
+        for(int i : nums){
+            allNums.add(i);
+        }
+        int length = nums.length;
+        for (int i = 0 ; i < length ; i++){
+            if(!allNums.contains(i)){
+                return i;
+            }
+        }
+        return length;
+    }
+
+    @Test
+    public void missingNumberTest(){
+        int expected = 3;
+        int actual = missingNumber(new int[]{0,1,2,4});
         Assert.assertSame(expected, actual);
     }
 
+
     public static void main(String[] args) {
-//        List duplicates = findDuplicates(new int[]{1,2,3,1})
     }
 }
 

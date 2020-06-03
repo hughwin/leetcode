@@ -474,6 +474,28 @@ public class Solutions {
         Assert.assertEquals(expected,actual);
     }
 
+    public static boolean hasCycle(ListNode head) {
+        HashSet<ListNode> exitingValues = new HashSet<>();
+        while (head != null){
+            if (exitingValues.add(head) == false){
+                return true;
+            }
+            head = head.next;
+        }
+        return false;
+    }
+
+    @Test
+    public void hasCycleTest(){
+        boolean expected = true;
+        ListNode a = new ListNode(1);
+        ListNode b = new ListNode(2);
+        a.next = b;
+        b.next = a;
+        boolean actual = hasCycle(a);
+        Assert.assertSame(expected, actual);
+    }
+
     public static void main(String[] args) {
 //        List duplicates = findDuplicates(new int[]{1,2,3,1})
     }

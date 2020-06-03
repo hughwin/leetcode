@@ -528,8 +528,21 @@ public class Solutions {
         Assert.assertSame(2, hammingWeight(000110));
     }
 
+    public static int mySqrt(int x){
+        double y = Math.sqrt((double) x);
+        return (int) y;
+    }
+
+    @Test
+    public void mySprtTest(){
+        Assert.assertSame(2, mySqrt(6));
+        Assert.assertSame(7, mySqrt(49));
+        Assert.assertSame(5, mySqrt(34));
+    }
+
 
     public static void main(String[] args) {
+        System.out.println(mySqrt(6));
     }
 }
 

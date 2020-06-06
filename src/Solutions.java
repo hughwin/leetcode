@@ -317,7 +317,7 @@ public class Solutions {
     public static List<Integer> findDisappearedNumbers(int[] nums) {
 
         int highest = nums.length;
-        HashSet<Integer> numbersInNums = new HashSet<Integer>();
+        HashSet<Integer> numbersInNums = new HashSet<>();
 
         List<Integer> missingNumbers = new ArrayList<>();
 
@@ -466,18 +466,18 @@ public class Solutions {
     }
 
     @Test
-    public void findDuplicatesTest(){
+    public void findDuplicatesTest() {
         List<Integer> expected = new ArrayList<>();
         expected.add(2);
         expected.add(3);
-        List<Integer> actual = findDuplicates(new int[]{4,3,2,7,8,2,3,1});
-        Assert.assertEquals(expected,actual);
+        List<Integer> actual = findDuplicates(new int[]{4, 3, 2, 7, 8, 2, 3, 1});
+        Assert.assertEquals(expected, actual);
     }
 
     public static boolean hasCycle(ListNode head) {
         HashSet<ListNode> exitingValues = new HashSet<>();
-        while (head != null){
-            if (!exitingValues.add(head)){
+        while (head != null) {
+            if (!exitingValues.add(head)) {
                 return true;
             }
             head = head.next;
@@ -486,7 +486,7 @@ public class Solutions {
     }
 
     @Test
-    public void hasCycleTest(){
+    public void hasCycleTest() {
         ListNode a = new ListNode(1);
         ListNode b = new ListNode(2);
         a.next = b;
@@ -497,12 +497,12 @@ public class Solutions {
 
     public static int missingNumber(int[] nums) {
         HashSet<Integer> allNums = new HashSet<>();
-        for(int i : nums){
+        for (int i : nums) {
             allNums.add(i);
         }
         int length = nums.length;
-        for (int i = 0 ; i < length ; i++){
-            if(!allNums.contains(i)){
+        for (int i = 0; i < length; i++) {
+            if (!allNums.contains(i)) {
                 return i;
             }
         }
@@ -510,9 +510,9 @@ public class Solutions {
     }
 
     @Test
-    public void missingNumberTest(){
+    public void missingNumberTest() {
         int expected = 3;
-        int actual = missingNumber(new int[]{0,1,2,4});
+        int actual = missingNumber(new int[]{0, 1, 2, 4});
         Assert.assertSame(expected, actual);
     }
 
@@ -523,26 +523,82 @@ public class Solutions {
     }
 
     @Test
-    public void hammingWeight(){
+    public void hammingWeight() {
         Assert.assertSame(3, hammingWeight(011000100000));
         Assert.assertSame(2, hammingWeight(000110));
     }
 
-    public static int mySqrt(int x){
-        double y = Math.sqrt((double) x);
+    public static int mySqrt(int x) {
+        double y = Math.sqrt(x);
         return (int) y;
     }
 
     @Test
-    public void mySprtTest(){
+    public void mySprtTest() {
         Assert.assertSame(2, mySqrt(6));
         Assert.assertSame(7, mySqrt(49));
         Assert.assertSame(5, mySqrt(34));
     }
 
+    public static boolean validMountainArray(int[] a) {
+        int firstValue = a[0];
+        boolean descending = false;
 
-    public static void main(String[] args) {
-        System.out.println(mySqrt(6));
+        for (int i = 1; i < a.length; i++) {
+            if (a[i] < firstValue && !descending) {
+                descending = true;
+            }
+            if (a[i] > firstValue && descending) {
+                return false;
+            }
+            if (a[i] == firstValue) {
+                return false;
+            }
+            firstValue = a[i];
+        }
+        return true;
     }
+
+    @Test
+    public void validMountainArrayTest() {
+        Assert.assertTrue(validMountainArray(new int[]{1, 2, 3, 4, 5, 6, 7}));
+        Assert.assertFalse(validMountainArray(new int[]{0, 2, 3, 3, 5, 2, 1, 0}));
+        Assert.assertTrue(validMountainArray(new int[]{0, 3, 2, 1}));
+    }
+
+    public static int removeElement(int[] nums, int val) {
+        return 0;
+    }
+
+    public static int findMaxConsecutiveOnes(int[] nums) {
+        int maxConsecutiveNumbers = 0;
+        int count = 0;
+        for (int num : nums) {
+            if (num != 0) {
+                count++;
+            } else {
+                count = 0;
+            }
+            if (count > maxConsecutiveNumbers) {
+                maxConsecutiveNumbers = count;
+            }
+        }
+        return maxConsecutiveNumbers;
+    }
+
+    @Test
+    public void findMaxConsecutiveOnesTest() {
+        Assert.assertEquals(3, findMaxConsecutiveOnes(new int[]{1, 1, 0, 1, 1, 1}));
+        Assert.assertEquals(6, findMaxConsecutiveOnes(new int[]{1, 1, 1, 1, 1, 1}));
+
+    }
+
+    @Test
+    public void removeElementTest() {
+        Assert.assertEquals(2, removeElement(new int[]{3, 2, 2, 3}, 3));
+        Assert.assertEquals(5, removeElement(new int[]{0, 1, 2, 2, 3, 0, 4, 2}, 2));
+    }
+
+
 }
 

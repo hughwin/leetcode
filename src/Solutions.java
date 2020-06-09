@@ -590,13 +590,89 @@ public class Solutions {
     public void findMaxConsecutiveOnesTest() {
         Assert.assertEquals(3, findMaxConsecutiveOnes(new int[]{1, 1, 0, 1, 1, 1}));
         Assert.assertEquals(6, findMaxConsecutiveOnes(new int[]{1, 1, 1, 1, 1, 1}));
+    }
 
+    public static int findNumbers(int[] nums) {
+        int count = 0;
+        for (int i : nums) {
+            String k = i + "";
+            if (k.length() % 2 == 0) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    @Test
+    public void findNumbersTest() {
+        Assert.assertEquals(2, findNumbers(new int[]{12, 345, 2, 6, 7896}));
+    }
+
+    public static int islandPerimeter(int[][] island) {
+
+        int perimeter = 0;
+
+        for (int i = 0; i < island.length; i++) {
+            for (int k = 0; k < island[i].length; k++) {
+                if (island[i][k] == 1) {
+                    try {
+                        if (island[i - 1][k] == 0) {
+                            perimeter += 1;
+                        }
+                    } catch (Exception e) {
+                        perimeter += 1;
+                    }
+                    try {
+                        if (island[i + 1][k] == 0) {
+                            perimeter += 1;
+                        }
+                    } catch (Exception e) {
+                        perimeter += 1;
+                    }
+                    try {
+                        if (island[i][k + 1] == 0) {
+                            perimeter += 1;
+                        }
+                    } catch (Exception e) {
+                        perimeter += 1;
+                    }
+                    try {
+                        if (island[i][k - 1] == 0) {
+                            perimeter += 1;
+                        }
+                    } catch (Exception e) {
+                        perimeter += 1;
+                    }
+                }
+            }
+        }
+        return perimeter;
+    }
+
+    @Test
+    public void islandPerimeterTest() {
+        int[][] values = new int[4][4];
+        values[0][1] = 1;
+        values[1][0] = 1;
+        values[1][1] = 1;
+        values[1][1] = 1;
+        values[1][2] = 1;
+        values[2][1] = 1;
+        values[3][0] = 1;
+        values[3][1] = 1;
+        int[][] singleValue = new int[1][4];
+        singleValue[0][2] = 1;
+       Assert.assertEquals(16, islandPerimeter(values));
+        Assert.assertEquals(4, islandPerimeter(singleValue));
     }
 
     @Test
     public void removeElementTest() {
         Assert.assertEquals(2, removeElement(new int[]{3, 2, 2, 3}, 3));
         Assert.assertEquals(5, removeElement(new int[]{0, 1, 2, 2, 3, 0, 4, 2}, 2));
+    }
+
+    public static void main(String[] args) {
     }
 
 

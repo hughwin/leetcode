@@ -350,6 +350,7 @@ public class Solutions {
         return null;
     }
 
+    // https://leetcode.com/problems/running-sum-of-1d-array/submissions/
     public static int[] runningSum(int[] nums){
         int count = 0;
         for (int i=0; i < nums.length ; i++){
@@ -364,6 +365,28 @@ public class Solutions {
         int[] actual = runningSum(new int[]{1,2,3,4});
         int[] expected = new int[]{1,3,6,10};
         Assert.assertTrue(Arrays.equals(actual, expected));
+    }
+
+    // https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/submissions/
+    public static int[] smallerNumbersThanCurrent(int[] nums) {
+        int [] shorter = new int[nums.length];
+        for (int i = 0 ; i < nums.length ; i++){
+            int count = 0;
+            for (int k = 0 ; k < nums.length ; k++){
+                if(nums[i] > nums[k]){
+                    count++;
+                }
+            }
+            shorter[i] = count;
+        }
+        return shorter;
+    }
+
+    @Test
+    public void smallerNumbersThanCurrentTest(){
+        int[] expected = smallerNumbersThanCurrent(new int[]{8,1,2,2,3});
+        int[] actual = new int[]{4,0,1,1,3};
+        Assert.assertTrue(Arrays.equals(expected, actual));
     }
 
 

@@ -333,10 +333,44 @@ public class Solutions {
         return missingNumbers;
     }
 
+//    public List<Integer> inorderTraversal(TreeNode root) {
+//        // TODO: Finish this
+//    }
+
+    public static TreeNode inorderTraversalHelp(TreeNode root){
+        if (root.right == null && root.left == null){
+            return root;
+        }
+        if (root.left != null){
+            return inorderTraversalHelp(root.left);
+        }
+        if (root.right!= null){
+            return inorderTraversalHelp(root.right);
+        }
+        return null;
+    }
+
+    public static int[] runningSum(int[] nums){
+        int count = 0;
+        for (int i=0; i < nums.length ; i++){
+            count += nums[i];
+            nums[i] = count;
+        }
+        return nums;
+    }
+
+    @Test
+    public void runningSumTest(){
+        int[] actual = runningSum(new int[]{1,2,3,4});
+        int[] expected = new int[]{1,3,6,10};
+        Assert.assertTrue(Arrays.equals(actual, expected));
+    }
+
+
 
 
     public static void main(String[] args) {
-        System.out.println(findDisappearedNumbers(new int[]{1,1}));
+        runningSum(new int[]{1,2,3,4});
     }
 
 

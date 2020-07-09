@@ -384,9 +384,44 @@ public class Solutions {
 
     @Test
     public void smallerNumbersThanCurrentTest(){
-        int[] expected = smallerNumbersThanCurrent(new int[]{8,1,2,2,3});
-        int[] actual = new int[]{4,0,1,1,3};
+        int[] actual = smallerNumbersThanCurrent(new int[]{8,1,2,2,3});
+        int[] expected = new int[]{4,0,1,1,3};
         Assert.assertTrue(Arrays.equals(expected, actual));
+    }
+
+    // https://leetcode.com/problems/count-of-smaller-numbers-after-self/
+    public List<Integer> countSmaller(int[] nums) {
+        List<Integer> shorterOnRight = new ArrayList<>();
+        for (int i = 0 ; i < nums.length ; i++){
+            int count = 0;
+            for (int k = i ; k < nums.length ; k++){
+                if(nums[i] > nums[k]){
+                    count++;
+                }
+            }
+            shorterOnRight.add(count);
+        }
+        return shorterOnRight;
+    }
+
+    @Test
+    public void countSmallerTest(){
+        List<Integer> actual = countSmaller(new int[]{5,2,6,1});
+        List<Integer> expected = new ArrayList<>();
+        expected.add(2);
+        expected.add(1);
+        expected.add(1);
+        expected.add(0);
+        Assert.assertTrue(actual.equals(expected));
+    }
+
+    public static String defangIPaddr(String address) {
+        return address.replace(".", "[.]");
+    }
+
+    @Test
+    public void defangIPaddrTest(){
+        Assert.assertTrue(defangIPaddr("1.1.1.1").equals("1[.]1[.]1[.]1"));
     }
 
 

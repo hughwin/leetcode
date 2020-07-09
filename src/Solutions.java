@@ -1,7 +1,5 @@
-import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
-import org.testng.collections.Lists;
 
 import java.util.*;
 
@@ -43,17 +41,17 @@ public class Solutions {
 
     }
 
-    @Test
-    public void kidsWithCandiesTest() {
-        List<Boolean> result = kidsWithCandies(new int[]{4, 2, 1, 1, 2}, 1);
-        List<Boolean> expected = Lists.newArrayList(true, false, false, false, false);
-        Assert.assertSame(expected, result);
-    }
+//    @Test
+//    public void kidsWithCandiesTest() {
+//        List<Boolean> result = kidsWithCandies(new int[]{4, 2, 1, 1, 2}, 1);
+//        List<Boolean> expected = Lists.newArrayList(true, false, false, false, false);
+//        Assert.assertSame(expected, result);
+//    }
 
     // https://leetcode.com/problems/reverse-string/
     // Changed return value to test
     // Big O(n)
-    public static char[] reverseString(char @NotNull [] s) {
+    public static char[] reverseString(char[] s) {
         char tempChar;
         for (int i = 0; i < s.length / 2; i++) {
             tempChar = s[i];
@@ -113,7 +111,9 @@ public class Solutions {
 
     public static ListNode reverseBetween(ListNode head, int m, int n) {
 
-        if(m == n){return head;}
+        if (m == n) {
+            return head;
+        }
 
         int count = 1;
         ListNode headCopy = head;
@@ -130,32 +130,31 @@ public class Solutions {
             if (count >= m && count <= n) {
                 nodesToBeReversed.add(head);
             }
-            if (count == n + 1){
+            if (count == n + 1) {
                 afterReverse = head;
             }
             head = head.next;
             count++;
         }
 
-            for (int i = nodesToBeReversed.size() - 1; i >= 0; i--) {
+        for (int i = nodesToBeReversed.size() - 1; i >= 0; i--) {
 
-                if (beforeReverse == null){
-                    beforeReverse = nodesToBeReversed.get(i);
-                    headCopy = beforeReverse;
-                }
-                else {
-                    beforeReverse.next = nodesToBeReversed.get(i);
-                    beforeReverse = beforeReverse.next;
-                }
+            if (beforeReverse == null) {
+                beforeReverse = nodesToBeReversed.get(i);
+                headCopy = beforeReverse;
+            } else {
+                beforeReverse.next = nodesToBeReversed.get(i);
+                beforeReverse = beforeReverse.next;
             }
+        }
 
-            beforeReverse.next = afterReverse;
+        beforeReverse.next = afterReverse;
 
         return headCopy;
     }
 
     @Test
-    public void reverseBetweenTest(){
+    public void reverseBetweenTest() {
 
         ListNode resultHead = new ListNode(1);
         ListNode rb = new ListNode(2);
@@ -216,13 +215,15 @@ public class Solutions {
         return depthCalculator(root, 0);
     }
 
-    public static int depthCalculator(TreeNode node, int depth){
-        if (node == null){return depth;}
+    public static int depthCalculator(TreeNode node, int depth) {
+        if (node == null) {
+            return depth;
+        }
         return Math.max(depthCalculator(node.left, depth + 1), depthCalculator(node.right, depth + 1));
     }
 
     @Test
-    public void maxDepthCalculatorTest(){
+    public void maxDepthCalculatorTest() {
         TreeNode root = new TreeNode();
         root.left = new TreeNode();
         root.right = new TreeNode();
@@ -234,7 +235,7 @@ public class Solutions {
 
         int sum = 0;
 
-        if (s.length() == 0){
+        if (s.length() == 0) {
             return sum;
         }
 
@@ -248,7 +249,7 @@ public class Solutions {
         romanNumerals.put('M', 1000);
 
 
-        for (int i = 0; i < s.length() ; i++) {
+        for (int i = 0; i < s.length(); i++) {
             if (i < s.length() - 1) {
                 if (s.charAt(i) == 'I' && s.charAt(i + 1) == 'V') {
                     sum += 4;
@@ -293,20 +294,17 @@ public class Solutions {
 
     public static boolean isPalindrome(ListNode head) {
         ArrayList<Integer> values = new ArrayList<>();
-        while (head != null){
+        while (head != null) {
             values.add(head.val);
             head = head.next;
         }
         ArrayList<Integer> reversed = (ArrayList<Integer>) values.clone();
         Collections.reverse(reversed);
-        if (values.equals(reversed)){
-            return true;
-        }
-        return  false;
+        return values.equals(reversed);
     }
 
     @Test
-    public void isPalindromeTest(){
+    public void isPalindromeTest() {
         ListNode a = new ListNode(1);
         ListNode b = new ListNode(2);
         a.next = b;
@@ -317,22 +315,141 @@ public class Solutions {
     public static List<Integer> findDisappearedNumbers(int[] nums) {
 
         int highest = nums.length;
-        HashSet<Integer> numbersInNums = new HashSet();
+        HashSet<Integer> numbersInNums = new HashSet<>();
 
         List<Integer> missingNumbers = new ArrayList<>();
 
-        for (int i = 0; i < highest ; i++){
-            numbersInNums.add(nums[i]);
+        for (int num : nums) {
+            numbersInNums.add(num);
         }
 
-        for (int i = 1; i <= highest; i++){
-            if (!numbersInNums.contains(i)){
+        for (int i = 1; i <= highest; i++) {
+            if (!numbersInNums.contains(i)) {
                 missingNumbers.add(i);
             }
         }
         return missingNumbers;
     }
 
+    // https://leetcode.com/problems/peak-index-in-a-mountain-array/submissions/
+
+    public static int peakIndexInMountainArray(int[] a) {
+        int max = a[0];
+        int indexToReturn = 0;
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] > max) {
+                max = a[i];
+                indexToReturn = i;
+            }
+        }
+        return indexToReturn;
+    }
+
+    @Test
+    public void peakIndexInMountainArrayTest() {
+        int expected = peakIndexInMountainArray(new int[]{1, 3, 2});
+        int actual = 1;
+        Assert.assertSame(expected, actual);
+    }
+
+    public static List<String> fizzBuzz(int n) {
+
+        List<String> fizzBuzzList = new ArrayList<>();
+
+        for (int i = 1; i <= n; i++) {
+            if (i % 5 == 0 && i % 3 == 0) {
+                fizzBuzzList.add("FizzBuzz");
+                continue;
+            }
+            if (i % 3 == 0) {
+                fizzBuzzList.add("Fizz");
+                continue;
+            }
+            if (i % 5 == 0) {
+                fizzBuzzList.add("Buzz");
+                continue;
+            }
+            fizzBuzzList.add(i + "");
+        }
+        return fizzBuzzList;
+    }
+
+    public static List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        inOrderList(root, list);
+        return list;
+    }
+
+    private static void inOrderList(TreeNode root, List<Integer> list) {
+        if (root == null)
+            return;
+        inOrderList(root.left, list);
+        list.add(root.val);
+        inOrderList(root.right, list);
+    }
+
+    @Test
+    public void inOrderTraversalTest() {
+        TreeNode root = new TreeNode(5);
+        TreeNode left = new TreeNode(2);
+        TreeNode right = new TreeNode(7);
+        root.left = left;
+        root.right = right;
+    }
+
+    public static int firstUniqChar(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            if (i == s.lastIndexOf(s.charAt(i)) && i == s.indexOf(s.charAt(i))) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Test
+    public void fizzBuzzTest() {
+        List<String> expected = new ArrayList<>();
+        expected.add("1");
+        expected.add("2");
+        expected.add("Fizz");
+        expected.add("4");
+        expected.add("Buzz");
+        expected.add("Fizz");
+        expected.add("7");
+        expected.add("8");
+        expected.add("Fizz");
+        expected.add("Buzz");
+        expected.add("11");
+        expected.add("Fizz");
+        expected.add("13");
+        expected.add("14");
+        expected.add("FizzBuzz");
+
+        List<String> actual = fizzBuzz(15);
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    public static int heightChecker(int[] heights) {
+        int[] unsortedArray = heights.clone();
+        Arrays.sort(heights);
+
+        int count = 0;
+
+        for (int i = 0; i < heights.length; i++) {
+            if (heights[i] != unsortedArray[i]) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    @Test
+    public void heightCheckerTest() {
+        int expected = 5;
+        int actual = heightChecker(new int[]{5, 1, 2, 3, 4});
+        Assert.assertSame(expected, actual);
+    }
 //    public List<Integer> inorderTraversal(TreeNode root) {
 //        // TODO: Finish this
 //    }
@@ -426,9 +543,227 @@ public class Solutions {
 
 
 
+    public static List<Integer> findDuplicates(int[] nums) {
+        HashSet<Integer> hashSet = new HashSet<>();
+        List<Integer> duplicates = new ArrayList<>();
+
+        for (int num : nums) {
+            if (!hashSet.add(num)) {
+                duplicates.add(num);
+            }
+        }
+        return duplicates;
+    }
+
+    @Test
+    public void findDuplicatesTest() {
+        List<Integer> expected = new ArrayList<>();
+        expected.add(2);
+        expected.add(3);
+        List<Integer> actual = findDuplicates(new int[]{4, 3, 2, 7, 8, 2, 3, 1});
+        Assert.assertEquals(expected, actual);
+    }
+
+    public static boolean hasCycle(ListNode head) {
+        HashSet<ListNode> exitingValues = new HashSet<>();
+        while (head != null) {
+            if (!exitingValues.add(head)) {
+                return true;
+            }
+            head = head.next;
+        }
+        return false;
+    }
+
+    @Test
+    public void hasCycleTest() {
+        ListNode a = new ListNode(1);
+        ListNode b = new ListNode(2);
+        a.next = b;
+        b.next = a;
+        boolean actual = hasCycle(a);
+        Assert.assertSame(true, actual);
+    }
+
+    public static int missingNumber(int[] nums) {
+        HashSet<Integer> allNums = new HashSet<>();
+        for (int i : nums) {
+            allNums.add(i);
+        }
+        int length = nums.length;
+        for (int i = 0; i < length; i++) {
+            if (!allNums.contains(i)) {
+                return i;
+            }
+        }
+        return length;
+    }
+
+    @Test
+    public void missingNumberTest() {
+        int expected = 3;
+        int actual = missingNumber(new int[]{0, 1, 2, 4});
+        Assert.assertSame(expected, actual);
+    }
+
+    public static int hammingWeight(int n) {
+        String s = Integer.toBinaryString(n);
+        String ones = s.replace("0", "");
+        return ones.length();
+    }
+
+    @Test
+    public void hammingWeight() {
+        Assert.assertSame(3, hammingWeight(011000100000));
+        Assert.assertSame(2, hammingWeight(000110));
+    }
+
+    public static int mySqrt(int x) {
+        double y = Math.sqrt(x);
+        return (int) y;
+    }
+
+    @Test
+    public void mySprtTest() {
+        Assert.assertSame(2, mySqrt(6));
+        Assert.assertSame(7, mySqrt(49));
+        Assert.assertSame(5, mySqrt(34));
+    }
+
+    public static boolean validMountainArray(int[] a) {
+        int firstValue = a[0];
+        boolean descending = false;
+
+        for (int i = 1; i < a.length; i++) {
+            if (a[i] < firstValue && !descending) {
+                descending = true;
+            }
+            if (a[i] > firstValue && descending) {
+                return false;
+            }
+            if (a[i] == firstValue) {
+                return false;
+            }
+            firstValue = a[i];
+        }
+        return true;
+    }
+
+    @Test
+    public void validMountainArrayTest() {
+        Assert.assertTrue(validMountainArray(new int[]{1, 2, 3, 4, 5, 6, 7}));
+        Assert.assertFalse(validMountainArray(new int[]{0, 2, 3, 3, 5, 2, 1, 0}));
+        Assert.assertTrue(validMountainArray(new int[]{0, 3, 2, 1}));
+    }
+
+    public static int removeElement(int[] nums, int val) {
+        return 0;
+    }
+
+    public static int findMaxConsecutiveOnes(int[] nums) {
+        int maxConsecutiveNumbers = 0;
+        int count = 0;
+        for (int num : nums) {
+            if (num != 0) {
+                count++;
+            } else {
+                count = 0;
+            }
+            if (count > maxConsecutiveNumbers) {
+                maxConsecutiveNumbers = count;
+            }
+        }
+        return maxConsecutiveNumbers;
+    }
+
+    @Test
+    public void findMaxConsecutiveOnesTest() {
+        Assert.assertEquals(3, findMaxConsecutiveOnes(new int[]{1, 1, 0, 1, 1, 1}));
+        Assert.assertEquals(6, findMaxConsecutiveOnes(new int[]{1, 1, 1, 1, 1, 1}));
+    }
+
+    public static int findNumbers(int[] nums) {
+        int count = 0;
+        for (int i : nums) {
+            String k = i + "";
+            if (k.length() % 2 == 0) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    @Test
+    public void findNumbersTest() {
+        Assert.assertEquals(2, findNumbers(new int[]{12, 345, 2, 6, 7896}));
+    }
+
+    public static int islandPerimeter(int[][] island) {
+
+        int perimeter = 0;
+
+        for (int i = 0; i < island.length; i++) {
+            for (int k = 0; k < island[i].length; k++) {
+                if (island[i][k] == 1) {
+                    try {
+                        if (island[i - 1][k] == 0) {
+                            perimeter += 1;
+                        }
+                    } catch (Exception e) {
+                        perimeter += 1;
+                    }
+                    try {
+                        if (island[i + 1][k] == 0) {
+                            perimeter += 1;
+                        }
+                    } catch (Exception e) {
+                        perimeter += 1;
+                    }
+                    try {
+                        if (island[i][k + 1] == 0) {
+                            perimeter += 1;
+                        }
+                    } catch (Exception e) {
+                        perimeter += 1;
+                    }
+                    try {
+                        if (island[i][k - 1] == 0) {
+                            perimeter += 1;
+                        }
+                    } catch (Exception e) {
+                        perimeter += 1;
+                    }
+                }
+            }
+        }
+        return perimeter;
+    }
+
+    @Test
+    public void islandPerimeterTest() {
+        int[][] values = new int[4][4];
+        values[0][1] = 1;
+        values[1][0] = 1;
+        values[1][1] = 1;
+        values[1][1] = 1;
+        values[1][2] = 1;
+        values[2][1] = 1;
+        values[3][0] = 1;
+        values[3][1] = 1;
+        int[][] singleValue = new int[1][4];
+        singleValue[0][2] = 1;
+       Assert.assertEquals(16, islandPerimeter(values));
+        Assert.assertEquals(4, islandPerimeter(singleValue));
+    }
+
+    @Test
+    public void removeElementTest() {
+        Assert.assertEquals(2, removeElement(new int[]{3, 2, 2, 3}, 3));
+        Assert.assertEquals(5, removeElement(new int[]{0, 1, 2, 2, 3, 0, 4, 2}, 2));
+    }
 
     public static void main(String[] args) {
-        runningSum(new int[]{1,2,3,4});
+        System.out.println(findDisappearedNumbers(new int[]{1,1}));
     }
 
 

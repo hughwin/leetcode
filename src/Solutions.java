@@ -649,6 +649,74 @@ public class Solutions {
         return perimeter;
     }
 
+    public static String[] findWords(String[] words) {
+        ArrayList<Character> firstRow = new ArrayList<>();
+        firstRow.add('q');
+        firstRow.add('w');
+        firstRow.add('e');
+        firstRow.add('r');
+        firstRow.add('t');
+        firstRow.add('y');
+        firstRow.add('u');
+        firstRow.add('i');
+        firstRow.add('o');
+        firstRow.add('p');
+
+        ArrayList<Character> secondRow = new ArrayList<>();
+        secondRow.add('a');
+        secondRow.add('s');
+        secondRow.add('d');
+        secondRow.add('f');
+        secondRow.add('g');
+        secondRow.add('h');
+        secondRow.add('j');
+        secondRow.add('k');
+        secondRow.add('l');
+
+        ArrayList<Character> thirdRow = new ArrayList<>();
+        thirdRow.add('z');
+        thirdRow.add('x');
+        thirdRow.add('c');
+        thirdRow.add('v');
+        thirdRow.add('b');
+        thirdRow.add('n');
+        thirdRow.add('m');
+
+        for (int i = 0 ; i < words.length ; i++){
+            words[i] = words[i].toLowerCase();
+        }
+
+        ArrayList<String> returnedWords = new ArrayList<>();
+
+        for(String word : words) {
+            for (int i = 0; i < word.length(); i++) {
+                if (!firstRow.contains(word.charAt(i))) {
+                    break;
+                }
+            }
+            returnedWords.add(word);
+        }
+        for(String word : words) {
+            for (int i = 0; i < word.length(); i++) {
+                if (!secondRow.contains(word.charAt(i))) {
+                    break;
+                }
+            }
+            returnedWords.add(word);
+        }
+
+        return (String[]) returnedWords.toArray();
+
+
+
+    }
+
+    @Test
+    public void findWordsTest(){
+        String[] expected = new String[]{"Alaska", "Dad"};
+        Assert.assertSame(expected,findWords(new String[]{"Hello", "Alaska", "Dad", "Peace"}));
+    }
+
     @Test
     public void islandPerimeterTest() {
         int[][] values = new int[4][4];
@@ -672,7 +740,68 @@ public class Solutions {
         Assert.assertEquals(5, removeElement(new int[]{0, 1, 2, 2, 3, 0, 4, 2}, 2));
     }
 
+    public static String dayOfTheWeek(int day, int month, int year){
+        Calendar calendar = new GregorianCalendar(year, month, day);
+        int dayCode = calendar.get(Calendar.DAY_OF_WEEK);
+
+        String dayString = "";
+        switch(dayCode){
+            case 1:
+                dayString="Sunday";
+                break;
+            case 2:
+                dayString="Monday";
+                break;
+            case 3:
+                dayString="Tuesday";
+                break;
+            case 4:
+                dayString="Wednesday";
+                break;
+            case 5:
+                dayString="Thursday";
+                break;
+            case 6:
+                dayString="Friday";
+                break;
+            case 7:
+                dayString="Saturday";
+                break;
+        }
+        return dayString;
+    }
+
+    public static int fib(int n) {
+        if (n == 0){return 0;}
+        if (n == 1){return 1;}
+        int count = 1;
+        int current = 0;
+        int next = 0;
+        int temp = 0;
+        while(count < n){
+            if (current == 0){
+                current = 1;
+            }
+            next = current + temp;
+            temp = current;
+            current = next;
+            count++;
+            System.out.println(current);
+        }
+        return current;
+    }
+
+    @Test
+    public void fibTest(){
+        Assert.assertEquals(1, fib(2));
+        Assert.assertEquals(2, fib(3));
+        Assert.assertEquals(3, fib(4));
+    }
+    
+
+
     public static void main(String[] args) {
+        fib(2);
     }
 
 

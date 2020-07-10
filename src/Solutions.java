@@ -3,8 +3,6 @@ import org.junit.Test;
 
 import java.util.*;
 
-//import org.testng.collections.Lists;
-
 public class Solutions {
 
     // https://leetcode.com/articles/two-sum/
@@ -452,6 +450,98 @@ public class Solutions {
         int actual = heightChecker(new int[]{5, 1, 2, 3, 4});
         Assert.assertSame(expected, actual);
     }
+//    public List<Integer> inorderTraversal(TreeNode root) {
+//        // TODO: Finish this
+//    }
+
+    public static TreeNode inorderTraversalHelp(TreeNode root){
+        if (root.right == null && root.left == null){
+            return root;
+        }
+        if (root.left != null){
+            return inorderTraversalHelp(root.left);
+        }
+        if (root.right!= null){
+            return inorderTraversalHelp(root.right);
+        }
+        return null;
+    }
+
+    // https://leetcode.com/problems/running-sum-of-1d-array/submissions/
+    public static int[] runningSum(int[] nums){
+        int count = 0;
+        for (int i=0; i < nums.length ; i++){
+            count += nums[i];
+            nums[i] = count;
+        }
+        return nums;
+    }
+
+    @Test
+    public void runningSumTest(){
+        int[] actual = runningSum(new int[]{1,2,3,4});
+        int[] expected = new int[]{1,3,6,10};
+        Assert.assertTrue(Arrays.equals(actual, expected));
+    }
+
+    // https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/submissions/
+    public static int[] smallerNumbersThanCurrent(int[] nums) {
+        int [] shorter = new int[nums.length];
+        for (int i = 0 ; i < nums.length ; i++){
+            int count = 0;
+            for (int k = 0 ; k < nums.length ; k++){
+                if(nums[i] > nums[k]){
+                    count++;
+                }
+            }
+            shorter[i] = count;
+        }
+        return shorter;
+    }
+
+    @Test
+    public void smallerNumbersThanCurrentTest(){
+        int[] actual = smallerNumbersThanCurrent(new int[]{8,1,2,2,3});
+        int[] expected = new int[]{4,0,1,1,3};
+        Assert.assertTrue(Arrays.equals(expected, actual));
+    }
+
+    // https://leetcode.com/problems/count-of-smaller-numbers-after-self/
+    public List<Integer> countSmaller(int[] nums) {
+        List<Integer> shorterOnRight = new ArrayList<>();
+        for (int i = 0 ; i < nums.length ; i++){
+            int count = 0;
+            for (int k = i ; k < nums.length ; k++){
+                if(nums[i] > nums[k]){
+                    count++;
+                }
+            }
+            shorterOnRight.add(count);
+        }
+        return shorterOnRight;
+    }
+
+    @Test
+    public void countSmallerTest(){
+        List<Integer> actual = countSmaller(new int[]{5,2,6,1});
+        List<Integer> expected = new ArrayList<>();
+        expected.add(2);
+        expected.add(1);
+        expected.add(1);
+        expected.add(0);
+        Assert.assertTrue(actual.equals(expected));
+    }
+
+    public static String defangIPaddr(String address) {
+        return address.replace(".", "[.]");
+    }
+
+    @Test
+    public void defangIPaddrTest(){
+        Assert.assertTrue(defangIPaddr("1.1.1.1").equals("1[.]1[.]1[.]1"));
+    }
+
+
 
     public static List<Integer> findDuplicates(int[] nums) {
         HashSet<Integer> hashSet = new HashSet<>();
@@ -798,7 +888,7 @@ public class Solutions {
         Assert.assertEquals(2, fib(3));
         Assert.assertEquals(3, fib(4));
     }
-    
+
 
 
     public static void main(String[] args) {

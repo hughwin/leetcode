@@ -740,7 +740,7 @@ public class Solutions {
     }
 
     public static String[] findWords(String[] words) {
-        ArrayList<Character> firstRow = new ArrayList<>();
+        HashSet<Character> firstRow = new HashSet<>();
         firstRow.add('q');
         firstRow.add('w');
         firstRow.add('e');
@@ -752,7 +752,7 @@ public class Solutions {
         firstRow.add('o');
         firstRow.add('p');
 
-        ArrayList<Character> secondRow = new ArrayList<>();
+        HashSet<Character> secondRow = new HashSet<>();
         secondRow.add('a');
         secondRow.add('s');
         secondRow.add('d');
@@ -763,7 +763,7 @@ public class Solutions {
         secondRow.add('k');
         secondRow.add('l');
 
-        ArrayList<Character> thirdRow = new ArrayList<>();
+        HashSet<Character> thirdRow = new HashSet<>();
         thirdRow.add('z');
         thirdRow.add('x');
         thirdRow.add('c');
@@ -772,39 +772,34 @@ public class Solutions {
         thirdRow.add('n');
         thirdRow.add('m');
 
-        for (int i = 0 ; i < words.length ; i++){
-            words[i] = words[i].toLowerCase();
-        }
 
         ArrayList<String> returnedWords = new ArrayList<>();
 
-        for(String word : words) {
-            for (int i = 0; i < word.length(); i++) {
-                if (!firstRow.contains(word.charAt(i))) {
-                    break;
-                }
+        for (String word : words){
+            if (findWordsHelper(word, firstRow) || findWordsHelper(word, secondRow) || findWordsHelper(word, thirdRow)){
+                returnedWords.add(word);
             }
-            returnedWords.add(word);
-        }
-        for(String word : words) {
-            for (int i = 0; i < word.length(); i++) {
-                if (!secondRow.contains(word.charAt(i))) {
-                    break;
-                }
-            }
-            returnedWords.add(word);
         }
 
-        return (String[]) returnedWords.toArray();
+        for (String word : returnedWords){
+            System.out.println(word);
+        }
+        return returnedWords.toArray(String[]::new);
+    }
 
-
-
+    public static boolean findWordsHelper(String word, HashSet<Character> row){
+            for (int i = 0; i < word.length(); i++) {
+                if (!row.contains(word.toLowerCase().charAt(i))) {
+                    return false;
+                }
+            }
+        return true;
     }
 
     @Test
     public void findWordsTest(){
         String[] expected = new String[]{"Alaska", "Dad"};
-        Assert.assertSame(expected,findWords(new String[]{"Hello", "Alaska", "Dad", "Peace"}));
+        Assert.assertEquals(expected,findWords(new String[]{"Hello", "Alaska", "Dad", "Peace"}));
     }
 
     @Test
@@ -867,7 +862,7 @@ public class Solutions {
         if (n == 1){return 1;}
         int count = 1;
         int current = 0;
-        int next = 0;
+        int next;
         int temp = 0;
         while(count < n){
             if (current == 0){
@@ -888,11 +883,24 @@ public class Solutions {
         Assert.assertEquals(2, fib(3));
         Assert.assertEquals(3, fib(4));
     }
+    // https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array/submissions/
+    public static int maxProduct(int[] nums) {
+        Arrays.sort(nums);
+        return (nums[nums.length - 1] -1) * (nums[nums.length - 2] - 1);
+    }
+
+    @Test
+    public void maxProductTest(){
+        Assert.assertEquals(16, maxProduct(new int[]{1,5,4,5}));
+        Assert.assertEquals(12, maxProduct(new int[]{3,4,5,2}));
+        Assert.assertEquals(12, maxProduct(new int[]{3,7}));
+    }
+
 
 
 
     public static void main(String[] args) {
-        fib(2);
+        findWords(new String[]{"Alaska", "Dad", "Where"});
     }
 
 

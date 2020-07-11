@@ -481,7 +481,7 @@ public class Solutions {
     public void runningSumTest(){
         int[] actual = runningSum(new int[]{1,2,3,4});
         int[] expected = new int[]{1,3,6,10};
-        Assert.assertTrue(Arrays.equals(actual, expected));
+        Assert.assertArrayEquals(actual, expected);
     }
 
     // https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/submissions/
@@ -489,8 +489,8 @@ public class Solutions {
         int [] shorter = new int[nums.length];
         for (int i = 0 ; i < nums.length ; i++){
             int count = 0;
-            for (int k = 0 ; k < nums.length ; k++){
-                if(nums[i] > nums[k]){
+            for (int num : nums) {
+                if (nums[i] > num) {
                     count++;
                 }
             }
@@ -503,7 +503,7 @@ public class Solutions {
     public void smallerNumbersThanCurrentTest(){
         int[] actual = smallerNumbersThanCurrent(new int[]{8,1,2,2,3});
         int[] expected = new int[]{4,0,1,1,3};
-        Assert.assertTrue(Arrays.equals(expected, actual));
+        Assert.assertArrayEquals(expected, actual);
     }
 
     // https://leetcode.com/problems/count-of-smaller-numbers-after-self/
@@ -529,7 +529,7 @@ public class Solutions {
         expected.add(1);
         expected.add(1);
         expected.add(0);
-        Assert.assertTrue(actual.equals(expected));
+        Assert.assertEquals(actual, expected);
     }
 
     public static String defangIPaddr(String address) {
@@ -538,7 +538,7 @@ public class Solutions {
 
     @Test
     public void defangIPaddrTest(){
-        Assert.assertTrue(defangIPaddr("1.1.1.1").equals("1[.]1[.]1[.]1"));
+        Assert.assertEquals("1[.]1[.]1[.]1", defangIPaddr("1.1.1.1"));
     }
 
 
@@ -799,7 +799,7 @@ public class Solutions {
     @Test
     public void findWordsTest(){
         String[] expected = new String[]{"Alaska", "Dad"};
-        Assert.assertEquals(expected,findWords(new String[]{"Hello", "Alaska", "Dad", "Peace"}));
+        Assert.assertArrayEquals(expected,findWords(new String[]{"Hello", "Alaska", "Dad", "Peace"}));
     }
 
     @Test
@@ -807,7 +807,6 @@ public class Solutions {
         int[][] values = new int[4][4];
         values[0][1] = 1;
         values[1][0] = 1;
-        values[1][1] = 1;
         values[1][1] = 1;
         values[1][2] = 1;
         values[2][1] = 1;
@@ -896,12 +895,29 @@ public class Solutions {
         Assert.assertEquals(12, maxProduct(new int[]{3,7}));
     }
 
-
-
-
-    public static void main(String[] args) {
-        findWords(new String[]{"Alaska", "Dad", "Where"});
+    public static int[] shuffle(int[] nums, int n) {
+        int[] newArray = new int[nums.length];
+        int count = 0;
+        for(int i = 0; i < nums.length ; i+=2){
+            newArray[i] = nums[count];
+            newArray[i + 1] = nums[n + count];
+            count++;
+        }
+        return newArray;
     }
+
+//    https://leetcode.com/problems/shuffle-the-array/submissions/
+    @Test
+    public void shuffleTest(){
+        int[] expected = new int[]{2,3,5,4,1,7};
+        int[] actual = shuffle(new int[]{2,5,1,3,4,7}, 3);
+        Assert.assertArrayEquals(expected, actual);
+    }
+
+
+
+        public static void main(String[] args) {
+        }
 
 
 }

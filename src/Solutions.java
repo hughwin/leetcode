@@ -914,7 +914,26 @@ public class Solutions {
         Assert.assertArrayEquals(expected, actual);
     }
 
+    public static int getDecimalValue(ListNode head) {
+        String binaryString = "";
+        while (head != null){
+            binaryString += (String.valueOf(head.val));
+            head = head.next;
+        }
+        return Integer.parseInt(binaryString, 2);
+    }
 
+    @Test
+    public void getDecimalValue(){
+        ListNode a = new ListNode(1);
+        ListNode b = new ListNode(0);
+        ListNode c = new ListNode(1);
+
+        a.next = b;
+        b.next = c;
+
+        Assert.assertSame(5, getDecimalValue(a));
+    }
 
         public static void main(String[] args) {
         }

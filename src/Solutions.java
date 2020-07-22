@@ -762,6 +762,24 @@ public class Solutions {
         Assert.assertEquals(5, removeElement(new int[]{0, 1, 2, 2, 3, 0, 4, 2}, 2));
     }
 
+    public double angleClock(int hour, int minutes) {
+        if(hour == 12) hour = 0;
+        int minutesAngle = minutes * 6;
+        double minutesHour = (minutes / 60.0);
+        double actualHour = minutesHour + hour;
+        double actualHourAngle = actualHour * 30;
+        double angle1 = Math.abs((actualHourAngle) - (minutesAngle));
+        return Math.min(angle1, 360 - angle1);
+    }
+
+    @Test
+    public void angleClockTest(){
+        Assert.assertTrue(165.0 == angleClock(12, 30));
+        Assert.assertTrue(75.0 == angleClock(3, 30));
+        Assert.assertTrue(angleClock(3, 15) == 7.5);
+    }
+
+
     public static void main(String[] args) {
         System.out.println(findDisappearedNumbers(new int[]{1,1}));
     }

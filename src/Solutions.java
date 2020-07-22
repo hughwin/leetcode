@@ -481,7 +481,7 @@ public class Solutions {
     public void runningSumTest(){
         int[] actual = runningSum(new int[]{1,2,3,4});
         int[] expected = new int[]{1,3,6,10};
-        Assert.assertTrue(Arrays.equals(actual, expected));
+        Assert.assertArrayEquals(actual, expected);
     }
 
     // https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/submissions/
@@ -489,8 +489,8 @@ public class Solutions {
         int [] shorter = new int[nums.length];
         for (int i = 0 ; i < nums.length ; i++){
             int count = 0;
-            for (int k = 0 ; k < nums.length ; k++){
-                if(nums[i] > nums[k]){
+            for (int num : nums) {
+                if (nums[i] > num) {
                     count++;
                 }
             }
@@ -503,7 +503,7 @@ public class Solutions {
     public void smallerNumbersThanCurrentTest(){
         int[] actual = smallerNumbersThanCurrent(new int[]{8,1,2,2,3});
         int[] expected = new int[]{4,0,1,1,3};
-        Assert.assertTrue(Arrays.equals(expected, actual));
+        Assert.assertArrayEquals(expected, actual);
     }
 
     // https://leetcode.com/problems/count-of-smaller-numbers-after-self/
@@ -529,7 +529,7 @@ public class Solutions {
         expected.add(1);
         expected.add(1);
         expected.add(0);
-        Assert.assertTrue(actual.equals(expected));
+        Assert.assertEquals(actual, expected);
     }
 
     public static String defangIPaddr(String address) {
@@ -538,7 +538,7 @@ public class Solutions {
 
     @Test
     public void defangIPaddrTest(){
-        Assert.assertTrue(defangIPaddr("1.1.1.1").equals("1[.]1[.]1[.]1"));
+        Assert.assertEquals("1[.]1[.]1[.]1", defangIPaddr("1.1.1.1"));
     }
 
 
@@ -739,6 +739,69 @@ public class Solutions {
         return perimeter;
     }
 
+    public static String[] findWords(String[] words) {
+        HashSet<Character> firstRow = new HashSet<>();
+        firstRow.add('q');
+        firstRow.add('w');
+        firstRow.add('e');
+        firstRow.add('r');
+        firstRow.add('t');
+        firstRow.add('y');
+        firstRow.add('u');
+        firstRow.add('i');
+        firstRow.add('o');
+        firstRow.add('p');
+
+        HashSet<Character> secondRow = new HashSet<>();
+        secondRow.add('a');
+        secondRow.add('s');
+        secondRow.add('d');
+        secondRow.add('f');
+        secondRow.add('g');
+        secondRow.add('h');
+        secondRow.add('j');
+        secondRow.add('k');
+        secondRow.add('l');
+
+        HashSet<Character> thirdRow = new HashSet<>();
+        thirdRow.add('z');
+        thirdRow.add('x');
+        thirdRow.add('c');
+        thirdRow.add('v');
+        thirdRow.add('b');
+        thirdRow.add('n');
+        thirdRow.add('m');
+
+
+        ArrayList<String> returnedWords = new ArrayList<>();
+
+        for (String word : words){
+            if (findWordsHelper(word, firstRow) || findWordsHelper(word, secondRow) || findWordsHelper(word, thirdRow)){
+                returnedWords.add(word);
+            }
+        }
+
+        for (String word : returnedWords){
+            System.out.println(word);
+        }
+        return returnedWords.toArray(String[]::new);
+    }
+
+    public static boolean findWordsHelper(String word, HashSet<Character> row){
+            for (int i = 0; i < word.length(); i++) {
+                if (!row.contains(word.toLowerCase().charAt(i))) {
+                    return false;
+                }
+            }
+        return true;
+    }
+
+    @Test
+    public void findWordsTest(){
+        String[] expected = new String[]{"Alaska", "Dad"};
+        Assert.assertArrayEquals(expected,findWords(new String[]{"Hello", "Alaska", "Dad", "Peace"}));
+    }
+
     @Test
     public void islandPerimeterTest() {
         int[][] values = new int[4][4];
@@ -779,10 +842,120 @@ public class Solutions {
         Assert.assertTrue(angleClock(3, 15) == 7.5);
     }
 
+    public static String dayOfTheWeek(int day, int month, int year){
+        Calendar calendar = new GregorianCalendar(year, month, day);
+        int dayCode = calendar.get(Calendar.DAY_OF_WEEK);
 
-    public static void main(String[] args) {
-        System.out.println(findDisappearedNumbers(new int[]{1,1}));
+        String dayString = "";
+        switch(dayCode){
+            case 1:
+                dayString="Sunday";
+                break;
+            case 2:
+                dayString="Monday";
+                break;
+            case 3:
+                dayString="Tuesday";
+                break;
+            case 4:
+                dayString="Wednesday";
+                break;
+            case 5:
+                dayString="Thursday";
+                break;
+            case 6:
+                dayString="Friday";
+                break;
+            case 7:
+                dayString="Saturday";
+                break;
+        }
+        return dayString;
     }
+
+    // https://leetcode.com/problems/fibonacci-number/
+    public static int fib(int n) {
+        if (n == 0){return 0;}
+        if (n == 1){return 1;}
+        int count = 1;
+        int current = 0;
+        int next;
+        int temp = 0;
+        while(count < n){
+            if (current == 0){
+                current = 1;
+            }
+            next = current + temp;
+            temp = current;
+            current = next;
+            count++;
+            System.out.println(current);
+        }
+        return current;
+    }
+
+    @Test
+    public void fibTest(){
+        Assert.assertEquals(1, fib(2));
+        Assert.assertEquals(2, fib(3));
+        Assert.assertEquals(3, fib(4));
+    }
+    // https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array/submissions/
+    public static int maxProduct(int[] nums) {
+        Arrays.sort(nums);
+        return (nums[nums.length - 1] -1) * (nums[nums.length - 2] - 1);
+    }
+
+    @Test
+    public void maxProductTest(){
+        Assert.assertEquals(16, maxProduct(new int[]{1,5,4,5}));
+        Assert.assertEquals(12, maxProduct(new int[]{3,4,5,2}));
+        Assert.assertEquals(12, maxProduct(new int[]{3,7}));
+    }
+
+    public static int[] shuffle(int[] nums, int n) {
+        int[] newArray = new int[nums.length];
+        int count = 0;
+        for(int i = 0; i < nums.length ; i+=2){
+            newArray[i] = nums[count];
+            newArray[i + 1] = nums[n + count];
+            count++;
+        }
+        return newArray;
+    }
+
+//    https://leetcode.com/problems/shuffle-the-array/submissions/
+    @Test
+    public void shuffleTest(){
+        int[] expected = new int[]{2,3,5,4,1,7};
+        int[] actual = shuffle(new int[]{2,5,1,3,4,7}, 3);
+        Assert.assertArrayEquals(expected, actual);
+    }
+
+    public static int getDecimalValue(ListNode head) {
+        String binaryString = "";
+        while (head != null){
+            binaryString += (String.valueOf(head.val));
+            head = head.next;
+        }
+        return Integer.parseInt(binaryString, 2);
+    }
+
+    @Test
+    public void getDecimalValue(){
+        ListNode a = new ListNode(1);
+        ListNode b = new ListNode(0);
+        ListNode c = new ListNode(1);
+
+        a.next = b;
+        b.next = c;
+
+        Assert.assertSame(5, getDecimalValue(a));
+    }
+
+        public static void main(String[] args) {
+        }
 
 
 }
+

@@ -963,6 +963,53 @@ public class Solutions {
         Assert.assertEquals("hello", toLowerCase("HELLO"));
     }
 
+
+    // https://leetcode.com/problems/available-captures-for-rook
+    public int numRookCaptures(char[][] board) {
+        int count = 0;
+        ArrayList<int[][]> otherPieces = new ArrayList<>();
+        for (int i = 0 ; i < board.length ; i++){
+            for (int k = 0 ; k < board[i].length ; k++){
+                if(board[i][k] == 'R'){
+                    for(int j = i ; j >= 0 ; j--){
+                        if(board[j][k] == 'p'){
+                            count++;
+                            break;
+                        }
+                        if(board[j][k] == 'B') break;
+                    }
+                    for(int n = i ; n < board.length ; n++){
+                        if(board[n][k] == 'p'){
+                            count++;
+                            break;
+                        }
+                        if(board[n][k] == 'B') break;
+                    }
+                    for(int m = k ; m >= 0 ; m--){
+                        if(board[i][m] == 'p'){
+                            count++;
+                            break;
+                        }
+                        if(board[i][m] == 'B') break;
+                    }
+                    for(int p = k ; p < board[i].length ; p++){
+                        if(board[i][p] == 'p'){
+                            count++;
+                            break;
+                        }
+                        if(board[i][p] == 'B') break;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+
+    @Test
+    public void numRookCapturesTest(){
+//        char[][] board = new char[][]
+    }
+
     public static void main(String[] args) {
     }
 

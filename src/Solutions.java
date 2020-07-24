@@ -942,7 +942,7 @@ public class Solutions {
     }
 
     @Test
-    public void getDecimalValue(){
+    public void getDecimalValue() {
         ListNode a = new ListNode(1);
         ListNode b = new ListNode(0);
         ListNode c = new ListNode(1);
@@ -953,8 +953,18 @@ public class Solutions {
         Assert.assertSame(5, getDecimalValue(a));
     }
 
-        public static void main(String[] args) {
-        }
+    // https://leetcode.com/problems/to-lower-case/
+    public String toLowerCase(String str) {
+        return str.toLowerCase();
+    }
+
+    @Test
+    public void toLowerCaseTest() {
+        Assert.assertEquals("hello", toLowerCase("HELLO"));
+    }
+
+    public static void main(String[] args) {
+    }
 
 
 }

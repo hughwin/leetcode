@@ -1004,6 +1004,41 @@ public class Solutions {
         }
         return count;
     }
+    // https://leetcode.com/problems/single-element-in-a-sorted-array/
+    // I have kept this method in as an example of a naive approach to the algorithm. A much improved solution is below.
+    public int singleNonDuplicateSolution1(int[] nums) {
+        List<Integer> numsAsList = new ArrayList<>(nums.length);
+        for (int num : nums) {
+            numsAsList.add(num);
+        }
+        for(int i = 0 ; i < numsAsList.size() ; i++){
+            if(numsAsList.indexOf(numsAsList.get(i)) == numsAsList.lastIndexOf(numsAsList.get(i))){
+                return numsAsList.get(i);
+            }
+        }
+        return 0;
+    }
+
+    public int singleNonDuplicate(int[] nums) {
+        for (int i = 0; i < nums.length ; i+=2){
+            try {
+                if (nums[i] != nums[i + 1]) {
+                    return nums[i];
+                }
+            }catch (IndexOutOfBoundsException e){
+                return nums[i];
+            }
+        }
+        return 0;
+    }
+
+    @Test
+    public void singleNonDuplicateTest() {
+        int[] input1 = new int[]{1,1,2,3,3,4,4,8,8};
+        int[] input2 = new int[]{3,3,7,7,10,11,11};
+        Assert.assertEquals(2, singleNonDuplicate(input1));
+        Assert.assertEquals(10, singleNonDuplicate(input2));
+    }
 
     // https://leetcode.com/problems/middle-of-the-linked-list/
     public ListNode middleNode(ListNode head) {

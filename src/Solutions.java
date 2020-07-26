@@ -1065,11 +1065,51 @@ public class Solutions {
         e.next = f;
         Assert.assertEquals(d, middleNode(a));
     }
-    
+
+    public int countBattleships(char[][] board) {
+        int count = 0;
+        for (int i = 0; i < board.length; i++) {
+            for (int k = 0; k < board[i].length; k++) {
+                int kCopy = k;
+                int iCopy = i;
+                if (board[i][k] == 'X') {
+                    count++;
+                    try {
+                        while (board[i][k] == 'X') {
+                            board[i][k] = 'Y';
+                            k++;
+                        }
+                    } catch (IndexOutOfBoundsException e) {
+                    }
+                    k = kCopy;
+                    i++;
+                    try {
+                        while (board[i][k] == 'X') {
+                            board[i][k] = 'Y';
+                            i++;
+                            System.out.println(board[i][k]);
+                        }
+                    } catch (IndexOutOfBoundsException e) {
+                    }
+                    i = iCopy;
+                }
+            }
+        }
+        return count;
+    }
+
+    @Test
+    public void countBattleshipsTest() {
+        char[][] board = new char[3][6];
+        board[0] = new char[]{'X', '.', '.', '.', '.', 'X'};
+        board[1] = new char[]{',', '.', '.', '.', '.', 'X'};
+        board[2] = new char[]{',', '.', '.', '.', '.', 'X'};
+        Assert.assertEquals(2, countBattleships(board));
+    }
 
 
     @Test
-    public void numRookCapturesTest(){
+    public void numRookCapturesTest() {
 //        char[][] board = new char[][]
     }
 

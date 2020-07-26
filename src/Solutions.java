@@ -954,7 +954,7 @@ public class Solutions {
     }
 
     // https://leetcode.com/problems/to-lower-case/
-    public String toLowerCase(String str) {
+    public static String toLowerCase(String str) {
         return str.toLowerCase();
     }
 
@@ -965,7 +965,7 @@ public class Solutions {
 
 
     // https://leetcode.com/problems/available-captures-for-rook
-    public int numRookCaptures(char[][] board) {
+    public static int numRookCaptures(char[][] board) {
         int count = 0;
         ArrayList<int[][]> otherPieces = new ArrayList<>();
         for (int i = 0 ; i < board.length ; i++){
@@ -1006,7 +1006,7 @@ public class Solutions {
     }
     // https://leetcode.com/problems/single-element-in-a-sorted-array/
     // I have kept this method in as an example of a naive approach to the algorithm. A much improved solution is below.
-    public int singleNonDuplicateSolution1(int[] nums) {
+    public static int singleNonDuplicateSolution1(int[] nums) {
         List<Integer> numsAsList = new ArrayList<>(nums.length);
         for (int num : nums) {
             numsAsList.add(num);
@@ -1019,7 +1019,7 @@ public class Solutions {
         return 0;
     }
 
-    public int singleNonDuplicate(int[] nums) {
+    public static int singleNonDuplicate(int[] nums) {
         for (int i = 0; i < nums.length ; i+=2){
             try {
                 if (nums[i] != nums[i + 1]) {
@@ -1041,7 +1041,7 @@ public class Solutions {
     }
 
     // https://leetcode.com/problems/middle-of-the-linked-list/
-    public ListNode middleNode(ListNode head) {
+    public static ListNode middleNode(ListNode head) {
         ArrayList<ListNode> nodes = new ArrayList<>();
         while(head != null){
             nodes.add(head);
@@ -1066,7 +1066,7 @@ public class Solutions {
         Assert.assertEquals(d, middleNode(a));
     }
 
-    public int countBattleships(char[][] board) {
+    public static int countBattleships(char[][] board) {
         int count = 0;
         for (int i = 0; i < board.length; i++) {
             for (int k = 0; k < board[i].length; k++) {

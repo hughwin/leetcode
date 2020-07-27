@@ -837,9 +837,9 @@ public class Solutions {
 
     @Test
     public void angleClockTest(){
-        Assert.assertTrue(165.0 == angleClock(12, 30));
-        Assert.assertTrue(75.0 == angleClock(3, 30));
-        Assert.assertTrue(angleClock(3, 15) == 7.5);
+        Assert.assertEquals(165.0, angleClock(12, 30), 0.0);
+        Assert.assertEquals(75.0, angleClock(3, 30), 0.0);
+        Assert.assertEquals(7.5, angleClock(3, 15), 0.0);
     }
 
     public static String dayOfTheWeek(int day, int month, int year){
@@ -1107,13 +1107,30 @@ public class Solutions {
         Assert.assertEquals(2, countBattleships(board));
     }
 
-
     @Test
     public void numRookCapturesTest() {
 //        char[][] board = new char[][]
     }
 
+    public static String reverseWords(String s) {
+        String[] splitString = s.split(" ");
+        for (int i = 0 ; i < splitString.length ; i++) {
+            StringBuilder stringBuilder = new StringBuilder();
+           for(int k = splitString[i].length() - 1; k >=0 ; k--){
+               stringBuilder.append(splitString[i].charAt(k));
+           }
+           splitString[i] = stringBuilder.toString();
+        }
+        return String.join(" ", splitString);
+    }
+
+    @Test
+    public void reverseWordsTest(){
+        Assert.assertEquals("s'teL ekat edoCteeL tsetnoc", reverseWords("Let's take LeetCode contest"));
+    }
+
     public static void main(String[] args) {
+        System.out.println(reverseWords("reverse this"));
     }
 
 

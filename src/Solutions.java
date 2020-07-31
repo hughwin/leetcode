@@ -1129,8 +1129,50 @@ public class Solutions {
         Assert.assertEquals("s'teL ekat edoCteeL tsetnoc", reverseWords("Let's take LeetCode contest"));
     }
 
+        public static int compareVersion(String version1, String version2) {
+            String[] version1Array = version1.split("\\.");
+            String[] version2Array = version2.split("\\.");
+            int min = Math.min(version1Array.length, version2Array.length);
+            int count = 0;
+                for (int i = 0; i < min; i++) {
+                    if (Integer.parseInt(version1Array[i]) < Integer.parseInt(version2Array[i])){
+                        return -1;
+                    }
+                    if (Integer.parseInt(version1Array[i]) > Integer.parseInt(version2Array[i])){
+                        return 1;
+                    }
+                    count++;
+                }
+            if(version2Array.length > version1Array.length){
+                for(int i = count ; i < version2Array.length ; i++){
+                    if (Integer.parseInt(version2Array[i]) != 0){
+                        return -1;
+                    }
+                }
+            }
+            if(version1Array.length > version2Array.length){
+                for(int i = count ; i < version1Array.length ; i++){
+                    if (Integer.parseInt(version1Array[i]) != 0){
+                        return 1;
+                    }
+                }
+            }
+            return 0;
+        }
+
+    @Test
+    public void compareVersionTest(){
+        Assert.assertEquals(-1, compareVersion("0.1", "1.1"));
+        Assert.assertEquals(1, compareVersion("1.0.1", "1"));
+        Assert.assertEquals(-1, compareVersion("7.5.2.4", "7.5.3"));
+        Assert.assertEquals(0, compareVersion("01", "1"));
+        Assert.assertEquals(-1, compareVersion("1", "1.1"));
+        Assert.assertEquals(0, compareVersion("1.0", "1") );
+    }
+
     public static void main(String[] args) {
-        System.out.println(reverseWords("reverse this"));
+        System.out.println(Integer.parseInt("01"));
+        System.out.println(compareVersion("01", "1"));
     }
 
 

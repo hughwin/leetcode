@@ -1184,7 +1184,50 @@ public class Solutions {
 
     @Test
     public void restoreStringTest(){
-        Assert.assertTrue("nihao".equals(restoreString("aiohn", new int[]{3,1,4,2,0})) );
+        Assert.assertEquals("nihao", restoreString("aiohn", new int[]{3, 1, 4, 2, 0}));
+    }
+
+    // https://leetcode.com/problems/self-dividing-numbers/discuss/758471/Java-oror-2ms
+    public List<Integer> selfDividingNumbers(int left, int right) {
+        List<Integer> numbers = new ArrayList<>();
+        for(int i = left ; i <= right ; i++){
+            if(selfDividingNumber(i)){
+                numbers.add(i);
+            }
+        }
+        return numbers;
+    }
+
+    public static boolean selfDividingNumber(int num){
+        String[] nums = String.valueOf(num).split("");
+        for(String s : nums){
+            if(Integer.parseInt(s) == 0){
+                return false;
+            }
+            if(num % Integer.parseInt(s) != 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Test
+    public void selfDividingNumbersTest(){
+        List<Integer> input = new ArrayList<>();
+        input.add(1);
+        input.add(2);
+        input.add(3);
+        input.add(4);
+        input.add(5);
+        input.add(6);
+        input.add(7);
+        input.add(8);
+        input.add(9);
+        input.add(11);
+        input.add(12);
+        input.add(15);
+        input.add(22);
+        Assert.assertEquals(input, selfDividingNumbers(1, 22));
     }
 
     public static void main(String[] args) {

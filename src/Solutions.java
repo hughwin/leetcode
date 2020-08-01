@@ -1170,6 +1170,23 @@ public class Solutions {
         Assert.assertEquals(0, compareVersion("1.0", "1") );
     }
 
+    // https://leetcode.com/problems/shuffle-string/discuss/765424/Easy-Approach-or-Java-Solution
+    public static String restoreString(String s, int[] indices) {
+        String[] split = s.split("");
+        String[] reconstituted = new String[split.length];
+
+        for(int i = 0 ; i < indices.length ; i++){
+            int key = indices[i];
+            reconstituted[key] = split[i];
+        }
+        return String.join("", reconstituted);
+    }
+
+    @Test
+    public void restoreStringTest(){
+        Assert.assertTrue("nihao".equals(restoreString("aiohn", new int[]{3,1,4,2,0})) );
+    }
+
     public static void main(String[] args) {
         System.out.println(Integer.parseInt("01"));
         System.out.println(compareVersion("01", "1"));

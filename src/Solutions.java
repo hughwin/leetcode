@@ -1247,9 +1247,28 @@ public class Solutions {
 
     }
 
+    // https://leetcode.com/problems/flipping-an-image/
+    public static int[][] flipAndInvertImage(int[][] A) {
+        int[][] b = A.clone();
+        for(int i = 0 ; i < A.length ; i++) {
+            int[] copy = new int[A[i].length];
+            for(int k = 0; k < A[i].length; k++){
+                copy[A[i].length - k - 1] = (A[i][k] == 0 ? 1 : 0);
+                b[i] = copy;
+            }
+        }
+        return b;
+    }
+
+
+
+
     public static void main(String[] args) {
-        System.out.println(Integer.parseInt("01"));
-        System.out.println(compareVersion("01", "1"));
+        int[][] a = new int[2][4];
+        a[0] = new int []{1,0,0,0};
+        a[1] = new int []{1,0,0,1};
+
+        flipAndInvertImage(a);
     }
 
 

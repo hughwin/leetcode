@@ -1229,6 +1229,39 @@ public class Solutions {
         input.add(22);
         Assert.assertEquals(input, selfDividingNumbers(1, 22));
     }
+    
+    // https://leetcode.com/problems/non-decreasing-array/
+    public static boolean checkPossibility(int[] nums) {
+        for(int i = 1;i<nums.length;i++){
+            if(nums[i] < nums[i-1] && (i == 1 || nums[i] >= nums[i-2]) ){
+                return checkPossibility(nums, i+1, nums[i]);
+            }
+            else if(nums[i] < nums[i-1]){
+                return checkPossibility(nums, i+1, nums[i-1]);
+            }
+        }
+        return true;
+    }
+
+    private static boolean checkPossibility(int [] nums, int start, int num){
+        int prev = num;
+        for(int i = start;i<nums.length;i++){
+            if(nums[i] < prev)
+                return false;
+            prev = nums[i];
+        }
+        return true;
+    }
+
+
+
+    @Test
+    public void checkPossibilityTest(){
+        Assert.assertSame(true, checkPossibility(new int[]{4,2,3}));
+        Assert.assertSame(false, checkPossibility(new int[]{4,2,1}));
+        Assert.assertSame(false, checkPossibility(new int[]{3,4,2,3}));
+
+    }
 
     public static void main(String[] args) {
         System.out.println(Integer.parseInt("01"));

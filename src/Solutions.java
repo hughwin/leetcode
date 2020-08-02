@@ -1,6 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class Solutions {
@@ -842,36 +843,7 @@ public class Solutions {
         Assert.assertEquals(7.5, angleClock(3, 15), 0.0);
     }
 
-    public static String dayOfTheWeek(int day, int month, int year){
-        Calendar calendar = new GregorianCalendar(year, month, day);
-        int dayCode = calendar.get(Calendar.DAY_OF_WEEK);
 
-        String dayString = "";
-        switch(dayCode){
-            case 1:
-                dayString="Sunday";
-                break;
-            case 2:
-                dayString="Monday";
-                break;
-            case 3:
-                dayString="Tuesday";
-                break;
-            case 4:
-                dayString="Wednesday";
-                break;
-            case 5:
-                dayString="Thursday";
-                break;
-            case 6:
-                dayString="Friday";
-                break;
-            case 7:
-                dayString="Saturday";
-                break;
-        }
-        return dayString;
-    }
 
     // https://leetcode.com/problems/fibonacci-number/
     public static int fib(int n) {
@@ -1229,7 +1201,7 @@ public class Solutions {
         input.add(22);
         Assert.assertEquals(input, selfDividingNumbers(1, 22));
     }
-    
+
     // https://leetcode.com/problems/non-decreasing-array/
     public static boolean checkPossibility(int[] nums) {
         for(int i = 1;i<nums.length;i++){
@@ -1253,13 +1225,25 @@ public class Solutions {
         return true;
     }
 
-
-
     @Test
     public void checkPossibilityTest(){
         Assert.assertSame(true, checkPossibility(new int[]{4,2,3}));
         Assert.assertSame(false, checkPossibility(new int[]{4,2,1}));
         Assert.assertSame(false, checkPossibility(new int[]{3,4,2,3}));
+
+    }
+
+    // https://leetcode.com/problems/day-of-the-week
+    public String dayOfTheWeek(int day, int month, int year) {
+        String[] daysOfWeek = new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        return daysOfWeek[LocalDate.of(year, month, day).getDayOfWeek().getValue() - 1];
+
+    }
+
+    @Test
+    public void dayOfTheWeekTest(){
+        Assert.assertEquals("Saturday", dayOfTheWeek(31, 8, 2019));
+        Assert.assertEquals("Sunday", dayOfTheWeek(15, 8, 1993));
 
     }
 

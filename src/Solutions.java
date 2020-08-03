@@ -1310,6 +1310,37 @@ public class Solutions {
         Assert.assertEquals("ca", removeDuplicates("abbaca"));
     }
 
+    // https://leetcode.com/problems/delete-node-in-a-linked-list/
+    public void deleteNode(ListNode node) {
+        if (node.next != null || node != null){
+            node.val = node.next.val;
+            node.next = node.next.next;
+        }
+    }
+
+    @Test
+    public void deleteNodeTest() {
+        //TODO: Finish this later
+    }
+
+    public String reverseWords2(String s) {
+        String[] strSplit = s.split(" ");
+        List<String> strClone = new ArrayList<>();
+
+        for(int i = strSplit.length - 1 ; i >= 0; i--){
+            if(!strSplit[i].equals("")){
+                strClone.add(strSplit[i].strip());
+            }
+        }
+
+        return String.join(" ", strClone);
+    }
+
+    @Test
+    public void reverseWords2Test(){
+        Assert.assertEquals("blue is sky the", reverseWords2("the   sky is blue"));
+    }
+
 
     public static void main(String[] args) {
         int[][] a = new int[2][4];

@@ -1260,7 +1260,33 @@ public class Solutions {
         return b;
     }
 
+    // https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix/
+    public static int countNegatives(int[][] grid){
+        int count =0;
+        for (int[] ints : grid) {
+            for (int k = ints.length - 1; k >= 0; k--) {
+                if (ints[k] < 0) {
+                    count++;
+                } else {
+                    break;
+                }
+            }
+        }
+        return count;
+    }
 
+    @Test
+    public void countNegativesTest(){
+        int[][] input = new int[2][4];
+        input[0] = new int []{3,2,-1,-2};
+        input[1] = new int []{1,0,0,-3};
+        Assert.assertEquals(3, countNegatives(input));
+
+        int[][] input2 = new int[2][2];
+        input[0] = new int []{3,2};
+        input[1] = new int []{1,0};
+        Assert.assertEquals(0, countNegatives(input2));
+    }
 
 
     public static void main(String[] args) {

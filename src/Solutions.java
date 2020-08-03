@@ -1289,6 +1289,28 @@ public class Solutions {
     }
 
 
+    // https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/
+    public String removeDuplicates(String S) {
+        char[] stringArr = S.toCharArray();
+
+        for (int i = 0; i < stringArr.length - 1; i++) {
+            if (stringArr[i] == stringArr[i + 1]) {
+                String beginning = String.valueOf(Arrays.copyOfRange(stringArr, 0, i));
+                String end = i+1 > stringArr.length ? "" : String.valueOf(Arrays.copyOfRange(stringArr, i + 2, stringArr.length));
+
+                return this.removeDuplicates(beginning + end);
+            }
+        }
+
+        return String.valueOf(stringArr);
+    }
+
+    @Test
+    public void removeDuplicatesTest(){
+        Assert.assertEquals("ca", removeDuplicates("abbaca"));
+    }
+
+
     public static void main(String[] args) {
         int[][] a = new int[2][4];
         a[0] = new int []{1,0,0,0};

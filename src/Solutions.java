@@ -1341,13 +1341,26 @@ public class Solutions {
         Assert.assertEquals("blue is sky the", reverseWords2("the   sky is blue"));
     }
 
+    // https://leetcode.com/problems/water-bottles
+    public static int numWaterBottles(int numBottles, int numExchange) {
+        int count = 0;
+        int empties = 0;
+        while (numBottles != 0){
+            count += numBottles;
+            numBottles = numBottles + empties;
+            empties = numBottles % numExchange;
+            numBottles = numBottles / numExchange;
+        }
+        return count;
+    }
+
+    @Test
+    public void numWaterBottlesTest(){
+        Assert.assertEquals(19, numWaterBottles(15, 4));
+    }
+
 
     public static void main(String[] args) {
-        int[][] a = new int[2][4];
-        a[0] = new int []{1,0,0,0};
-        a[1] = new int []{1,0,0,1};
-
-        flipAndInvertImage(a);
     }
 
 

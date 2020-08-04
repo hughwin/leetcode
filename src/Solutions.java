@@ -1359,9 +1359,26 @@ public class Solutions {
         Assert.assertEquals(19, numWaterBottles(15, 4));
     }
 
+    // https://leetcode.com/problems/search-in-a-binary-search-tree
+    public static TreeNode searchBST(TreeNode root, int val) {
+        if(root == null){
+            return null;
+        }
+        if(root.val == val){
+            return root;
+        }
+        if(val > root.val) {
+            return searchBST(root.right, val);
+        }
+        if(val < root.val) {
+            return searchBST(root.left, val);
+        }
+        return root;
+    }
 
     public static void main(String[] args) {
     }
+
 
 
 }

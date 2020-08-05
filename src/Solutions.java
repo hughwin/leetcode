@@ -1376,6 +1376,30 @@ public class Solutions {
         return root;
     }
 
+    //https://leetcode.com/problems/sort-array-by-parity/
+    public static int[] sortArrayByParity(int[] A){
+        ArrayList<Integer> evens = new ArrayList<>();
+        ArrayList<Integer> odds = new ArrayList<>();
+        for(int a : A){
+            if(a % 2 == 0){
+                evens.add(a);
+            }
+            else{
+                odds.add(a);
+            }
+        }
+        evens.addAll(odds);
+        for(int i = 0; i < evens.size(); i++){
+            A[i] = evens.get(i);
+        }
+        return A;
+    }
+
+    @Test
+    public void sortArrayByParity(){
+        Assert.assertArrayEquals(new int[]{2,4,3,1}, sortArrayByParity(new int[]{3,1,2,4}));
+    }
+
     public static void main(String[] args) {
     }
 

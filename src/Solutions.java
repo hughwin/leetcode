@@ -1400,6 +1400,20 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{2,4,3,1}, sortArrayByParity(new int[]{3,1,2,4}));
     }
 
+    // https://leetcode.com/problems/valid-palindrome/
+    public static boolean isPalindrome(String s) {
+        s = s.replaceAll("[^A-Za-z0-9]", "").toLowerCase().replaceAll(" ", "");
+        StringBuilder stringBuilder = new StringBuilder(s);
+        String reversed = stringBuilder.reverse().toString();
+        return reversed.equals(s);
+    }
+
+    @Test
+    public void validPalindromeTest(){
+        Assert.assertTrue(isPalindrome("A man, a plan, a canal: Panama"));
+        Assert.assertFalse(isPalindrome("race a car"));
+    }
+
     public static void main(String[] args) {
     }
 

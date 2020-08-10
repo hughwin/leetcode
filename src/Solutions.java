@@ -1464,6 +1464,23 @@ public class Solutions {
         return A;
     }
 
+    // https://leetcode.com/problems/number-complement/
+    public int findComplement(int num) {
+        String binary = Integer.toBinaryString(num);
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0;  i <binary.length(); i++ ){
+            if(binary.charAt(i) == '0'){
+                sb.append('1');
+            }else sb.append('0');
+        }
+        return Integer.parseInt(sb.toString(), 2);
+    }
+
+    @Test
+    public void findComplementTest(){
+        Assert.assertEquals(2, findComplement(5));
+    }
+
     @Test
     public void sortArrayByParityII(){
         Assert.assertArrayEquals(new int[]{4,5,2,7},sortArrayByParityII(new int[]{4,2,5,7}));

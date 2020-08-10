@@ -1464,6 +1464,11 @@ public class Solutions {
         return A;
     }
 
+    @Test
+    public void sortArrayByParityII(){
+        Assert.assertArrayEquals(new int[]{4,5,2,7},sortArrayByParityII(new int[]{4,2,5,7}));
+    }
+
     // https://leetcode.com/problems/number-complement/
     public int findComplement(int num) {
         String binary = Integer.toBinaryString(num);
@@ -1481,9 +1486,23 @@ public class Solutions {
         Assert.assertEquals(2, findComplement(5));
     }
 
+    // https://leetcode.com/problems/check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence/
+    public int isPrefixOfWord(String sentence, String searchWord) {
+        String[] split = sentence.split("\\s+");
+        for (int i = 0; i < split.length; i++) {
+            if (split[i].startsWith(searchWord))
+                return i + 1;
+        }
+        return -1;
+    }
+
     @Test
-    public void sortArrayByParityII(){
-        Assert.assertArrayEquals(new int[]{4,5,2,7},sortArrayByParityII(new int[]{4,2,5,7}));
+    public void isPrefixOfWordTest(){
+        Assert.assertEquals(4, isPrefixOfWord("i love eating burger", "burg"));
+        Assert.assertEquals(2, isPrefixOfWord("this problem is an easy problem", "pro"));
+        Assert.assertEquals(2, isPrefixOfWord("dumb dream duck duck i", "drea"));
+        Assert.assertEquals(4, isPrefixOfWord("love errichto jonathan dumb", "dumb"));
+
     }
 
     public static void main(String[] args) {

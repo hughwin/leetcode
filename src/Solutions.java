@@ -1414,6 +1414,30 @@ public class Solutions {
         Assert.assertFalse(isPalindrome("race a car"));
     }
 
+    // https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/
+    public int numberOfSteps (int num) {
+        int count = 0;
+        while(num != 0){
+            if(num % 2 == 0){
+                count++;
+                num = num / 2;
+            }
+            else{
+                count++;
+                num--;
+            }
+        }
+        return count;
+    }
+
+    @Test
+    public void numberOfStepsTest(){
+        Assert.assertEquals(6, numberOfSteps(14));
+        Assert.assertEquals(4, numberOfSteps(8));
+        Assert.assertEquals(12, numberOfSteps(123));
+
+    }
+
     public static void main(String[] args) {
     }
 

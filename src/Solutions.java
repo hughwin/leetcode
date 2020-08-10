@@ -1438,6 +1438,37 @@ public class Solutions {
 
     }
 
+    // https://leetcode.com/problems/sort-array-by-parity-ii/
+    public int[] sortArrayByParityII(int[] A) {
+
+        List<Integer> evens = new ArrayList<>();
+        List<Integer> odds = new ArrayList<>();
+        int evensPointer = 0;
+        int oddsPointer = 0;
+
+        for (int j : A) {
+            if (j % 2 == 0) {
+                evens.add(j);
+            } else odds.add(j);
+        }
+        for (int i = 0; i < A.length; i++) {
+            if(i % 2 == 0){
+                A[i] = evens.get(evensPointer);
+                evensPointer++;
+            }
+            else{
+                A[i] = odds.get(oddsPointer);
+                oddsPointer++;
+            }
+        }
+        return A;
+    }
+
+    @Test
+    public void sortArrayByParityII(){
+        Assert.assertArrayEquals(new int[]{4,5,2,7},sortArrayByParityII(new int[]{4,2,5,7}));
+    }
+
     public static void main(String[] args) {
     }
 

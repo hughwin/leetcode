@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Solutions {
 
@@ -1502,7 +1503,22 @@ public class Solutions {
         Assert.assertEquals(2, isPrefixOfWord("this problem is an easy problem", "pro"));
         Assert.assertEquals(2, isPrefixOfWord("dumb dream duck duck i", "drea"));
         Assert.assertEquals(4, isPrefixOfWord("love errichto jonathan dumb", "dumb"));
+    }
 
+    // https://leetcode.com/problems/single-number/
+    public int singleNumber(int[] nums) {
+        List<Integer> numsList = Arrays.stream(nums).boxed().collect(Collectors.toList());
+        for (int num : nums) {
+            if (numsList.indexOf(num) == numsList.lastIndexOf(num)) {
+                return num;
+            }
+        }
+        return -1;
+    }
+
+    @Test
+    public void singleNumberTest(){
+        Assert.assertEquals(1, singleNumber(new int[]{2,2,1}));
     }
 
     public static void main(String[] args) {

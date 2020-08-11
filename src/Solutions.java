@@ -1521,6 +1521,39 @@ public class Solutions {
         Assert.assertEquals(1, singleNumber(new int[]{2,2,1}));
     }
 
+    // https://leetcode.com/problems/sort-integers-by-the-number-of-1-bits/
+    public int[] sortByBits(int[] arr) {
+        Integer[] integerArr = new Integer[arr.length];
+        Arrays.setAll(integerArr, i -> arr[i]);
+        Arrays.sort(integerArr, (o1, o2) -> {
+            if (Integer.bitCount(o1) > Integer.bitCount(o2))
+                return 1;
+            else if (Integer.bitCount(o1) < Integer.bitCount(o2))
+                return -1;
+            else
+                return o1.compareTo(o2);
+        });
+        return Arrays.stream(integerArr).mapToInt(Integer::intValue).toArray();
+    }
+
+    @Test
+    public void sortByBitsTest(){
+        int[] expected = new int[]{0,1,2,4,8,3,5,6,7};
+        int[] input = new int[]{0,1,2,4,8,3,5,6,7};
+        Assert.assertArrayEquals(expected, sortByBits(input));
+
+        int[] expected1 = new int[]{2,3,5,17,7,11,13,19};
+        int[] input1 = new int[]{2,3,5,7,11,13,17,19};
+        Assert.assertArrayEquals(expected1, sortByBits(input1));
+
+        int[] expected2 = new int[]{1,2,4,8,16,32,64,128,256,512,1024};
+        int[] input2 = new int[]{1024,512,256,128,64,32,16,8,4,2,1};
+
+        Assert.assertArrayEquals(expected2, sortByBits(input2));
+
+    }
+
+
     public static void main(String[] args) {
     }
 

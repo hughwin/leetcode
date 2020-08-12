@@ -1542,21 +1542,39 @@ public class Solutions {
         int[] input = new int[]{0,1,2,4,8,3,5,6,7};
         Assert.assertArrayEquals(expected, sortByBits(input));
 
-        int[] expected1 = new int[]{2,3,5,17,7,11,13,19};
-        int[] input1 = new int[]{2,3,5,7,11,13,17,19};
+        int[] expected1 = new int[]{2, 3, 5, 17, 7, 11, 13, 19};
+        int[] input1 = new int[]{2, 3, 5, 7, 11, 13, 17, 19};
         Assert.assertArrayEquals(expected1, sortByBits(input1));
 
-        int[] expected2 = new int[]{1,2,4,8,16,32,64,128,256,512,1024};
-        int[] input2 = new int[]{1024,512,256,128,64,32,16,8,4,2,1};
-
+        int[] expected2 = new int[]{1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024};
+        int[] input2 = new int[]{1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1};
         Assert.assertArrayEquals(expected2, sortByBits(input2));
+    }
 
+    // https://leetcode.com/problems/binary-prefix-divisible-by-5/submissions/
+    public List<Boolean> prefixesDivBy5(int[] A) {
+        if (A == null || A.length <= 0) return null;
+        int num = 0;
+        List<Boolean> list = new ArrayList<>();
+        for (int i : A) {
+            num = (num * 2 + i) % 5;
+            if (num == 0) list.add(true);
+            else list.add(false);
+        }
+        return list;
+    }
+
+    @Test
+    public void prefixesDivBy5Test() {
+        List<Boolean> expected;
+        expected = Arrays.asList(true, false, false);
+        int[] input = new int[]{0, 1, 1};
+        Assert.assertEquals(expected, prefixesDivBy5(input));
     }
 
 
     public static void main(String[] args) {
     }
-
 
 
 }

@@ -1572,6 +1572,24 @@ public class Solutions {
         Assert.assertEquals(expected, prefixesDivBy5(input));
     }
 
+    public int reverse(int x) {
+        boolean lessThan  = x < 0;
+        x = Math.abs(x);
+        StringBuilder sb = new StringBuilder(String.valueOf(x));
+        String reversed = sb.reverse().toString();
+        reversed = Integer.toBinaryString(Integer.parseInt(reversed));
+        return (lessThan) ? -Integer.parseInt(reversed, 2) : Integer.parseInt(reversed, 2);
+    }
+
+    @Test
+    public void reverseTest(){
+        Assert.assertEquals(321, reverse(123));
+        Assert.assertEquals(-321, reverse(-123));
+        Assert.assertEquals(21, reverse(120));
+    }
+
+
+
 
     public static void main(String[] args) {
     }

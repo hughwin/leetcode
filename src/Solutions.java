@@ -1581,6 +1581,13 @@ public class Solutions {
         return (lessThan) ? -Integer.parseInt(reversed, 2) : Integer.parseInt(reversed, 2);
     }
 
+    @Test
+    public void reverseTest(){
+        Assert.assertEquals(321, reverse(123));
+        Assert.assertEquals(-321, reverse(-123));
+        Assert.assertEquals(21, reverse(120));
+    }
+
     public int findSpecialInteger(int[] arr) {
         int twentyFive = (int) (arr.length * 0.25);
         int count = 0;
@@ -1606,13 +1613,37 @@ public class Solutions {
         Assert.assertEquals(3, findSpecialInteger(new int[]{1,2,3,3}));
     }
 
+    public static int maxNumberOfBalloons(String text) {
+        int b = 0;
+        int a = 0;
+        int l = 0;
+        int o = 0;
+        int n = 0;
+
+        for(int i = 0 ; i < text.length() ; i++){
+            if(text.charAt(i) == 'b') b++;
+            if(text.charAt(i) == 'a') a++;
+            if(text.charAt(i) == 'l') l++;
+            if(text.charAt(i) == 'o') o++;
+            if(text.charAt(i) == 'n') n++;
+
+            }
+        l = l / 2;
+        o = o / 2;
+
+        return Math.min(Math.min(o, l), Math.min(Math.min(b, a), n));
+
+    }
 
     @Test
-    public void reverseTest(){
-        Assert.assertEquals(321, reverse(123));
-        Assert.assertEquals(-321, reverse(-123));
-        Assert.assertEquals(21, reverse(120));
+    public void maxNumberOfBalloonsTest(){
+        Assert.assertEquals(1, maxNumberOfBalloons("nlaebolko"));
+        Assert.assertEquals(2, maxNumberOfBalloons("loonbalxballpoon"));
+        Assert.assertEquals(0, maxNumberOfBalloons("leetcode"));
     }
+
+
+
     
 
 

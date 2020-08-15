@@ -1581,12 +1581,39 @@ public class Solutions {
         return (lessThan) ? -Integer.parseInt(reversed, 2) : Integer.parseInt(reversed, 2);
     }
 
+    public int findSpecialInteger(int[] arr) {
+        int twentyFive = (int) (arr.length * 0.25);
+        int count = 0;
+        int currentInt = arr[0];
+        for(int i = 0 ; i < arr.length ; i++){
+            if(arr[i] == currentInt){
+                count++;
+                if(count > twentyFive){
+                    return currentInt;
+                }
+            }
+            else{
+                count = 0;
+                currentInt = arr[i + 1];
+            }
+        }
+    return -1;
+    }
+
+    @Test
+    public void findSpecialIntegerTest(){
+        Assert.assertEquals(6, findSpecialInteger(new int[]{1,2,2,6,6,6,6,7,10}));
+        Assert.assertEquals(3, findSpecialInteger(new int[]{1,2,3,3}));
+    }
+
+
     @Test
     public void reverseTest(){
         Assert.assertEquals(321, reverse(123));
         Assert.assertEquals(-321, reverse(-123));
         Assert.assertEquals(21, reverse(120));
     }
+    
 
 
 

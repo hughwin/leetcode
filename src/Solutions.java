@@ -1642,10 +1642,31 @@ public class Solutions {
         Assert.assertEquals(0, maxNumberOfBalloons("leetcode"));
     }
 
+    public int maxPower(String s) {
+        char currentCharacter = s.charAt(0);
+        int count = 1;
+        int max = 1;
+        for(int i = 1; i < s.length(); i++){
+            if(currentCharacter == s.charAt(i)){
+                count++;
+            }
+            else{
+                currentCharacter = s.charAt(i);
+                count = 1;
+            }
+            if(count > max){
+                max = count;
+            }
+        }
+        return max;
+    }
 
-
-    
-
+    @Test
+    public void maxPowerTest(){
+        Assert.assertEquals(2, maxPower("leetcode"));
+        Assert.assertEquals(5, maxPower("abbcccddddeeeeedcba"));
+        Assert.assertEquals(5, maxPower("triplepillooooow"));
+    }
 
 
 

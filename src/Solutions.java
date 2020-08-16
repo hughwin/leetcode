@@ -1668,6 +1668,45 @@ public class Solutions {
         Assert.assertEquals(5, maxPower("triplepillooooow"));
     }
 
+    // https://leetcode.com/problems/majority-element/
+    public int majorityElement(int[] nums) {
+
+        if(nums.length == 1){
+            return nums[0];
+        }
+
+        List<Integer> numsList = new ArrayList<>();
+        for(int x : nums){
+            numsList.add(x);
+        }
+        Collections.sort(numsList);
+        int count = 1;
+        int max = 0;
+        int current = numsList.get(0);
+        int maxItem = 0;
+
+        for(int i = 1; i < numsList.size() ; i++){
+            if(numsList.get(i) == current){
+                count++;
+            }
+            else{
+                current = numsList.get(i);
+                count = 1;
+            }
+            if(count > max){
+                max = count;
+                maxItem = numsList.get(i);
+            }
+        }
+        return maxItem;
+    }
+
+    @Test
+    public void majorityElementTest(){
+        Assert.assertEquals(3, majorityElement(new int[]{3,2,3}));
+        Assert.assertEquals(2, majorityElement(new int[]{2,2,1,1,1,2,2}));
+    }
+
 
 
     public static void main(String[] args) {

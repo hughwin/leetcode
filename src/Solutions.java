@@ -1707,6 +1707,22 @@ public class Solutions {
         Assert.assertEquals(2, majorityElement(new int[]{2,2,1,1,1,2,2}));
     }
 
+    // https://leetcode.com/problems/three-consecutive-odds/
+    public boolean threeConsecutiveOdds(int[] arr) {
+        for(int i = 0; i < arr.length - 2; i++){
+            if(arr[i] % 2 != 0 && arr[i + 1] % 2 != 0 && arr[i + 2] % 2 != 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Test
+    public void threeConsecutiveOddsTest(){
+        Assert.assertFalse(threeConsecutiveOdds(new int[]{2, 6, 4, 1}));
+        Assert.assertTrue(threeConsecutiveOdds(new int[]{1, 2, 34, 3, 4, 5, 7, 23, 12}));
+    }
+
 
 
     public static void main(String[] args) {

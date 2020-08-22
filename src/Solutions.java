@@ -1718,11 +1718,71 @@ public class Solutions {
     }
 
     @Test
-    public void threeConsecutiveOddsTest(){
+    public void threeConsecutiveOddsTest() {
         Assert.assertFalse(threeConsecutiveOdds(new int[]{2, 6, 4, 1}));
         Assert.assertTrue(threeConsecutiveOdds(new int[]{1, 2, 34, 3, 4, 5, 7, 23, 12}));
     }
 
+    public static int numSplits(String s) {
+        //TODO Make this work
+        int count = 0;
+
+        HashSet<Character> aHashSet = new HashSet<>();
+        HashSet<Character> bHashSet = new HashSet<>();
+
+        for (int i = 1; i < s.length(); i++) {
+            for (int j = i; j < s.length(); j++) {
+                bHashSet.add(s.charAt(j));
+            }
+            for (int k = i - 1; k >= 0; k--) {
+                aHashSet.add(s.charAt(k));
+            }
+            if (aHashSet.size() == bHashSet.size()) {
+                count++;
+            }
+            aHashSet.clear();
+            bHashSet.clear();
+        }
+        return count;
+    }
+
+    @Test
+    public void numSplitsTest() {
+        Assert.assertEquals(2, numSplits("aacaba"));
+        Assert.assertEquals(1, numSplits("abcd"));
+        Assert.assertEquals(4, numSplits("aaaaa"));
+    }
+
+    // https://leetcode.com/problems/unique-number-of-occurrences/
+    public static boolean uniqueOccurrences(int[] arr) {
+
+        HashSet<Integer> counts = new HashSet<>();
+        Arrays.sort(arr);
+        int temp = arr[0];
+        counts.add(arr[0]);
+        int occurrences = 1;
+        for(int i = 1 ; i < arr.length ; i++){
+            if(arr[i] == temp){
+                occurrences++;
+            }
+            else{
+                if(!counts.add(occurrences)){
+                    return false;
+                }
+                temp = arr[i];
+                occurrences = 1;
+            }
+        }
+        return true;
+    }
+
+    @Test
+    public void uniqueOccurrencesTest(){
+        Assert.assertTrue(uniqueOccurrences(new int[]{1,2,2,1,1,3}));
+        Assert.assertFalse(uniqueOccurrences(new int[]{1, 2}));
+        Assert.assertTrue(uniqueOccurrences(new int[]{-3,0,1,-3,1,1,1,-3,10,0}));
+
+    }
 
 
     public static void main(String[] args) {

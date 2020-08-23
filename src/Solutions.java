@@ -1814,6 +1814,21 @@ public class Solutions {
         Assert.assertEquals(expected, preorderTraversal(root));
     }
 
+    // https://leetcode.com/problems/maximum-69-number/
+    public static int maximum69Number (int num) {
+        String numString = String.valueOf(num);
+        numString = numString.replaceFirst("6", "9");
+        return Integer.parseInt(numString);
+    }
+
+    @Test
+    public void maximum69NumberTest(){
+        Assert.assertEquals(9969, maximum69Number(9669));
+        Assert.assertEquals(9999, maximum69Number(9999));
+        Assert.assertEquals(9999, maximum69Number(9996));
+    }
+
+
 
     public static void main(String[] args) {
     }

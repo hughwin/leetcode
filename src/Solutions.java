@@ -1781,7 +1781,37 @@ public class Solutions {
         Assert.assertTrue(uniqueOccurrences(new int[]{1,2,2,1,1,3}));
         Assert.assertFalse(uniqueOccurrences(new int[]{1, 2}));
         Assert.assertTrue(uniqueOccurrences(new int[]{-3,0,1,-3,1,1,1,-3,10,0}));
+    }
 
+    public static List<Integer> preorderTraversal(TreeNode root) {
+            List<Integer> result = new ArrayList<>();
+
+            if(root == null){
+                return result;
+            }
+
+            result.add(root.val);
+            if(root.left != null){
+                result.addAll(preorderTraversal(root.left));
+            }
+            if(root.right != null){
+                result.addAll(preorderTraversal(root.right));
+            }
+
+            return result;
+        }
+
+    @Test
+    public void preorderTraversalTest(){
+        List<Integer> expected = new ArrayList<>();
+        expected.add(1); expected.add(2); expected.add(3);
+
+        TreeNode root = new TreeNode(1);
+        root.left = null;
+        root.right = new TreeNode(2);
+        root.right.left = new TreeNode(3);
+
+        Assert.assertEquals(expected, preorderTraversal(root));
     }
 
 

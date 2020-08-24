@@ -1829,6 +1829,20 @@ public class Solutions {
     }
 
 
+    // https://leetcode.com/problems/generate-a-string-with-characters-that-have-odd-counts/
+    public String generateTheString(int n) {
+        StringBuilder sb = new StringBuilder();
+        if(n % 2 == 0){
+            sb.append("a".repeat(Math.max(0, n - 1)));
+            sb.append('z');
+        }
+        else {
+            sb.append("a".repeat(Math.max(0, n)));
+        }
+        return sb.toString();
+    }
+
+
 
     public static void main(String[] args) {
     }

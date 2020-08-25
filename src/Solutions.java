@@ -1842,6 +1842,22 @@ public class Solutions {
         return sb.toString();
     }
 
+    // https://leetcode.com/problems/create-target-array-in-the-given-order/
+    public static int[] createTargetArray(int[] nums, int[] index) {
+        List<Integer> numsList = new ArrayList<>();
+        for(int i = 0 ; i < nums.length; i++){
+            numsList.add(index[i], nums[i]);
+        }
+        for (int i = 0; i < index.length; i++){
+            index[i] = numsList.get(i);
+        }
+        return index;
+    }
+
+    @Test
+    public void createTargetArrayTest(){
+        Assert.assertArrayEquals(new int[]{0,4,1,3,2}, createTargetArray(new int[]{0,1,2,3,4},new int[]{0,1,2,2,1}));
+    }
 
 
     public static void main(String[] args) {

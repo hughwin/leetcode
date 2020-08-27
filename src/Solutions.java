@@ -1874,7 +1874,7 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{0, 1, 9, 16, 100}, sortedSquares(new int[]{-4, -1, 0, 3, 10}));
     }
 
-    public boolean canMakeArithmeticProgression(int[] arr) {
+    public static boolean canMakeArithmeticProgression(int[] arr) {
         Arrays.sort(arr);
         int difference = arr[1] - arr[0];
         for (int i = 1; i < arr.length - 1; i++) {
@@ -1889,6 +1889,34 @@ public class Solutions {
     public void canMakeArithmeticProgressionTest() {
         Assert.assertTrue(canMakeArithmeticProgression(new int[]{3, 5, 1}));
         Assert.assertFalse(canMakeArithmeticProgression(new int[]{1, 2, 4}));
+    }
+
+    public static void insertIntoBSTHelper(TreeNode root, int val) {
+        if (val > root.val) {
+            if (root.right == null) {
+                root.right = new TreeNode(val);
+                return;
+            }
+            insertIntoBSTHelper(root.right, val);
+        }
+
+        if (val < root.val) {
+            if (root.left == null) {
+                root.left = new TreeNode(val);
+                return;
+            }
+            insertIntoBSTHelper(root.left, val);
+        }
+    }
+
+    // https://leetcode.com/problems/insert-into-a-binary-search-tree/
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+
+        if (root == null) {
+            return new TreeNode(val);
+        }
+        insertIntoBSTHelper(root, val);
+        return root;
     }
 
 

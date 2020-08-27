@@ -1859,8 +1859,25 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{0,4,1,3,2}, createTargetArray(new int[]{0,1,2,3,4},new int[]{0,1,2,2,1}));
     }
 
+    // https://leetcode.com/problems/squares-of-a-sorted-array/submissions/
+    public static int[] sortedSquares(int[] A) {
+
+        for(int i = 0 ; i < A.length ; i++){
+            A[i] = A[i] * A[i];
+        }
+        Arrays.sort(A);
+        return A;
+    }
+
+    @Test
+    public void sortedSquaresTest(){
+        Assert.assertArrayEquals(new int[]{0,1,9,16,100}, sortedSquares(new int[]{-4,-1,0,3,10}));
+    }
+
+
 
     public static void main(String[] args) {
+
     }
 
 

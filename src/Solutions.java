@@ -1919,6 +1919,25 @@ public class Solutions {
         return root;
     }
 
+    // https://leetcode.com/problems/subtract-the-product-and-sum-of-digits-of-an-integer/submissions/
+    public int subtractProductAndSum(int n) {
+        int sum = 0, prod = 1;
+        while (n > 0) {
+            int digit = n % 10;
+            sum += digit;
+            prod *= digit;
+            n /= 10;
+        }
+        return prod - sum;
+    }
+
+    @Test
+    public void subtractProductAndSumTest() {
+        Assert.assertEquals(15, subtractProductAndSum(234));
+        Assert.assertEquals(21, subtractProductAndSum(4421));
+
+    }
+
 
     public static void main(String[] args) {
 

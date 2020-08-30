@@ -1956,6 +1956,36 @@ public class Solutions {
         Assert.assertFalse(judgeCircle("LL"));
     }
 
+    public String toGoatLatin(String S) {
+        String[] sArray = S.split(" ");
+
+        for(int i = 0; i < sArray.length ; i++){
+            if(sArray[i].toLowerCase().charAt(0) == 'a' || sArray[i].toLowerCase().charAt(0) == 'e' ||
+                    sArray[i].toLowerCase().charAt(0) == 'i' || sArray[i].toLowerCase().charAt(0) == 'o' ||
+                    sArray[i].toLowerCase().charAt(0) == 'u'){
+                sArray[i] = sArray[i].concat("ma");
+            }
+            else{
+
+                ArrayList<String> consonants = new ArrayList<>();
+                Collections.addAll(consonants, sArray[i].split(""));
+                String temp = consonants.get(0);
+                consonants.remove(0);
+                consonants.add(temp + "ma");
+                sArray[i] = String.join("", consonants);
+            }
+            for(int k = 0; k < i + 1 ; k++) {
+                sArray[i] = sArray[i].concat("a");
+            }
+        }
+        return String.join(" ", sArray);
+    }
+
+    @Test
+    public void goatLatinTest(){
+        Assert.assertEquals("Imaa peaksmaaa oatGmaaaa atinLmaaaaa", toGoatLatin("I speak Goat Latin"));
+    }
+
 
     public static void main(String[] args) {
 

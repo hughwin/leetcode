@@ -544,6 +544,7 @@ public class Solutions {
     }
 
 
+
     public static List<Integer> findDuplicates(int[] nums) {
         HashSet<Integer> hashSet = new HashSet<>();
         List<Integer> duplicates = new ArrayList<>();
@@ -789,30 +790,35 @@ public class Solutions {
     }
 
     public static boolean findWordsHelper(String word, HashSet<Character> row){
-        for (int i = 0; i < word.length(); i++) {
-            if (!row.contains(word.toLowerCase().charAt(i))) {
-                return false;
+            for (int i = 0; i < word.length(); i++) {
+                if (!row.contains(word.toLowerCase().charAt(i))) {
+                    return false;
+                }
             }
-        }
         return true;
     }
 
     @Test
-    public void findWordsTest() {
+    public void findWordsTest(){
         String[] expected = new String[]{"Alaska", "Dad"};
-        Assert.assertArrayEquals(expected, findWords(new String[]{"Hello", "Alaska", "Dad", "Peace"}));
+        Assert.assertArrayEquals(expected,findWords(new String[]{"Hello", "Alaska", "Dad", "Peace"}));
     }
 
-    public static String reverseWords(String s) {
-        String[] splitString = s.split(" ");
-        for (int i = 0; i < splitString.length; i++) {
-            StringBuilder stringBuilder = new StringBuilder();
-            for (int k = splitString[i].length() - 1; k >= 0; k--) {
-                stringBuilder.append(splitString[i].charAt(k));
-            }
-            splitString[i] = stringBuilder.toString();
-        }
-        return String.join(" ", splitString);
+    @Test
+    public void islandPerimeterTest() {
+        int[][] values = new int[4][4];
+        values[0][1] = 1;
+        values[1][0] = 1;
+        values[1][1] = 1;
+        values[1][1] = 1;
+        values[1][2] = 1;
+        values[2][1] = 1;
+        values[3][0] = 1;
+        values[3][1] = 1;
+        int[][] singleValue = new int[1][4];
+        singleValue[0][2] = 1;
+       Assert.assertEquals(16, islandPerimeter(values));
+        Assert.assertEquals(4, islandPerimeter(singleValue));
     }
 
     @Test
@@ -822,7 +828,7 @@ public class Solutions {
     }
 
     public double angleClock(int hour, int minutes) {
-        if (hour == 12) hour = 0;
+        if(hour == 12) hour = 0;
         int minutesAngle = minutes * 6;
         double minutesHour = (minutes / 60.0);
         double actualHour = minutesHour + hour;
@@ -837,6 +843,7 @@ public class Solutions {
         Assert.assertEquals(75.0, angleClock(3, 30), 0.0);
         Assert.assertEquals(7.5, angleClock(3, 15), 0.0);
     }
+
 
 
     // https://leetcode.com/problems/fibonacci-number/
@@ -866,7 +873,6 @@ public class Solutions {
         Assert.assertEquals(2, fib(3));
         Assert.assertEquals(3, fib(4));
     }
-
     // https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array/submissions/
     public static int maxProduct(int[] nums) {
         Arrays.sort(nums);
@@ -883,7 +889,7 @@ public class Solutions {
     public static int[] shuffle(int[] nums, int n) {
         int[] newArray = new int[nums.length];
         int count = 0;
-        for (int i = 0; i < nums.length; i += 2) {
+        for(int i = 0; i < nums.length ; i+=2){
             newArray[i] = nums[count];
             newArray[i + 1] = nums[n + count];
             count++;
@@ -891,40 +897,17 @@ public class Solutions {
         return newArray;
     }
 
-    public static int compareVersion(String version1, String version2) {
-        String[] version1Array = version1.split("\\.");
-        String[] version2Array = version2.split("\\.");
-        int min = Math.min(version1Array.length, version2Array.length);
-        int count = 0;
-        for (int i = 0; i < min; i++) {
-            if (Integer.parseInt(version1Array[i]) < Integer.parseInt(version2Array[i])) {
-                return -1;
-            }
-            if (Integer.parseInt(version1Array[i]) > Integer.parseInt(version2Array[i])) {
-                return 1;
-            }
-            count++;
-        }
-        if (version2Array.length > version1Array.length) {
-            for (int i = count; i < version2Array.length; i++) {
-                if (Integer.parseInt(version2Array[i]) != 0) {
-                    return -1;
-                }
-            }
-        }
-        if (version1Array.length > version2Array.length) {
-            for (int i = count; i < version1Array.length; i++) {
-                if (Integer.parseInt(version1Array[i]) != 0) {
-                    return 1;
-                }
-            }
-        }
-        return 0;
+//    https://leetcode.com/problems/shuffle-the-array/submissions/
+    @Test
+    public void shuffleTest(){
+        int[] expected = new int[]{2,3,5,4,1,7};
+        int[] actual = shuffle(new int[]{2,5,1,3,4,7}, 3);
+        Assert.assertArrayEquals(expected, actual);
     }
 
     public static int getDecimalValue(ListNode head) {
         String binaryString = "";
-        while (head != null) {
+        while (head != null){
             binaryString += (String.valueOf(head.val));
             head = head.next;
         }
@@ -994,7 +977,6 @@ public class Solutions {
         }
         return count;
     }
-
     // https://leetcode.com/problems/single-element-in-a-sorted-array/
     // I have kept this method in as an example of a naive approach to the algorithm. A much improved solution is below.
     public static int singleNonDuplicateSolution1(int[] nums) {
@@ -1103,41 +1085,62 @@ public class Solutions {
 //        char[][] board = new char[][]
     }
 
-    // https://leetcode.com/problems/non-decreasing-array/
-    public static boolean checkPossibility(int[] nums) {
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] < nums[i - 1] && (i == 1 || nums[i] >= nums[i - 2])) {
-                return checkPossibility(nums, i + 1, nums[i]);
-            } else if (nums[i] < nums[i - 1]) {
-                return checkPossibility(nums, i + 1, nums[i - 1]);
-            }
+    public static String reverseWords(String s) {
+        String[] splitString = s.split(" ");
+        for (int i = 0 ; i < splitString.length ; i++) {
+            StringBuilder stringBuilder = new StringBuilder();
+           for(int k = splitString[i].length() - 1; k >=0 ; k--){
+               stringBuilder.append(splitString[i].charAt(k));
+           }
+           splitString[i] = stringBuilder.toString();
         }
-        return true;
+        return String.join(" ", splitString);
     }
 
     @Test
-    public void reverseWordsTest() {
+    public void reverseWordsTest(){
         Assert.assertEquals("s'teL ekat edoCteeL tsetnoc", reverseWords("Let's take LeetCode contest"));
     }
 
-    private static boolean checkPossibility(int[] nums, int start, int num) {
-        int prev = num;
-        for (int i = start; i < nums.length; i++) {
-            if (nums[i] < prev)
-                return false;
-            prev = nums[i];
+        public static int compareVersion(String version1, String version2) {
+            String[] version1Array = version1.split("\\.");
+            String[] version2Array = version2.split("\\.");
+            int min = Math.min(version1Array.length, version2Array.length);
+            int count = 0;
+                for (int i = 0; i < min; i++) {
+                    if (Integer.parseInt(version1Array[i]) < Integer.parseInt(version2Array[i])){
+                        return -1;
+                    }
+                    if (Integer.parseInt(version1Array[i]) > Integer.parseInt(version2Array[i])){
+                        return 1;
+                    }
+                    count++;
+                }
+            if(version2Array.length > version1Array.length){
+                for(int i = count ; i < version2Array.length ; i++){
+                    if (Integer.parseInt(version2Array[i]) != 0){
+                        return -1;
+                    }
+                }
+            }
+            if(version1Array.length > version2Array.length){
+                for(int i = count ; i < version1Array.length ; i++){
+                    if (Integer.parseInt(version1Array[i]) != 0){
+                        return 1;
+                    }
+                }
+            }
+            return 0;
         }
-        return true;
-    }
 
     @Test
-    public void compareVersionTest() {
+    public void compareVersionTest(){
         Assert.assertEquals(-1, compareVersion("0.1", "1.1"));
         Assert.assertEquals(1, compareVersion("1.0.1", "1"));
         Assert.assertEquals(-1, compareVersion("7.5.2.4", "7.5.3"));
         Assert.assertEquals(0, compareVersion("01", "1"));
         Assert.assertEquals(-1, compareVersion("1", "1.1"));
-        Assert.assertEquals(0, compareVersion("1.0", "1"));
+        Assert.assertEquals(0, compareVersion("1.0", "1") );
     }
 
     // https://leetcode.com/problems/shuffle-string/discuss/765424/Easy-Approach-or-Java-Solution
@@ -1200,44 +1203,27 @@ public class Solutions {
         Assert.assertEquals(input, selfDividingNumbers(1, 22));
     }
 
-    //https://leetcode.com/problems/sort-array-by-parity/
-    public static int[] sortArrayByParity(int[] A) {
-        ArrayList<Integer> evens = new ArrayList<>();
-        ArrayList<Integer> odds = new ArrayList<>();
-        for (int a : A) {
-            if (a % 2 == 0) {
-                evens.add(a);
-            } else {
-                odds.add(a);
+    // https://leetcode.com/problems/non-decreasing-array/
+    public static boolean checkPossibility(int[] nums) {
+        for(int i = 1;i<nums.length;i++){
+            if(nums[i] < nums[i-1] && (i == 1 || nums[i] >= nums[i-2]) ){
+                return checkPossibility(nums, i+1, nums[i]);
+            }
+            else if(nums[i] < nums[i-1]){
+                return checkPossibility(nums, i+1, nums[i-1]);
             }
         }
-        evens.addAll(odds);
-        for (int i = 0; i < evens.size(); i++) {
-            A[i] = evens.get(i);
-        }
-        return A;
+        return true;
     }
 
-    public static int maxNumberOfBalloons(String text) {
-        int b = 0;
-        int a = 0;
-        int l = 0;
-        int o = 0;
-        int n = 0;
-
-        for (int i = 0; i < text.length(); i++) {
-            if (text.charAt(i) == 'b') b++;
-            if (text.charAt(i) == 'a') a++;
-            if (text.charAt(i) == 'l') l++;
-            if (text.charAt(i) == 'o') o++;
-            if (text.charAt(i) == 'n') n++;
-
+    private static boolean checkPossibility(int [] nums, int start, int num){
+        int prev = num;
+        for(int i = start;i<nums.length;i++){
+            if(nums[i] < prev)
+                return false;
+            prev = nums[i];
         }
-        l = l / 2;
-        o = o / 2;
-
-        return Math.min(Math.min(o, l), Math.min(Math.min(b, a), n));
-
+        return true;
     }
 
     @Test
@@ -1382,40 +1368,37 @@ public class Solutions {
         if(root.val == val){
             return root;
         }
-        if (val > root.val) {
+        if(val > root.val) {
             return searchBST(root.right, val);
         }
-        if (val < root.val) {
+        if(val < root.val) {
             return searchBST(root.left, val);
         }
         return root;
     }
 
-    // https://leetcode.com/problems/unique-number-of-occurrences/
-    public static boolean uniqueOccurrences(int[] arr) {
-
-        HashSet<Integer> counts = new HashSet<>();
-        Arrays.sort(arr);
-        int temp = arr[0];
-        counts.add(arr[0]);
-        int occurrences = 1;
-        for (int i = 1; i < arr.length; i++) {
-            if (arr[i] == temp) {
-                occurrences++;
-            } else {
-                if (!counts.add(occurrences)) {
-                    return false;
-                }
-                temp = arr[i];
-                occurrences = 1;
+    //https://leetcode.com/problems/sort-array-by-parity/
+    public static int[] sortArrayByParity(int[] A){
+        ArrayList<Integer> evens = new ArrayList<>();
+        ArrayList<Integer> odds = new ArrayList<>();
+        for(int a : A){
+            if(a % 2 == 0){
+                evens.add(a);
+            }
+            else{
+                odds.add(a);
             }
         }
-        return true;
+        evens.addAll(odds);
+        for(int i = 0; i < evens.size(); i++){
+            A[i] = evens.get(i);
+        }
+        return A;
     }
 
     @Test
-    public void sortArrayByParity() {
-        Assert.assertArrayEquals(new int[]{2, 4, 3, 1}, sortArrayByParity(new int[]{3, 1, 2, 4}));
+    public void sortArrayByParity(){
+        Assert.assertArrayEquals(new int[]{2,4,3,1}, sortArrayByParity(new int[]{3,1,2,4}));
     }
 
     // https://leetcode.com/problems/valid-palindrome/
@@ -1427,69 +1410,80 @@ public class Solutions {
     }
 
     @Test
-    public void validPalindromeTest() {
+    public void validPalindromeTest(){
         Assert.assertTrue(isPalindrome("A man, a plan, a canal: Panama"));
         Assert.assertFalse(isPalindrome("race a car"));
     }
 
-    public static List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
-
-        if (root == null) {
-            return result;
+    // https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/
+    public int numberOfSteps (int num) {
+        int count = 0;
+        while(num != 0){
+            if(num % 2 == 0){
+                count++;
+                num = num / 2;
+            }
+            else{
+                count++;
+                num--;
+            }
         }
-
-        result.add(root.val);
-        if (root.left != null) {
-            result.addAll(preorderTraversal(root.left));
-        }
-        if (root.right != null) {
-            result.addAll(preorderTraversal(root.right));
-        }
-
-        return result;
+        return count;
     }
 
     @Test
-    public void numberOfStepsTest() {
+    public void numberOfStepsTest(){
         Assert.assertEquals(6, numberOfSteps(14));
         Assert.assertEquals(4, numberOfSteps(8));
         Assert.assertEquals(12, numberOfSteps(123));
 
     }
 
-    @Test
-    public void islandPerimeterTest() {
-        int[][] values = new int[4][4];
-        values[0][1] = 1;
-        values[1][0] = 1;
-        values[1][1] = 1;
-        values[1][1] = 1;
-        values[1][2] = 1;
-        values[2][1] = 1;
-        values[3][0] = 1;
-        values[3][1] = 1;
-        int[][] singleValue = new int[1][4];
-        singleValue[0][2] = 1;
-        Assert.assertEquals(16, islandPerimeter(values));
-        Assert.assertEquals(4, islandPerimeter(singleValue));
+    // https://leetcode.com/problems/sort-array-by-parity-ii/
+    public int[] sortArrayByParityII(int[] A) {
+
+        List<Integer> evens = new ArrayList<>();
+        List<Integer> odds = new ArrayList<>();
+        int evensPointer = 0;
+        int oddsPointer = 0;
+
+        for (int j : A) {
+            if (j % 2 == 0) {
+                evens.add(j);
+            } else odds.add(j);
+        }
+        for (int i = 0; i < A.length; i++) {
+            if(i % 2 == 0){
+                A[i] = evens.get(evensPointer);
+                evensPointer++;
+            }
+            else{
+                A[i] = odds.get(oddsPointer);
+                oddsPointer++;
+            }
+        }
+        return A;
     }
 
     @Test
-    public void sortArrayByParityII() {
-        Assert.assertArrayEquals(new int[]{4, 5, 2, 7}, sortArrayByParityII(new int[]{4, 2, 5, 7}));
+    public void sortArrayByParityII(){
+        Assert.assertArrayEquals(new int[]{4,5,2,7},sortArrayByParityII(new int[]{4,2,5,7}));
     }
 
-    //    https://leetcode.com/problems/shuffle-the-array/submissions/
-    @Test
-    public void shuffleTest() {
-        int[] expected = new int[]{2, 3, 5, 4, 1, 7};
-        int[] actual = shuffle(new int[]{2, 5, 1, 3, 4, 7}, 3);
-        Assert.assertArrayEquals(expected, actual);
+    // https://leetcode.com/problems/number-complement/
+    public int findComplement(int num) {
+        String binary = Integer.toBinaryString(num);
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0;  i <binary.length(); i++ ){
+            if(binary.charAt(i) == '0'){
+                sb.append('1');
+            }else sb.append('0');
+        }
+        return Integer.parseInt(sb.toString(), 2);
     }
 
     @Test
-    public void findComplementTest() {
+    public void findComplementTest(){
         Assert.assertEquals(2, findComplement(5));
     }
 
@@ -1588,100 +1582,123 @@ public class Solutions {
     }
 
     @Test
-    public void reverseTest() {
+    public void reverseTest(){
         Assert.assertEquals(321, reverse(123));
         Assert.assertEquals(-321, reverse(-123));
         Assert.assertEquals(21, reverse(120));
-    }
-
-    // https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/
-    public int numberOfSteps(int num) {
-        int count = 0;
-        while (num != 0) {
-            if (num % 2 == 0) {
-                count++;
-                num = num / 2;
-            } else {
-                count++;
-                num--;
-            }
-        }
-        return count;
-    }
-
-    @Test
-    public void findSpecialIntegerTest() {
-        Assert.assertEquals(6, findSpecialInteger(new int[]{1, 2, 2, 6, 6, 6, 6, 7, 10}));
-        Assert.assertEquals(3, findSpecialInteger(new int[]{1, 2, 3, 3}));
-    }
-
-    // https://leetcode.com/problems/sort-array-by-parity-ii/
-    public int[] sortArrayByParityII(int[] A) {
-
-        List<Integer> evens = new ArrayList<>();
-        List<Integer> odds = new ArrayList<>();
-        int evensPointer = 0;
-        int oddsPointer = 0;
-
-        for (int j : A) {
-            if (j % 2 == 0) {
-                evens.add(j);
-            } else odds.add(j);
-        }
-        for (int i = 0; i < A.length; i++) {
-            if (i % 2 == 0) {
-                A[i] = evens.get(evensPointer);
-                evensPointer++;
-            } else {
-                A[i] = odds.get(oddsPointer);
-                oddsPointer++;
-            }
-        }
-        return A;
-    }
-
-    @Test
-    public void maxNumberOfBalloonsTest() {
-        Assert.assertEquals(1, maxNumberOfBalloons("nlaebolko"));
-        Assert.assertEquals(2, maxNumberOfBalloons("loonbalxballpoon"));
-        Assert.assertEquals(0, maxNumberOfBalloons("leetcode"));
-    }
-
-    // https://leetcode.com/problems/number-complement/
-    public int findComplement(int num) {
-        String binary = Integer.toBinaryString(num);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < binary.length(); i++) {
-            if (binary.charAt(i) == '0') {
-                sb.append('1');
-            } else sb.append('0');
-        }
-        return Integer.parseInt(sb.toString(), 2);
-    }
-
-    @Test
-    public void maxPowerTest() {
-        Assert.assertEquals(2, maxPower("leetcode"));
-        Assert.assertEquals(5, maxPower("abbcccddddeeeeedcba"));
-        Assert.assertEquals(5, maxPower("triplepillooooow"));
     }
 
     public int findSpecialInteger(int[] arr) {
         int twentyFive = (int) (arr.length * 0.25);
         int count = 0;
         int currentInt = arr[0];
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == currentInt) {
+        for(int i = 0 ; i < arr.length ; i++){
+            if(arr[i] == currentInt){
                 count++;
-                if (count > twentyFive) {
+                if(count > twentyFive){
                     return currentInt;
                 }
-            } else {
+            }
+            else{
                 count = 0;
                 currentInt = arr[i + 1];
             }
         }
-        return -1;
+    return -1;
+    }
+
+    @Test
+    public void findSpecialIntegerTest(){
+        Assert.assertEquals(6, findSpecialInteger(new int[]{1,2,2,6,6,6,6,7,10}));
+        Assert.assertEquals(3, findSpecialInteger(new int[]{1,2,3,3}));
+    }
+
+    public static int maxNumberOfBalloons(String text) {
+        int b = 0;
+        int a = 0;
+        int l = 0;
+        int o = 0;
+        int n = 0;
+
+        for(int i = 0 ; i < text.length() ; i++){
+            if(text.charAt(i) == 'b') b++;
+            if(text.charAt(i) == 'a') a++;
+            if(text.charAt(i) == 'l') l++;
+            if(text.charAt(i) == 'o') o++;
+            if(text.charAt(i) == 'n') n++;
+
+            }
+        l = l / 2;
+        o = o / 2;
+
+        return Math.min(Math.min(o, l), Math.min(Math.min(b, a), n));
+
+    }
+
+    @Test
+    public void maxNumberOfBalloonsTest(){
+        Assert.assertEquals(1, maxNumberOfBalloons("nlaebolko"));
+        Assert.assertEquals(2, maxNumberOfBalloons("loonbalxballpoon"));
+        Assert.assertEquals(0, maxNumberOfBalloons("leetcode"));
+    }
+
+    public int maxPower(String s) {
+        char currentCharacter = s.charAt(0);
+        int count = 1;
+        int max = 1;
+        for(int i = 1; i < s.length(); i++){
+            if(currentCharacter == s.charAt(i)){
+                count++;
+            }
+            else{
+                currentCharacter = s.charAt(i);
+                count = 1;
+            }
+            if(count > max){
+                max = count;
+            }
+        }
+        return max;
+    }
+
+    @Test
+    public void maxPowerTest(){
+        Assert.assertEquals(2, maxPower("leetcode"));
+        Assert.assertEquals(5, maxPower("abbcccddddeeeeedcba"));
+        Assert.assertEquals(5, maxPower("triplepillooooow"));
+    }
+
+    // https://leetcode.com/problems/majority-element/
+    public int majorityElement(int[] nums) {
+
+        if(nums.length == 1){
+            return nums[0];
+        }
+
+        List<Integer> numsList = new ArrayList<>();
+        for(int x : nums){
+            numsList.add(x);
+        }
+        Collections.sort(numsList);
+        int count = 1;
+        int max = 0;
+        int current = numsList.get(0);
+        int maxItem = 0;
+
+        for(int i = 1; i < numsList.size() ; i++){
+            if(numsList.get(i) == current){
+                count++;
+            }
+            else{
+                current = numsList.get(i);
+                count = 1;
+            }
+            if(count > max){
+                max = count;
+                maxItem = numsList.get(i);
+            }
+        }
+        return maxItem;
     }
 
     @Test
@@ -1736,22 +1753,27 @@ public class Solutions {
         Assert.assertEquals(4, numSplits("aaaaa"));
     }
 
-    public int maxPower(String s) {
-        char currentCharacter = s.charAt(0);
-        int count = 1;
-        int max = 1;
-        for (int i = 1; i < s.length(); i++) {
-            if (currentCharacter == s.charAt(i)) {
-                count++;
-            } else {
-                currentCharacter = s.charAt(i);
-                count = 1;
+    // https://leetcode.com/problems/unique-number-of-occurrences/
+    public static boolean uniqueOccurrences(int[] arr) {
+
+        HashSet<Integer> counts = new HashSet<>();
+        Arrays.sort(arr);
+        int temp = arr[0];
+        counts.add(arr[0]);
+        int occurrences = 1;
+        for(int i = 1 ; i < arr.length ; i++){
+            if(arr[i] == temp){
+                occurrences++;
             }
-            if (count > max) {
-                max = count;
+            else{
+                if(!counts.add(occurrences)){
+                    return false;
+                }
+                temp = arr[i];
+                occurrences = 1;
             }
         }
-        return max;
+        return true;
     }
 
     @Test
@@ -1761,37 +1783,23 @@ public class Solutions {
         Assert.assertTrue(uniqueOccurrences(new int[]{-3, 0, 1, -3, 1, 1, 1, -3, 10, 0}));
     }
 
-    // https://leetcode.com/problems/majority-element/
-    public int majorityElement(int[] nums) {
+    public static List<Integer> preorderTraversal(TreeNode root) {
+            List<Integer> result = new ArrayList<>();
 
-        if (nums.length == 1) {
-            return nums[0];
-        }
-
-        List<Integer> numsList = new ArrayList<>();
-        for (int x : nums) {
-            numsList.add(x);
-        }
-        Collections.sort(numsList);
-        int count = 1;
-        int max = 0;
-        int current = numsList.get(0);
-        int maxItem = 0;
-
-        for (int i = 1; i < numsList.size(); i++) {
-            if (numsList.get(i) == current) {
-                count++;
-            } else {
-                current = numsList.get(i);
-                count = 1;
+            if(root == null){
+                return result;
             }
-            if (count > max) {
-                max = count;
-                maxItem = numsList.get(i);
+
+            result.add(root.val);
+            if(root.left != null){
+                result.addAll(preorderTraversal(root.left));
             }
+            if(root.right != null){
+                result.addAll(preorderTraversal(root.right));
+            }
+
+            return result;
         }
-        return maxItem;
-    }
 
     @Test
     public void preorderTraversalTest(){
@@ -1820,13 +1828,15 @@ public class Solutions {
         Assert.assertEquals(9999, maximum69Number(9996));
     }
 
+
     // https://leetcode.com/problems/generate-a-string-with-characters-that-have-odd-counts/
     public String generateTheString(int n) {
         StringBuilder sb = new StringBuilder();
-        if (n % 2 == 0) {
+        if(n % 2 == 0){
             sb.append("a".repeat(Math.max(0, n - 1)));
             sb.append('z');
-        } else {
+        }
+        else {
             sb.append("a".repeat(Math.max(0, n)));
         }
         return sb.toString();
@@ -1944,6 +1954,36 @@ public class Solutions {
     public void judgeCircleTest() {
         Assert.assertTrue(judgeCircle("UD"));
         Assert.assertFalse(judgeCircle("LL"));
+    }
+
+    public String toGoatLatin(String S) {
+        String[] sArray = S.split(" ");
+
+        for(int i = 0; i < sArray.length ; i++){
+            if(sArray[i].toLowerCase().charAt(0) == 'a' || sArray[i].toLowerCase().charAt(0) == 'e' ||
+                    sArray[i].toLowerCase().charAt(0) == 'i' || sArray[i].toLowerCase().charAt(0) == 'o' ||
+                    sArray[i].toLowerCase().charAt(0) == 'u'){
+                sArray[i] = sArray[i].concat("ma");
+            }
+            else{
+
+                ArrayList<String> consonants = new ArrayList<>();
+                Collections.addAll(consonants, sArray[i].split(""));
+                String temp = consonants.get(0);
+                consonants.remove(0);
+                consonants.add(temp + "ma");
+                sArray[i] = String.join("", consonants);
+            }
+            for(int k = 0; k < i + 1 ; k++) {
+                sArray[i] = sArray[i].concat("a");
+            }
+        }
+        return String.join(" ", sArray);
+    }
+
+    @Test
+    public void goatLatinTest(){
+        Assert.assertEquals("Imaa peaksmaaa oatGmaaaa atinLmaaaaa", toGoatLatin("I speak Goat Latin"));
     }
 
     public int[] nextGreaterElement(int[] nums1, int[] nums2) {

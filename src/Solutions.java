@@ -2019,6 +2019,29 @@ public class Solutions {
         return root.val + rangeSumBST(root.right, L, R) + rangeSumBST(root.left, L, R); // count in both children.
     }
 
+    // https://leetcode.com/problems/minimum-absolute-difference/
+    public List<List<Integer>> minimumAbsDifference(int[] arr) {
+        Arrays.sort(arr);
+        int minDif = arr[1] - arr[0];
+        for (int i = 0; i < arr.length - 1; i++) {
+            minDif = Math.min(arr[i + 1] - arr[i], minDif);
+        }
+        ArrayList<List<Integer>> pairs = new ArrayList<>();
+        for (int k = 0; k < arr.length - 1; k++) {
+            if (arr[k + 1] - arr[k] == minDif) {
+                pairs.add(Arrays.asList(arr[k], arr[k + 1]));
+            }
+        }
+        return pairs;
+    }
+
+    @Test
+    public void minimumAbsDifferenceTest() {
+        ArrayList<List<Integer>> expected = new ArrayList<>();
+        expected.add(Arrays.asList(1, 3));
+        Assert.assertEquals(expected, minimumAbsDifference(new int[]{1, 3, 6, 10, 15}));
+    }
+
 
     public static void main(String[] args) {
 

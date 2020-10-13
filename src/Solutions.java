@@ -2071,6 +2071,17 @@ public class Solutions {
         Assert.assertFalse(containsDuplicate(new int[]{1, 2, 3, 4}));
     }
 
+    public boolean detectCapitalUse(String word) {
+        return word.equals(word.toUpperCase()) || word.equals(word.toLowerCase())
+                || word.equals(word.substring(0, 1).toUpperCase().concat(word.substring(1)).toLowerCase());
+    }
+
+    @Test
+    public void detectCapitalUseTest() {
+        Assert.assertTrue(detectCapitalUse("USA"));
+        Assert.assertFalse(detectCapitalUse("FlaG"));
+    }
+
 
     public static void main(String[] args) {
     }

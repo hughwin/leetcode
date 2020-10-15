@@ -2073,13 +2073,47 @@ public class Solutions {
 
     public boolean detectCapitalUse(String word) {
         return word.equals(word.toUpperCase()) || word.equals(word.toLowerCase())
-                || word.equals(word.substring(0, 1).toUpperCase().concat(word.substring(1)).toLowerCase());
+                || word.equals(word.toUpperCase().substring(0, 1).concat(word.toLowerCase().substring(1)));
     }
 
     @Test
     public void detectCapitalUseTest() {
         Assert.assertTrue(detectCapitalUse("USA"));
         Assert.assertFalse(detectCapitalUse("FlaG"));
+        Assert.assertTrue(detectCapitalUse("Leetcode"));
+    }
+
+    public int search(int[] nums, int target) {
+
+        if (nums.length == 1) {
+            if (target == nums[0]) {
+                return 0;
+            } else return -1;
+        }
+
+        int leftBound = 0;
+        int rightBound = nums.length - 1;
+        while (true) {
+            if (rightBound - leftBound == 1) {
+                if (nums[rightBound] == target) {
+                    return rightBound;
+                } else if (nums[leftBound] == target) {
+                    return leftBound;
+                }
+                return -1;
+            }
+            if (nums[(leftBound + rightBound) / 2] < target) {
+                leftBound = (leftBound + rightBound) / 2;
+            } else {
+                rightBound = (leftBound + rightBound) / 2;
+            }
+        }
+    }
+
+    @Test
+    public void searchTest() {
+        int[] input = new int[]{-1, 0, 3, 5, 9, 12};
+        Assert.assertEquals(4, search(input, 9));
     }
 
 

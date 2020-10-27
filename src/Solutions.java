@@ -2116,6 +2116,22 @@ public class Solutions {
         Assert.assertEquals(4, search(input, 9));
     }
 
+    public int diagonalSum(int[][] mat) {
+        int sum = 0;
+        int j = mat.length -1;
+        for(int i = 0; i < mat.length; i++)
+        {
+            sum += mat[i][i];
+            if(j!=i)
+                sum+= mat[i][j];
+            --j;
+
+        }
+        return sum;
+    }
+
+
+
 
     public static void main(String[] args) {
     }

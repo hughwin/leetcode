@@ -2130,6 +2130,53 @@ public class Solutions {
         return sum;
     }
 
+    public String[] uncommonFromSentences(String A, String B) {
+        HashMap<String, Integer> unique = new HashMap<>();
+
+        String[] aArray = A.split(" ");
+        String[] bArray = B.split(" ");
+
+        for(String x : aArray){
+            if(unique.containsKey(x)){
+                unique.put(x, unique.get(x) + 1);
+            }
+            else{
+                unique.put(x, 1);
+            }
+        }
+
+        for(String x : bArray){
+            if(unique.containsKey(x)){
+                unique.put(x, unique.get(x) + 1);
+            }
+            else{
+                unique.put(x, 1);
+            }
+        }
+
+
+        ArrayList<String> returnArrayList = new ArrayList<>();
+
+        for (String x : unique.keySet()){
+            if(unique.get(x) == 1){
+                returnArrayList.add(x);
+            }
+        }
+
+        String[] returnArray = new String[returnArrayList.size()];
+        returnArrayList.toArray(returnArray);
+
+        return returnArray;
+
+    }
+
+    @Test
+    public void uncommonFromSentencesTest() {
+        Assert.assertArrayEquals(new String[]{"sweet", "sour"}, uncommonFromSentences("this is sweet", "this is sour"));
+        Assert.assertArrayEquals(new String[]{"a", "b"}, uncommonFromSentences("a d c e", "b d c e"));
+
+    }
+
 
 
 

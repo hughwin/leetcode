@@ -2116,6 +2116,108 @@ public class Solutions {
         Assert.assertEquals(4, search(input, 9));
     }
 
+    public int diagonalSum(int[][] mat) {
+        int sum = 0;
+        int j = mat.length - 1;
+        for (int i = 0; i < mat.length; i++) {
+            sum += mat[i][i];
+            if (j != i)
+                sum += mat[i][j];
+            --j;
+
+        }
+        return sum;
+    }
+
+    public String[] uncommonFromSentences(String A, String B) {
+        HashMap<String, Integer> unique = new HashMap<>();
+
+        String[] aArray = A.split(" ");
+        String[] bArray = B.split(" ");
+
+        for (String x : aArray) {
+            if (unique.containsKey(x)) {
+                unique.put(x, unique.get(x) + 1);
+            } else {
+                unique.put(x, 1);
+            }
+        }
+
+        for (String x : bArray) {
+            if (unique.containsKey(x)) {
+                unique.put(x, unique.get(x) + 1);
+            } else {
+                unique.put(x, 1);
+            }
+        }
+
+
+        ArrayList<String> returnArrayList = new ArrayList<>();
+
+        for (String x : unique.keySet()) {
+            if (unique.get(x) == 1) {
+                returnArrayList.add(x);
+            }
+        }
+
+        String[] returnArray = new String[returnArrayList.size()];
+        returnArrayList.toArray(returnArray);
+
+        return returnArray;
+
+    }
+
+    @Test
+    public void uncommonFromSentencesTest() {
+        Assert.assertArrayEquals(new String[]{"sweet", "sour"}, uncommonFromSentences("this is sweet", "this is sour"));
+        Assert.assertArrayEquals(new String[]{"a", "b"}, uncommonFromSentences("a d c e", "b d c e"));
+
+    }
+
+    public String reformat(String s) {
+        ArrayList<Character> digits = new ArrayList<>();
+        ArrayList<Character> letters = new ArrayList<>();
+
+        for(int i = 0 ; i < s.length() ; i++){
+            if (Character.isDigit(s.charAt(i))){
+                digits.add(s.charAt(i));
+            }
+            else letters.add(s.charAt(i));
+        }
+
+        StringBuilder sb = new StringBuilder();
+        boolean even = false;
+
+        if(digits.size() > letters.size()){
+            even = true;
+        }
+
+        for(int i = 0 ; i < s.length() ; i++){
+            if(even){
+                if(digits.isEmpty()){
+                    return "";
+                }
+                sb.append(digits.get(0));
+                digits.remove(0);
+                even = false;
+            }
+            else{
+                if(letters.isEmpty()){
+                    return "";
+                }
+                sb.append(letters.get(0));
+                letters.remove(0);
+                even = true;
+            }
+        }
+        return sb.toString();
+    }
+
+    @Test
+    public void reformatTest(){
+        Assert.assertEquals("0a1b2c", reformat("ab123"));
+    }
+
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
 
         if (l1 == null && l2 == null) {

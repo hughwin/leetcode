@@ -2179,10 +2179,9 @@ public class Solutions {
         ArrayList<Character> letters = new ArrayList<>();
 
         for(int i = 0 ; i < s.length() ; i++){
-            if (Character.isDigit(s.charAt(i))){
+            if (Character.isDigit(s.charAt(i))) {
                 digits.add(s.charAt(i));
-            }
-            else letters.add(s.charAt(i));
+            } else letters.add(s.charAt(i));
         }
 
         StringBuilder sb = new StringBuilder();
@@ -2193,16 +2192,15 @@ public class Solutions {
         }
 
         for(int i = 0 ; i < s.length() ; i++){
-            if(even){
-                if(digits.isEmpty()){
+            if (even) {
+                if (digits.isEmpty()) {
                     return "";
                 }
                 sb.append(digits.get(0));
                 digits.remove(0);
                 even = false;
-            }
-            else{
-                if(letters.isEmpty()){
+            } else {
+                if (letters.isEmpty()) {
                     return "";
                 }
                 sb.append(letters.get(0));
@@ -2256,6 +2254,30 @@ public class Solutions {
             currentNode.next = l1;
         }
         return listHead;
+    }
+
+    public int[] duplicateZeros(int[] arr) {
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == 0 && i != arr.length - 1) {
+                int[] copy = Arrays.copyOfRange(arr, i + 1, arr.length);
+                arr[i + 1] = 0;
+                int index = 0;
+                for (int k = i + 2; k < arr.length; k++) {
+                    arr[k] = copy[index];
+                    index++;
+                }
+                i++;
+            }
+        }
+        return arr;
+    }
+
+    @Test
+    public void duplicateZerosTest() {
+        Assert.assertArrayEquals(new int[]{1, 0, 0, 2, 3, 0, 0, 4}, duplicateZeros(new int[]{1, 0, 2, 3, 0, 4, 5, 0}));
+        Assert.assertArrayEquals(new int[]{0, 0, 0, 0, 0}, duplicateZeros(new int[]{0, 0, 0, 0, 0}));
+
     }
 
 

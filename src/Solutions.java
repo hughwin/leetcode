@@ -2280,8 +2280,41 @@ public class Solutions {
 
     }
 
-
     public static void main(String[] args) {
+
+    }
+
+    public int longestPalindrome(String s) {
+
+        if (s == null) {
+            return 0;
+        }
+
+        HashMap<Character, Integer> occurrences = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (occurrences.containsKey(s.charAt(i))) {
+                occurrences.put(s.charAt(i), occurrences.get(s.charAt(i)) + 1);
+            } else {
+                occurrences.put(s.charAt(i), 1);
+            }
+        }
+        int one = 0;
+        int count = 0;
+        for (int x : occurrences.values()) {
+            if (x % 2 == 1) {
+                one = 1;
+                count += x - 1;
+            } else count += x;
+        }
+        return count + one;
+    }
+
+    @Test
+    public void longestPalindromeTest() {
+        Assert.assertEquals(983, longestPalindrome("civilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth"));
+        Assert.assertEquals(7, longestPalindrome("abccccdd"));
+        Assert.assertEquals(3, longestPalindrome("ccc"));
+
     }
 }
 

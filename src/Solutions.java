@@ -2280,10 +2280,6 @@ public class Solutions {
 
     }
 
-    public static void main(String[] args) {
-
-    }
-
     public int longestPalindrome(String s) {
 
         if (s == null) {
@@ -2316,5 +2312,46 @@ public class Solutions {
         Assert.assertEquals(3, longestPalindrome("ccc"));
 
     }
+
+    public static void main(String[] args) {
+        ParkingSystem parkingSystem = new ParkingSystem(1, 1, 1);
+        System.out.println(parkingSystem.addCar(1));
+        System.out.println(parkingSystem.addCar(1));
+
+    }
+
+    private static class ParkingSystem {
+
+        private final int small;
+        private final int medium;
+        private final int big;
+
+        private int currentSmall = 0;
+        private int currentMedium = 0;
+        private int currentBig = 0;
+
+        public ParkingSystem(int big, int medium, int small) {
+            this.big = big;
+            this.medium = medium;
+            this.small = small;
+        }
+
+        public boolean addCar(int carType) {
+            if (carType == 1 && currentBig < big) {
+                currentBig++;
+                return true;
+            }
+            if (carType == 2 && currentMedium < medium) {
+                currentMedium++;
+                return true;
+            }
+            if (carType == 3 && currentSmall < small) {
+                currentSmall++;
+                return true;
+            } else return false;
+        }
+    }
+
+
 }
 

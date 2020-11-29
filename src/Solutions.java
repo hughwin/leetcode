@@ -2313,12 +2313,29 @@ public class Solutions {
 
     }
 
-    public static void main(String[] args) {
-        ParkingSystem parkingSystem = new ParkingSystem(1, 1, 1);
-        System.out.println(parkingSystem.addCar(1));
-        System.out.println(parkingSystem.addCar(1));
-
+    public List<Integer> minSubsequence(int[] nums) {
+        Arrays.sort(nums);
+        int n = nums.length, sum = 0, rSum = 0;
+        for (int i : nums) sum += i;
+        List<Integer> res = new ArrayList<>();
+        for (int i = n - 1; i >= 0; i--) {
+            rSum += nums[i];
+            res.add(nums[i]);
+            if (rSum > sum - rSum) return res;
+        }
+        return new ArrayList<>();
     }
+
+    @Test
+    public void minSubsequenceHelp() {
+        int[] actual = new int[]{4, 4, 7, 6, 7};
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.add(7);
+        expected.add(7);
+        expected.add(6);
+        Assert.assertEquals(expected, minSubsequence(actual));
+    }
+
 
     private static class ParkingSystem {
 
@@ -2350,8 +2367,8 @@ public class Solutions {
                 return true;
             } else return false;
         }
-    }
 
+    }
 
 }
 

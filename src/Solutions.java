@@ -2370,5 +2370,31 @@ public class Solutions {
 
     }
 
+    public int numJewelsInStones(String jewels, String stones) {
+        int count = 0;
+
+        HashSet<Character> jewelSigns = new HashSet<>();
+
+        for(int i = 0; i < jewels.length() ; i++){
+            jewelSigns.add(jewels.charAt(i));
+        }
+
+        for(int k = 0; k < stones.length(); k++){
+            if(jewelSigns.contains(stones.charAt(k))) count++;
+        }
+    return count;
+    }
+
+    @Test
+    public void numJewelsInStonesTest(){
+        Assert.assertEquals(3, numJewelsInStones("aA", "aAAbbbb"));
+        Assert.assertEquals(0, numJewelsInStones("z", "ZZ"));
+    }
+
+
+    public static void main(String[] args) {
+
+    }
+
 }
 

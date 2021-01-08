@@ -2386,13 +2386,29 @@ public class Solutions {
     }
 
     @Test
-    public void numJewelsInStonesTest(){
+    public void numJewelsInStonesTest() {
         Assert.assertEquals(3, numJewelsInStones("aA", "aAAbbbb"));
         Assert.assertEquals(0, numJewelsInStones("z", "ZZ"));
     }
 
 
     public static void main(String[] args) {
+
+    }
+
+    public double trimMean(int[] arr) {
+        Arrays.sort(arr);
+        int n = arr.length;
+        double sum = 0;
+        for (int i = n / 20; i < n - n / 20; i++)
+            sum += arr[i];
+        return sum / (n - n / 10);
+    }
+
+    @Test
+    public void trimMeanTest() {
+        Assert.assertEquals(2.0, trimMean(new int[]{1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3}), .001);
+        Assert.assertEquals(4.0, trimMean(new int[]{6, 2, 7, 5, 1, 2, 0, 3, 10, 2, 5, 0, 5, 5, 0, 8, 7, 6, 8, 0}), .001);
 
     }
 

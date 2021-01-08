@@ -2412,5 +2412,25 @@ public class Solutions {
 
     }
 
+    public char findTheDifference(String s, String t) {
+        char[] original = s.toCharArray();
+        char[] additional = t.toCharArray();
+        Arrays.sort(original);
+        Arrays.sort(additional);
+
+        for (int i = 0; i < t.length(); i++) {
+            if (i == t.length() - 1) return additional[i];
+            if (original[i] != additional[i]) return additional[i];
+        }
+        return 0;
+    }
+
+    @Test
+    public void findTheDifferenceTest() {
+        Assert.assertEquals('e', findTheDifference("abcd", "abcde"));
+        Assert.assertEquals('a', findTheDifference("a", "aa"));
+
+    }
+
 }
 

@@ -2432,5 +2432,38 @@ public class Solutions {
 
     }
 
+
+    public int numUniqueEmails(String[] emails) {
+        for (int i = 0; i < emails.length; i++) {
+            char[] email = emails[i].toCharArray();
+            for (int k = 0; k < email.length; k++) {
+                if (email[k] == '.') email[k] = '\0';
+                if (email[k] == '+') {
+                    do {
+                        email[k] = '\0';
+                        k++;
+                    }
+                    while (email[k] != '@');
+                }
+                if (email[k] == '@') break;
+            }
+            emails[i] = String.copyValueOf(email);
+        }
+        HashSet<String> unique = new HashSet<>();
+        for (String email : emails) {
+            email = email.replace("\0", "");
+            unique.add(email);
+        }
+        return unique.size();
+    }
+
+    @Test
+    public void numUniqueEmailsTest() {
+        String[] input = new String[]{"test.email+alex@leetcode.com", "test.e.mail+bob.cathy@leetcode.com", "testemail+david@lee.tcode.com"};
+        Assert.assertEquals(2, numUniqueEmails(input));
+    }
+
 }
+
+
 

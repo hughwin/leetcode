@@ -2475,6 +2475,25 @@ public class Solutions {
     public void busyStudentTest() {
         Assert.assertEquals(1, busyStudent(new int[]{1, 2, 3}, new int[]{3, 2, 7}, 4));
         Assert.assertEquals(5, busyStudent(new int[]{9, 8, 7, 6, 5, 4, 3, 2, 1}, new int[]{10, 10, 10, 10, 10, 10, 10, 10, 10}, 5));
+    }
+
+    public int[] finalPrices(int[] prices) {
+
+        for (int i = 0; i < prices.length; i++) {
+            for (int k = i + 1; k < prices.length; k++) {
+                if (prices[k] <= prices[i]) {
+                    prices[i] = prices[i] - prices[k];
+                    break;
+                }
+            }
+        }
+        return prices;
+    }
+
+    @Test
+    public void finalPricesTest() {
+        Assert.assertArrayEquals(new int[]{4, 2, 4, 2, 3}, finalPrices(new int[]{8, 4, 6, 2, 3}));
+        Assert.assertArrayEquals(new int[]{1, 2, 3, 4, 5}, finalPrices(new int[]{1, 2, 3, 4, 5}));
 
     }
 

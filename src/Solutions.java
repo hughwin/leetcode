@@ -2463,6 +2463,21 @@ public class Solutions {
         Assert.assertEquals(2, numUniqueEmails(input));
     }
 
+    public int busyStudent(int[] startTime, int[] endTime, int queryTime) {
+        int count = 0;
+        for (int i = 0; i < startTime.length; i++) {
+            if (queryTime >= startTime[i] && queryTime <= endTime[i]) count++;
+        }
+        return count;
+    }
+
+    @Test
+    public void busyStudentTest() {
+        Assert.assertEquals(1, busyStudent(new int[]{1, 2, 3}, new int[]{3, 2, 7}, 4));
+        Assert.assertEquals(5, busyStudent(new int[]{9, 8, 7, 6, 5, 4, 3, 2, 1}, new int[]{10, 10, 10, 10, 10, 10, 10, 10, 10}, 5));
+
+    }
+
 }
 
 

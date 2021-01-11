@@ -2490,11 +2490,28 @@ public class Solutions {
         return prices;
     }
 
+
     @Test
     public void finalPricesTest() {
         Assert.assertArrayEquals(new int[]{4, 2, 4, 2, 3}, finalPrices(new int[]{8, 4, 6, 2, 3}));
         Assert.assertArrayEquals(new int[]{1, 2, 3, 4, 5}, finalPrices(new int[]{1, 2, 3, 4, 5}));
 
+    }
+
+    public int[] twoSum2(int[] numbers, int target) {
+        for (int i = 0; i < numbers.length; i++) {
+            for (int k = i + 1; k < numbers.length; k++) {
+                if (numbers[i] + numbers[k] == target) return new int[]{(i + 1), (k + 1)};
+                if (numbers[i] + numbers[k] > target) break;
+            }
+        }
+        return new int[]{0};
+    }
+
+    @Test
+    public void twoSum2Test() {
+        Assert.assertArrayEquals(new int[]{1, 2}, twoSum2(new int[]{2, 7, 11, 15}, 9));
+        Assert.assertArrayEquals(new int[]{1, 2}, twoSum2(new int[]{-1, 0}, -1));
     }
 
 }

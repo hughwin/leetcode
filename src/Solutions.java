@@ -2514,6 +2514,39 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{1, 2}, twoSum2(new int[]{-1, 0}, -1));
     }
 
+    public List<String> commonChars(String[] A) {
+        ArrayList<String> commonCharacters = new ArrayList<>();
+
+        for (int i = 1; i <= A[0].length(); i++) {
+            if (commonCharsHelper(A[0].subSequence(i - 1, i), A)) {
+                commonCharacters.add((A[0].subSequence(i - 1, i).toString()));
+                for (int k = 1; k < A.length; k++) A[k] = A[k].replaceFirst(A[0].substring(i - 1, i), "");
+            }
+        }
+
+        return commonCharacters;
+    }
+
+    public boolean commonCharsHelper(CharSequence character, String[] A) {
+        for (String s : A) {
+            if (!s.contains(character)) return false;
+        }
+        return true;
+    }
+
+    @Test
+    public void commonCharsTest() {
+        ArrayList<String> expected = new ArrayList<>(Arrays.asList("e", "l", "l"));
+        String[] input = new String[]{"bella", "label", "roller"};
+        Assert.assertEquals(expected, commonChars(input));
+
+        ArrayList<String> expected2 = new ArrayList<>(Arrays.asList("c", "o"));
+        String[] input2 = new String[]{"cool", "lock", "cook"};
+        Assert.assertEquals(expected2, commonChars(input2));
+
+
+    }
+
 }
 
 

@@ -2543,8 +2543,24 @@ public class Solutions {
         ArrayList<String> expected2 = new ArrayList<>(Arrays.asList("c", "o"));
         String[] input2 = new String[]{"cool", "lock", "cook"};
         Assert.assertEquals(expected2, commonChars(input2));
+    }
 
+    public int specialArray(int[] nums) {
+        Arrays.sort(nums);
+        int max = nums[nums.length - 1];
+        for (int i = max; i >= 0; i--) {
+            int count = 0;
+            for (int k = nums.length - 1; k >= 0; k--) {
+                if (nums[k] >= i) count++;
+            }
+            if (count == i) return i;
+        }
+        return -1;
+    }
 
+    @Test
+    public void specialArrayTest() {
+        Assert.assertEquals(2, specialArray(new int[]{3, 5}));
     }
 
 }

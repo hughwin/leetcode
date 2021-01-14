@@ -2563,6 +2563,33 @@ public class Solutions {
         Assert.assertEquals(2, specialArray(new int[]{3, 5}));
     }
 
+    public boolean canConstruct(String ransomNote, String magazine) {
+        HashMap<Character, Integer> characters = new HashMap<>();
+        char[] magazineCharacters = magazine.toCharArray();
+        for (char c : magazineCharacters) {
+            if (characters.containsKey(c)) characters.put(c, characters.get(c) + 1);
+            else characters.put(c, 1);
+        }
+
+
+        for (int i = 0; i < ransomNote.length(); i++) {
+            if (characters.containsKey(ransomNote.charAt(i))) {
+                if (characters.get(ransomNote.charAt(i)) == 0) return false;
+                else characters.put(ransomNote.charAt(i), characters.get(ransomNote.charAt(i)) - 1);
+            } else return false;
+        }
+        return true;
+    }
+
+    @Test
+    public void canConstructTest() {
+        Assert.assertFalse(canConstruct("aa", "ab"));
+        Assert.assertTrue(canConstruct("aa", "aa"));
+        Assert.assertFalse(canConstruct("bb", "aa"));
+
+
+    }
+
 }
 
 

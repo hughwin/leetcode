@@ -2612,6 +2612,35 @@ public class Solutions {
         Assert.assertFalse(checkRecord("PPALLL"));
     }
 
+
+    public int[][] matrixReshape(int[][] nums, int r, int c) {
+        if (nums == null) return null;
+        if (r * c != nums.length * nums[0].length) return nums;
+
+        int[][] newMatrix = new int[r][c];
+        int rCount = 0;
+        int cCount = 0;
+        for (int[] num : nums) {
+            for (int i : num) {
+                if (cCount == c) {
+                    cCount = 0;
+                    rCount++;
+                }
+                newMatrix[rCount][cCount] = i;
+                cCount++;
+            }
+        }
+        return newMatrix;
+    }
+
+    @Test
+    public void matrixReshapeTest() {
+        int[][] matrix = new int[1][4];
+        matrix[0] = new int[]{1, 2, 3, 4};
+        Assert.assertArrayEquals(matrix, matrixReshape(matrix, 1, 4));
+    }
+
+
 }
 
 

@@ -2586,8 +2586,30 @@ public class Solutions {
         Assert.assertFalse(canConstruct("aa", "ab"));
         Assert.assertTrue(canConstruct("aa", "aa"));
         Assert.assertFalse(canConstruct("bb", "aa"));
+    }
 
+    public boolean checkRecord(String s) {
+        char[] absentCheck = s.toCharArray();
+        char[] absentCheck2 = absentCheck.clone();
+        if (absentCheck.length >= 2) {
+            Arrays.sort(absentCheck);
+            if (absentCheck[0] == 'A' && absentCheck[1] == 'A') return false;
+        }
 
+        for (int i = 0; i < absentCheck2.length; i++) {
+            if (i < absentCheck2.length - 2) {
+                if (absentCheck2[i] == 'L' && absentCheck2[i + 1] == 'L' && absentCheck2[i + 2] == 'L') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Test
+    public void checkRecordTest() {
+        Assert.assertTrue(checkRecord("PPALLP"));
+        Assert.assertFalse(checkRecord("PPALLL"));
     }
 
 }

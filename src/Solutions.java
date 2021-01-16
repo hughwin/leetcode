@@ -2640,6 +2640,33 @@ public class Solutions {
         Assert.assertArrayEquals(matrix, matrixReshape(matrix, 1, 4));
     }
 
+    public int uniqueMorseRepresentations(String[] words) {
+
+        HashSet<String> uniques = new HashSet<>();
+        HashMap<Character, String> cipher = new HashMap<>();
+        String[] morseCode = new String[]{".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."};
+        int i = 0;
+
+        for (char ch = 'a'; ch <= 'z'; ++ch) {
+            cipher.put(ch, morseCode[i]);
+            i++;
+        }
+
+        for (String string : words) {
+            char[] characterArray = string.toCharArray();
+            StringBuilder sb = new StringBuilder();
+            for (char c : characterArray) {
+                sb.append(cipher.get(c));
+            }
+            uniques.add(sb.toString());
+        }
+        return uniques.size();
+    }
+
+    @Test
+    public void uniqueMorseRepresentationsTest() {
+        Assert.assertEquals(2, uniqueMorseRepresentations(new String[]{"gin", "zen", "gig", "msg"}));
+    }
 
 }
 

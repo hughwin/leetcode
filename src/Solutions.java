@@ -2657,10 +2657,6 @@ public class Solutions {
         Assert.assertEquals(2, uniqueMorseRepresentations(new String[]{"gin", "zen", "gig", "msg"}));
     }
 
-    public static void main(String[] args) {
-
-    }
-
     public int numberOfMatches(int n) {
         int numberOfMatches = 0;
         while (n != 1) {
@@ -2679,7 +2675,30 @@ public class Solutions {
     public void numberOfMatchesTest() {
         Assert.assertEquals(6, numberOfMatches(7));
         Assert.assertEquals(13, numberOfMatches(14));
+    }
 
+    public static void main(String[] args) {
+
+    }
+
+    public int sumOddLengthSubarrays(int[] arr) {
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            for (int k = i + 1; k < arr.length + 1; k++) {
+                int[] temp = Arrays.copyOfRange(arr, i, k);
+                if (temp.length % 2 != 0) {
+                    sum += Arrays.stream(temp).sum();
+                }
+            }
+        }
+        return sum;
+    }
+
+    @Test
+    public void sumOddLengthSubarraysTest() {
+        Assert.assertEquals(58, sumOddLengthSubarrays(new int[]{1, 4, 2, 5, 3}));
+        Assert.assertEquals(3, sumOddLengthSubarrays(new int[]{1, 2}));
+        Assert.assertEquals(66, sumOddLengthSubarrays(new int[]{10, 11, 12}));
     }
 
 }

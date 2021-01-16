@@ -2392,10 +2392,6 @@ public class Solutions {
     }
 
 
-    public static void main(String[] args) {
-
-    }
-
     public double trimMean(int[] arr) {
         Arrays.sort(arr);
         int n = arr.length;
@@ -2659,6 +2655,31 @@ public class Solutions {
     @Test
     public void uniqueMorseRepresentationsTest() {
         Assert.assertEquals(2, uniqueMorseRepresentations(new String[]{"gin", "zen", "gig", "msg"}));
+    }
+
+    public static void main(String[] args) {
+
+    }
+
+    public int numberOfMatches(int n) {
+        int numberOfMatches = 0;
+        while (n != 1) {
+            if (n % 2 == 0) {
+                numberOfMatches += n / 2;
+                n = n / 2;
+            } else {
+                numberOfMatches += (n - 1) / 2;
+                n = (n - 1) / 2 + 1;
+            }
+        }
+        return numberOfMatches;
+    }
+
+    @Test
+    public void numberOfMatchesTest() {
+        Assert.assertEquals(6, numberOfMatches(7));
+        Assert.assertEquals(13, numberOfMatches(14));
+
     }
 
 }

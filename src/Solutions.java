@@ -2677,9 +2677,6 @@ public class Solutions {
         Assert.assertEquals(13, numberOfMatches(14));
     }
 
-    public static void main(String[] args) {
-
-    }
 
     public int sumOddLengthSubarrays(int[] arr) {
         int sum = 0;
@@ -2700,6 +2697,12 @@ public class Solutions {
         Assert.assertEquals(3, sumOddLengthSubarrays(new int[]{1, 2}));
         Assert.assertEquals(66, sumOddLengthSubarrays(new int[]{10, 11, 12}));
     }
+
+
+    public static void main(String[] args) {
+
+    }
+
 
 }
 

@@ -2699,6 +2699,24 @@ public class Solutions {
     }
 
 
+    public int maxCoins(int[] piles) {
+        Arrays.sort(piles);
+        int coins = 0;
+        int i = piles.length - 2;
+        int j = 0;
+        while (j++ < piles.length / 3) {
+            coins += piles[i];
+            i -= 2;
+        }
+        return coins;
+    }
+
+    @Test
+    public void maxCoinsTest() {
+        Assert.assertEquals(9, maxCoins(new int[]{2, 4, 1, 2, 7, 8}));
+    }
+
+
     public static void main(String[] args) {
 
     }

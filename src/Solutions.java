@@ -2751,6 +2751,22 @@ public class Solutions {
         Assert.assertEquals(3, countGoodRectangles(input));
     }
 
+    public String destCity(List<List<String>> paths) {
+        HashSet<String> depature = new HashSet<>();
+        for (List<String> destination : paths) {
+            depature.add(destination.get(0));
+        }
+        for (List<String> destination : paths) {
+            if (depature.add(destination.get(1))) return destination.get(1);
+        }
+        return null;
+    }
+
+    @Test
+    public void destCityVoidTest() {
+
+    }
+
 
     public static void main(String[] args) {
 

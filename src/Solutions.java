@@ -2740,6 +2740,17 @@ public class Solutions {
         return count;
     }
 
+    @Test
+    public void countGoodRectanglesTest() {
+        int[][] input = new int[4][2];
+        input[0] = new int[]{5, 8};
+        input[1] = new int[]{3, 9};
+        input[2] = new int[]{5, 12};
+        input[3] = new int[]{16, 5};
+
+        Assert.assertEquals(3, countGoodRectangles(input));
+    }
+
 
     public static void main(String[] args) {
 

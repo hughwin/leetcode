@@ -2701,19 +2701,43 @@ public class Solutions {
 
     public int maxCoins(int[] piles) {
         Arrays.sort(piles);
-        int coins = 0;
-        int i = piles.length - 2;
-        int j = 0;
-        while (j++ < piles.length / 3) {
-            coins += piles[i];
-            i -= 2;
+        int score = 0;
+
+        for (int i = 1; i - 2 < piles.length; i = i + 3) {
+            score = score + piles[i];
         }
-        return coins;
+
+        return score;
     }
 
     @Test
     public void maxCoinsTest() {
         Assert.assertEquals(9, maxCoins(new int[]{2, 4, 1, 2, 7, 8}));
+    }
+
+
+    public int countGoodRectangles(int[][] rectangles) {
+
+        if (rectangles.length == 1) return 1;
+
+
+        if (rectangles.length == 0) return 0;
+
+
+        int[] squares = new int[rectangles.length];
+        for (int i = 0; i < rectangles.length; i++) {
+            squares[i] = Math.min(rectangles[i][0], rectangles[i][1]);
+        }
+
+        Arrays.sort(squares);
+        int max = squares[squares.length - 1];
+        int count = 0;
+        int index = squares.length - 1;
+        while (max == squares[index]) {
+            count++;
+            index--;
+        }
+        return count;
     }
 
 

@@ -2800,6 +2800,24 @@ public class Solutions {
         Assert.assertEquals(4750.00000, average(new int[]{8000, 9000, 2000, 3000, 6000, 1000}), 0.005);
     }
 
+    public int totalMoney(int n) {
+        int day = 0, money = 1, total = 0;
+        while (day < n) {
+            if (day > 1 && day % 7 == 0) money = day / 7 + 1;
+            total += money;
+            money++;
+            day++;
+        }
+        return total;
+    }
+
+    @Test
+    public void totalMoneyTest() {
+        Assert.assertEquals(10, totalMoney(4));
+        Assert.assertEquals(37, totalMoney(10));
+        Assert.assertEquals(96, totalMoney(20));
+    }
+
 
     public static void main(String[] args) {
 

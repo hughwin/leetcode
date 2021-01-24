@@ -2767,6 +2767,20 @@ public class Solutions {
 
     }
 
+    public boolean canBeEqual(int[] target, int[] arr) {
+        Arrays.sort(target);
+        Arrays.sort(arr);
+        return (Arrays.equals(target, arr));
+    }
+
+    @Test
+    public void canBeEqualTest() {
+        Assert.assertTrue(canBeEqual(new int[]{1, 2, 3, 4}, new int[]{2, 4, 1, 3}));
+        Assert.assertFalse(canBeEqual(new int[]{3, 7, 9}, new int[]{3, 7, 11}));
+        Assert.assertTrue(canBeEqual(new int[]{1, 1, 1, 1, 1}, new int[]{1, 1, 1, 1, 1}));
+
+    }
+
 
     public static void main(String[] args) {
 

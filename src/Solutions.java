@@ -2782,6 +2782,25 @@ public class Solutions {
     }
 
 
+    public double average(int[] salary) {
+        double sum = 0;
+        int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE, n = salary.length;
+        for (int num : salary) {
+            sum += num;
+            min = Math.min(min, num);
+            max = Math.max(max, num);
+        }
+        return (sum - min - max) / (n - 2);
+    }
+
+    @Test
+    public void averageTest() {
+        Assert.assertEquals(2500.00000, average(new int[]{4000, 3000, 1000, 2000}), 0.005);
+        Assert.assertEquals(3500.00000, average(new int[]{6000, 5000, 4000, 3000, 2000, 1000}), 0.005);
+        Assert.assertEquals(4750.00000, average(new int[]{8000, 9000, 2000, 3000, 6000, 1000}), 0.005);
+    }
+
+
     public static void main(String[] args) {
 
     }

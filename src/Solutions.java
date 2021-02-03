@@ -2382,7 +2382,7 @@ public class Solutions {
         for(int k = 0; k < stones.length(); k++){
             if(jewelSigns.contains(stones.charAt(k))) count++;
         }
-    return count;
+        return count;
     }
 
     @Test
@@ -2816,6 +2816,38 @@ public class Solutions {
         Assert.assertEquals(10, totalMoney(4));
         Assert.assertEquals(37, totalMoney(10));
         Assert.assertEquals(96, totalMoney(20));
+    }
+
+    public int countCharacters(String[] words, String chars) {
+        HashMap<Character, Integer> countMap = new HashMap<>();
+        for (char c : chars.toCharArray()) {
+            countMap.put(c, countMap.getOrDefault(c, 0) + 1);
+        }
+        int res = 0;
+        HashMap<Character, Integer> copyMap;
+        for (String word : words) {
+            copyMap = (HashMap<Character, Integer>) countMap.clone();
+            boolean fail = false;
+            for (char c : word.toCharArray()) {
+                if (copyMap.get(c) == null || copyMap.get(c) <= 0) {
+                    fail = true;
+                    break;
+                } else {
+                    copyMap.put(c, copyMap.get(c) - 1);
+                }
+            }
+            if (!fail) res += word.length();
+        }
+        return res;
+    }
+
+
+    @Test
+    public void countCharactersTest() {
+        Assert.assertEquals(6, countCharacters(new String[]{"cat", "bt", "hat", "tree"}, "atach"));
+        Assert.assertEquals(10, countCharacters(new String[]{"hello", "world", "leetcode"}, "welldonehoneyr"));
+        Assert.assertEquals(0, countCharacters(new String[]{"dyiclysmffuhibgfvapygkorkqllqlvokosagyelotobicwcmebnpznjbirzrzsrtzjxhsfpiwyfhzyonmuabtlwin", "ndqeyhhcquplmznwslewjzuyfgklssvkqxmqjpwhrshycmvrb", "ulrrbpspyudncdlbkxkrqpivfftrggemkpyjl", "boygirdlggnh", "xmqohbyqwagkjzpyawsydmdaattthmuvjbzwpyopyafphx", "nulvimegcsiwvhwuiyednoxpugfeimnnyeoczuzxgxbqjvegcxeqnjbwnbvowastqhojepisusvsidhqmszbrnynkyop", "hiefuovybkpgzygprmndrkyspoiyapdwkxebgsmodhzpx", "juldqdzeskpffaoqcyyxiqqowsalqumddcufhouhrskozhlmobiwzxnhdkidr", "lnnvsdcrvzfmrvurucrzlfyigcycffpiuoo", "oxgaskztzroxuntiwlfyufddl", "tfspedteabxatkaypitjfkhkkigdwdkctqbczcugripkgcyfezpuklfqfcsccboarbfbjfrkxp", "qnagrpfzlyrouolqquytwnwnsqnmuzphne", "eeilfdaookieawrrbvtnqfzcricvhpiv", "sisvsjzyrbdsjcwwygdnxcjhzhsxhpceqz", "yhouqhjevqxtecomahbwoptzlkyvjexhzcbccusbjjdgcfzlkoqwiwue", "hwxxighzvceaplsycajkhynkhzkwkouszwaiuzqcleyflqrxgjsvlegvupzqijbornbfwpefhxekgpuvgiyeudhncv", "cpwcjwgbcquirnsazumgjjcltitmeyfaudbnbqhflvecjsupjmgwfbjo", "teyygdmmyadppuopvqdodaczob", "qaeowuwqsqffvibrtxnjnzvzuuonrkwpysyxvkijemmpdmtnqxwekbpfzs", "qqxpxpmemkldghbmbyxpkwgkaykaerhmwwjonrhcsubchs"}, "usdruypficfbpfbivlrhutcgvyjenlxzeovdyjtgvvfdjzcmikjraspdfp"));
+
     }
 
 

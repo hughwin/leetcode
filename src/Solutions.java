@@ -2850,6 +2850,25 @@ public class Solutions {
 
     }
 
+    public int[] numberOfLines(int[] widths, String s) {
+        int lines = 1, lineCount = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (lineCount + widths[s.charAt(i) - 'a'] > 100) {
+                lines++;
+                lineCount = widths[s.charAt(i) - 'a'];
+            } else {
+                lineCount += widths[s.charAt(i) - 'a'];
+            }
+        }
+        return new int[]{lines, lineCount};
+    }
+
+    @Test
+    public void numberOfLinesTest() {
+        Assert.assertArrayEquals(new int[]{3, 60}, numberOfLines(new int[]{10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10}, "abcdefghijklmnopqrstuvwxyz"));
+        Assert.assertArrayEquals(new int[]{2, 4}, numberOfLines(new int[]{4, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10}, "bbbcccdddaaa"));
+    }
+
 
     public static void main(String[] args) {
 

@@ -2869,6 +2869,35 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{2, 4}, numberOfLines(new int[]{4, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10}, "bbbcccdddaaa"));
     }
 
+    public int calPoints(String[] ops) {
+        ArrayList<Integer> numbers = new ArrayList<>();
+        for (String op : ops) {
+            try {
+                numbers.add(Integer.parseInt(op));
+            } catch (NumberFormatException e) {
+                if (op.equals("C")) {
+                    numbers.remove(numbers.size() - 1);
+                }
+                if (op.equals("D")) {
+                    numbers.add((numbers.get(numbers.size() - 1)) * 2);
+                }
+                if (op.equals("+")) {
+                    numbers.add(numbers.get(numbers.size() - 1) + numbers.get(numbers.size() - 2));
+                }
+            }
+        }
+        int score = 0;
+        for (Integer x : numbers) score += x;
+        return score;
+    }
+
+    @Test
+    public void calPointsTest() {
+        Assert.assertEquals(30, calPoints(new String[]{"5", "2", "C", "D", "+"}));
+        Assert.assertEquals(27, calPoints(new String[]{"5", "-2", "4", "C", "D", "9", "+", "+"}));
+
+    }
+
 
     public static void main(String[] args) {
 

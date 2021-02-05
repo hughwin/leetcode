@@ -2899,6 +2899,22 @@ public class Solutions {
     }
 
 
+    public int maximumWealth(int[][] accounts) {
+        int max = 0;
+        for (int[] account : accounts) {
+            max = Arrays.stream(account).sum() > max ? Arrays.stream(account).sum() : max;
+        }
+        return max;
+    }
+
+    @Test
+    public void maximumWealthTest() {
+        int[][] input = new int[2][3];
+        input[0] = new int[]{1, 2, 3};
+        input[1] = new int[]{3, 2, 1};
+        Assert.assertEquals(6, maximumWealth(input));
+    }
+
     public static void main(String[] args) {
 
     }

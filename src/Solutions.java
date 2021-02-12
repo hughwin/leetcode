@@ -2916,7 +2916,7 @@ public class Solutions {
     }
 
     public static void main(String[] args) {
-
+        System.out.println(32 % 11);
     }
 
     public int numIdenticalPairs(int[] nums) {
@@ -2934,7 +2934,16 @@ public class Solutions {
         Assert.assertEquals(4, numIdenticalPairs(new int[]{1, 2, 3, 1, 1, 3}));
         Assert.assertEquals(6, numIdenticalPairs(new int[]{1, 1, 1, 1}));
         Assert.assertEquals(0, numIdenticalPairs(new int[]{1, 2, 3}));
+    }
 
+    public int minPartitions(String n) {
+        return n.chars().max().getAsInt() - '0';
+    }
+
+    @Test
+    public void minPartitionsTest() {
+        Assert.assertEquals(3, minPartitions("32"));
+        Assert.assertEquals(8, minPartitions("82734"));
 
     }
 

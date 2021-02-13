@@ -2956,6 +2956,25 @@ public class Solutions {
         Assert.assertEquals("Gooooal", interpret("G()()()()(al)"));
     }
 
+    public int[] decompressRLElist(int[] nums) {
+        ArrayList<Integer> returnList = new ArrayList<>();
+        for (int i = 0; i < nums.length; i += 2) {
+            for (int j = 0; j < nums[i]; j++) {
+                returnList.add(nums[i + 1]);
+            }
+        }
+        int[] returnArray = new int[returnList.size()];
+        for (int i = 0; i < returnArray.length; i++) {
+            returnArray[i] = returnList.get(i);
+        }
+        return returnArray;
+    }
+
+    @Test
+    public void decompressRLElistTest() {
+        Assert.assertArrayEquals(new int[]{2, 4, 4, 4}, decompressRLElist(new int[]{1, 2, 3, 4}));
+    }
+
 
 }
 

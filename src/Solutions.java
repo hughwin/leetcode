@@ -2944,7 +2944,16 @@ public class Solutions {
     public void minPartitionsTest() {
         Assert.assertEquals(3, minPartitions("32"));
         Assert.assertEquals(8, minPartitions("82734"));
+    }
 
+    public String interpret(String command) {
+        return command.replace("()", "o").replace("(al)", "al");
+    }
+
+    @Test
+    public void interpretTest() {
+        Assert.assertEquals("Goal", interpret("G()(al)"));
+        Assert.assertEquals("Gooooal", interpret("G()()()()(al)"));
     }
 
 

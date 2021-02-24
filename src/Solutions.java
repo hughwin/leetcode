@@ -2975,8 +2975,25 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{2, 4, 4, 4}, decompressRLElist(new int[]{1, 2, 3, 4}));
     }
 
+    public int countConsistentStrings(String allowed, String[] words) {
+        char[] stringArray = allowed.toCharArray();
+        int count = 0;
+        for (String word : words) {
+            char[] characters = word.toCharArray();
+            Set<Character> set = new HashSet<>();
+            for (char y : stringArray) set.add(y);
+            for (char x : characters) set.add(x);
+            if (set.size() != stringArray.length) count++;
+        }
+        return words.length - count;
+    }
+
+    @Test
+    public void countConsistentStringsTest() {
+        Assert.assertEquals(2, countConsistentStrings("ab", new String[]{"ad", "bd", "aaab", "baa", "badab"}));
+        Assert.assertEquals(7, countConsistentStrings("abc", new String[]{"a", "b", "c", "ab", "ac", "bc", "abc"}));
+    }
+
 
 }
-
-
 

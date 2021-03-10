@@ -2995,7 +2995,7 @@ public class Solutions {
     }
 
 
-    public int[] replaceElements(int[] arr) { //Terribly slow, but learnt something. 
+    public int[] replaceElements(int[] arr) { //Terribly slow, but learnt something.
         for(int i = 0; i < arr.length; i++){
             if(i == arr.length - 1) arr[i] = -1;
             else {
@@ -3008,6 +3008,38 @@ public class Solutions {
     @Test
     public void replaceElementsTest(){
         Assert.assertArrayEquals(new int[]{18,6,6,6,1,-1}, replaceElements(new int[]{17,18,5,4,6,1}));
+    }
+
+    public int countBalls(int lowLimit, int highLimit) {
+        HashMap<Integer, Integer> boxes = new HashMap<>();
+        for(int i = lowLimit; i <= highLimit; i++){
+            int sum = countBallsSum(i);
+            if(boxes.containsKey(sum)){
+                boxes.put(sum, boxes.get(sum) + 1);
+            }
+            else boxes.put(sum, 1);
+        }
+        int largestCount = 0;
+        for(int key: boxes.keySet()){
+            if(boxes.get(key) > largestCount){
+                largestCount = boxes.get(key);
+            }
+        }
+        return largestCount;
+    }
+
+    public int countBallsSum(int ballNumber){
+        int sum = 0;
+        while (ballNumber > 0) {
+            sum = sum + ballNumber % 10;
+            ballNumber = ballNumber / 10;
+        }
+        return sum;
+    }
+
+    @Test
+    public void countBallsTest(){
+        Assert.assertEquals(2, countBalls(1, 10));
     }
 
 

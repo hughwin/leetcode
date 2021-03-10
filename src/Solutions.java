@@ -2995,5 +2995,21 @@ public class Solutions {
     }
 
 
+    public int[] replaceElements(int[] arr) { //Terribly slow, but learnt something. 
+        for(int i = 0; i < arr.length; i++){
+            if(i == arr.length - 1) arr[i] = -1;
+            else {
+                arr[i] = Arrays.stream(Arrays.copyOfRange(arr, i + 1, arr.length)).max().getAsInt();
+            }
+        }
+        return arr;
+    }
+
+    @Test
+    public void replaceElementsTest(){
+        Assert.assertArrayEquals(new int[]{18,6,6,6,1,-1}, replaceElements(new int[]{17,18,5,4,6,1}));
+    }
+
+
 }
 

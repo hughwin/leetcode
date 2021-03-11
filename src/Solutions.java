@@ -2915,10 +2915,6 @@ public class Solutions {
         Assert.assertEquals(6, maximumWealth(input));
     }
 
-    public static void main(String[] args) {
-        System.out.println(32 % 11);
-    }
-
     public int numIdenticalPairs(int[] nums) {
         int count = 0;
         for (int i = 0; i < nums.length; i++) {
@@ -2992,6 +2988,33 @@ public class Solutions {
     public void countConsistentStringsTest() {
         Assert.assertEquals(2, countConsistentStrings("ab", new String[]{"ad", "bd", "aaab", "baa", "badab"}));
         Assert.assertEquals(7, countConsistentStrings("abc", new String[]{"a", "b", "c", "ab", "ac", "bc", "abc"}));
+    }
+
+    public static void main(String[] args) {
+
+    }
+
+    public int repeatedNTimes(int[] A) {
+        Arrays.sort(A);
+        int count = 1;
+        int current = A[0];
+        for (int i = 1; i < A.length; i++) {
+            if (A[i] == current) count++;
+            else {
+                current = A[i];
+                count = 1;
+            }
+            if (count == A.length / 2) return A[i];
+
+        }
+        return -1;
+    }
+
+    @Test
+    public void repeatedNTimes() {
+        Assert.assertEquals(3, repeatedNTimes(new int[]{1, 2, 3, 3}));
+        Assert.assertEquals(2, repeatedNTimes(new int[]{2, 1, 2, 5, 3, 2}));
+        Assert.assertEquals(5, repeatedNTimes(new int[]{5, 1, 5, 2, 5, 3, 5, 4}));
     }
 
 

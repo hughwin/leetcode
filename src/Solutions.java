@@ -2899,23 +2899,6 @@ public class Solutions {
     }
 
 
-    public static int indexOfSmallest(int[] array) {
-
-        if (array.length == 0)
-            return -1;
-
-        int index = 0;
-        int min = array[index];
-
-        for (int i = 1; i < array.length; i++) {
-            if (array[i] <= min) {
-                min = array[i];
-                index = i;
-            }
-        }
-        return index;
-    }
-
     @Test
     public void maximumWealthTest() {
         int[][] input = new int[2][3];
@@ -3103,6 +3086,23 @@ public class Solutions {
             max = Math.max(Arrays.stream(account).sum(), max);
         }
         return max;
+    }
+
+    public static int indexOfSmallest(int[] array) {
+
+        if (array.length == 0)
+            return -1;
+
+        int index = 0;
+        int min = array[index];
+
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] <= min) {
+                min = array[i];
+                index = i;
+            }
+        }
+        return index;
     }
 
     public List<Integer> luckyNumbers(int[][] matrix) {

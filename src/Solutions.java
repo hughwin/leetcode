@@ -2933,7 +2933,7 @@ public class Solutions {
     }
 
     public int minPartitions(String n) {
-        return n.chars().max().getAsInt() - '0';
+        return n.chars().max().orElse(0) - '0';
     }
 
     @Test
@@ -3018,7 +3018,7 @@ public class Solutions {
         for(int i = 0; i < arr.length; i++){
             if(i == arr.length - 1) arr[i] = -1;
             else {
-                arr[i] = Arrays.stream(Arrays.copyOfRange(arr, i + 1, arr.length)).max().getAsInt();
+                arr[i] = Arrays.stream(Arrays.copyOfRange(arr, i + 1, arr.length)).max().orElse(0);
             }
         }
         return arr;

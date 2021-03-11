@@ -2899,12 +2899,21 @@ public class Solutions {
     }
 
 
-    public int maximumWealth(int[][] accounts) {
-        int max = 0;
-        for (int[] account : accounts) {
-            max = Arrays.stream(account).sum() > max ? Arrays.stream(account).sum() : max;
+    public static int indexOfSmallest(int[] array) {
+
+        if (array.length == 0)
+            return -1;
+
+        int index = 0;
+        int min = array[index];
+
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] <= min) {
+                min = array[i];
+                index = i;
+            }
         }
-        return max;
+        return index;
     }
 
     @Test
@@ -3088,6 +3097,44 @@ public class Solutions {
 
     }
 
+    public int maximumWealth(int[][] accounts) {
+        int max = 0;
+        for (int[] account : accounts) {
+            max = Math.max(Arrays.stream(account).sum(), max);
+        }
+        return max;
+    }
 
+    public List<Integer> luckyNumbers(int[][] matrix) {
+
+        ArrayList<Integer> luckyNumbers = new ArrayList<>();
+
+        for (int[] value : matrix) {
+            int index = indexOfSmallest(value);
+            boolean test = true;
+            for (int[] ints : matrix) {
+                if (ints[index] > value[index]) {
+                    test = false;
+                    break;
+                }
+            }
+            if (test) luckyNumbers.add(value[index]);
+        }
+        return luckyNumbers;
+    }
+
+    @Test
+    public void luckyNumbersTest() {
+        int[] row1 = new int[]{3, 7, 8};
+        int[] row2 = new int[]{9, 11, 13};
+        int[] row3 = new int[]{15, 16, 17};
+        int[][] matrix = new int[3][];
+        matrix[0] = row1;
+        matrix[1] = row2;
+        matrix[2] = row3;
+        ArrayList<Integer> expected = new ArrayList(Arrays.asList(new int[]{15}));
+
+        Assert.assertEquals(expected, luckyNumbers(matrix));
+    }
 }
 

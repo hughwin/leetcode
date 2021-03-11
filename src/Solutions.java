@@ -2990,10 +2990,6 @@ public class Solutions {
         Assert.assertEquals(7, countConsistentStrings("abc", new String[]{"a", "b", "c", "ab", "ac", "bc", "abc"}));
     }
 
-    public static void main(String[] args) {
-
-    }
-
     public int repeatedNTimes(int[] A) {
         Arrays.sort(A);
         int count = 1;
@@ -3043,15 +3039,19 @@ public class Solutions {
             else boxes.put(sum, 1);
         }
         int largestCount = 0;
-        for(int key: boxes.keySet()){
-            if(boxes.get(key) > largestCount){
+        for (int key : boxes.keySet()) {
+            if (boxes.get(key) > largestCount) {
                 largestCount = boxes.get(key);
             }
         }
         return largestCount;
     }
 
-    public int countBallsSum(int ballNumber){
+    public static void main(String[] args) {
+
+    }
+
+    public int countBallsSum(int ballNumber) {
         int sum = 0;
         while (ballNumber > 0) {
             sum = sum + ballNumber % 10;
@@ -3061,8 +3061,31 @@ public class Solutions {
     }
 
     @Test
-    public void countBallsTest(){
+    public void countBallsTest() {
         Assert.assertEquals(2, countBalls(1, 10));
+    }
+
+    public int sumOfUnique(int[] nums) {
+        HashMap<Integer, Integer> uniques = new HashMap<>();
+        for (int n : nums) {
+            if (!uniques.containsKey(n)) uniques.put(n, 1);
+            else uniques.put(n, uniques.get(n) + 1);
+        }
+        int sum = 0;
+        for (int key : uniques.keySet()) {
+            if (uniques.get(key) == 1) {
+                sum += key;
+            }
+        }
+        return sum;
+    }
+
+    @Test
+    public void sumOfUniqueTest() {
+        Assert.assertEquals(4, sumOfUnique(new int[]{1, 2, 3, 2}));
+        Assert.assertEquals(0, sumOfUnique(new int[]{0, 0, 0, 0, 0}));
+        Assert.assertEquals(15, sumOfUnique(new int[]{1, 2, 3, 4, 5}));
+
     }
 
 

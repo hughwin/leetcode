@@ -3154,5 +3154,29 @@ public class Solutions {
         Assert.assertEquals("apbqcr", mergeAlternately("abc", "pqr"));
         Assert.assertEquals("apbqrs", mergeAlternately("ab", "pqrs"));
     }
+
+    public boolean arrayStringsAreEqual(String[] word1, String[] word2) {
+        StringBuilder sb1 = new StringBuilder();
+        StringBuilder sb2 = new StringBuilder();
+
+        for (String word : word1) sb1.append(word);
+        for (String word : word2) sb2.append(word);
+
+        return sb1.toString().equals(sb2.toString());
+    }
+
+    @Test
+    public void arrayStringsAreEqualTest() {
+        String[] string1 = new String[]{"ab", "c"};
+        String[] string2 = new String[]{"a", "bc"};
+
+        Assert.assertTrue(arrayStringsAreEqual(string1, string2));
+
+        String[] string3 = new String[]{"ab", "c"};
+        String[] string4 = new String[]{"ad", "bc"};
+
+        Assert.assertFalse(arrayStringsAreEqual(string3, string4));
+
+    }
 }
 

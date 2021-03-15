@@ -3176,6 +3176,22 @@ public class Solutions {
         String[] string4 = new String[]{"ad", "bc"};
 
         Assert.assertFalse(arrayStringsAreEqual(string3, string4));
+    }
+
+    public int largestAltitude(int[] gain) {
+        int height = 0;
+        int max = 0;
+        for(int change: gain){
+            height += change;
+            max = height > max ? height : max;
+        }
+        return max;
+    }
+
+    @Test
+    public void largestAltitudeTest() {
+        Assert.assertEquals(1, largestAltitude(new int[]{-5,1,5,0,-7}));
+        Assert.assertEquals(0, largestAltitude(new int[]{-4,-3,-2,-1,4,3,2}));
 
     }
 }

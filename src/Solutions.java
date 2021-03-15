@@ -3136,5 +3136,23 @@ public class Solutions {
 
         Assert.assertEquals(expected, luckyNumbers(matrix));
     }
+
+    public String mergeAlternately(String word1, String word2) {
+        StringBuilder sb = new StringBuilder();
+        String longest = word1.length() > word2.length() ? word1 : word2;
+        String shortest = word1.length() < word2.length() ? word1 : word2;
+        for (int i = 0; i < shortest.length(); i++) {
+            sb.append(word1.charAt(i));
+            sb.append(word2.charAt(i));
+        }
+        for (int k = shortest.length(); k < longest.length(); k++) sb.append(longest.charAt(k));
+        return sb.toString();
+    }
+
+    @Test
+    public void mergeAlternatelyTest() {
+        Assert.assertEquals("apbqcr", mergeAlternately("abc", "pqr"));
+        Assert.assertEquals("apbqrs", mergeAlternately("ab", "pqrs"));
+    }
 }
 

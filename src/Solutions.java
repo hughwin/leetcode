@@ -3194,7 +3194,41 @@ public class Solutions {
         Assert.assertEquals(0, largestAltitude(new int[]{-4,-3,-2,-1,4,3,2}));
 
     }
-    
+
+    public int maxIncreaseKeepingSkyline(int[][] grid) {
+        int difference = 0;
+        for (int[] value : grid) {
+            int[] xClone = value.clone();
+            Arrays.sort(xClone);
+            int maxRow = xClone[xClone.length - 1];
+
+            for (int j = 0; j < value.length; j++) {
+                int maxColumn = 0;
+                for (int[] ints : grid) {
+                    maxColumn = Math.max(maxColumn, ints[j]);
+                }
+                difference += Math.min(maxColumn, maxRow) - value[j];
+            }
+        }
+        return difference;
+    }
+
+    @Test
+    public void maxIncreaseKeepingSkylineTest(){
+        int[][] block = new int[4][];
+        int[] row1 = new int[]{3,0,8,4};
+        int[] row2 = new int[]{2,4,5,7};
+        int[] row3 = new int[]{9,2,6,3};
+        int[] row4 = new int[]{0,3,1,0};
+
+        block[0] = row1;
+        block[1] = row2;
+        block[2] = row3;
+        block[3] = row4;
+
+        Assert.assertEquals(35, maxIncreaseKeepingSkyline(block));
+
+    }
 
 }
 

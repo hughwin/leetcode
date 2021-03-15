@@ -3230,5 +3230,44 @@ public class Solutions {
 
     }
 
+    public ListNode reverseList(ListNode head) {
+
+        if (head == null) return head;
+
+        ArrayList<ListNode> nodes = new ArrayList<>();
+
+        while (head != null) {
+            nodes.add(head);
+            head = head.next;
+        }
+
+        head = nodes.get(nodes.size() - 1);
+        ListNode temp = head;
+        for (int i = nodes.size() - 2; i >= 0; i--) {
+            temp.next = nodes.get(i);
+            temp = temp.next;
+            temp.next = null;
+        }
+
+        return head;
+    }
+
+    @Test
+    public void reverseListTest() {
+        ListNode head = new ListNode(1);
+        ListNode two = new ListNode(2);
+        ListNode three = new ListNode(3);
+        head.next = two;
+        head.next.next = three;
+
+        ListNode headExpected = new ListNode(3);
+        ListNode expectedTwo = new ListNode(2);
+        ListNode expectedOne = new ListNode(1);
+        headExpected.next = expectedTwo;
+        headExpected.next.next = expectedOne;
+        //TODO: Fix this
+        Assert.assertEquals(head, reverseList(head));
+    }
+
 }
 

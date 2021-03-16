@@ -3289,5 +3289,24 @@ public class Solutions {
         Assert.assertEquals(expected2, stringMatching(new String[]{"leetcode", "et", "code"}));
     }
 
+    public int lastStoneWeight(int[] stones) {
+        ArrayList<Integer> stonesList = new ArrayList<>();
+        for (int stone : stones) stonesList.add(stone);
+        while (stonesList.size() > 1) {
+            Collections.sort(stonesList);
+            int y = stonesList.get(stonesList.size() - 2);
+            int x = stonesList.get(stonesList.size() - 1);
+            stonesList.remove(stonesList.size() - 2);
+            stonesList.remove(stonesList.size() - 1);
+            stonesList.add(x - y);
+        }
+        return stonesList.get(0);
+    }
+
+    @Test
+    public void lastStoneWeightTest() {
+        Assert.assertEquals(1, lastStoneWeight(new int[]{2, 7, 4, 1, 8, 1}));
+    }
+
 }
 

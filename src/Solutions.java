@@ -3308,5 +3308,25 @@ public class Solutions {
         Assert.assertEquals(1, lastStoneWeight(new int[]{2, 7, 4, 1, 8, 1}));
     }
 
+    public boolean divisorGame(int N) {
+        int playerGo = 1;
+
+        for (int i = 1; i < N; i++) {
+            if (N % 2 == 0) {
+                N = N - i;
+                i = 1;
+                playerGo++;
+            }
+        }
+
+        return playerGo % 2 == 0;
+    }
+
+    @Test
+    public void divisorGameTest() {
+        Assert.assertTrue(divisorGame(2));
+        Assert.assertFalse(divisorGame(3));
+    }
+
 }
 

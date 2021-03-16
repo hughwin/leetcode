@@ -3269,5 +3269,25 @@ public class Solutions {
         Assert.assertEquals(head, reverseList(head));
     }
 
+    public List<String> stringMatching(String[] words) {
+        HashSet<String> matchedStrings = new HashSet<>();
+        for (int i = 0; i < words.length; i++) {
+            for (int k = 0; k < words.length; k++) {
+                if (i == k) continue;
+                if (words[k].contains(words[i])) matchedStrings.add(words[i]);
+            }
+        }
+        return new ArrayList<>(matchedStrings);
+    }
+
+    @Test
+    public void stringMatchingTest() {
+        ArrayList<String> expected = new ArrayList<>(Arrays.asList("as", "hero"));
+        Assert.assertEquals(expected, stringMatching(new String[]{"mass", "as", "hero", "superhero"}));
+
+        ArrayList<String> expected2 = new ArrayList<>(Arrays.asList("et", "code"));
+        Assert.assertEquals(expected2, stringMatching(new String[]{"leetcode", "et", "code"}));
+    }
+
 }
 

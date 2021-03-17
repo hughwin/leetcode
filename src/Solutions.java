@@ -3368,5 +3368,20 @@ public class Solutions {
         Assert.assertFalse(isAnagram("rat", "car"));
     }
 
+    public int findDuplicate(int[] nums) {
+        HashSet<Integer> singles = new HashSet<>();
+        for (int num : nums) {
+            if (!singles.add(num)) {
+                return num;
+            }
+        }
+        return -1;
+    }
+
+    @Test
+    public void findDuplicateTest() {
+        Assert.assertEquals(2, findDuplicate(new int[]{1, 3, 4, 2, 2}));
+    }
+
 }
 

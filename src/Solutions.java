@@ -3328,5 +3328,25 @@ public class Solutions {
         Assert.assertFalse(divisorGame(3));
     }
 
+    public boolean hasAlternatingBits(int n) {
+        char[] charArray = Integer.toBinaryString(n).toCharArray();
+        char current = charArray[0];
+        for (int i = 1; i < charArray.length; i++) {
+            if (charArray[i] == current) {
+                return false;
+            }
+            current = charArray[i];
+        }
+        return true;
+    }
+
+    @Test
+    public void hasAlternatingBitsTest() {
+        Assert.assertTrue(hasAlternatingBits(5));
+        Assert.assertTrue(hasAlternatingBits(10));
+        Assert.assertFalse(hasAlternatingBits(7));
+        Assert.assertFalse(hasAlternatingBits(11));
+    }
+
 }
 

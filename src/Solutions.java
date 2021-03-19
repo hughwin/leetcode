@@ -3383,5 +3383,31 @@ public class Solutions {
         Assert.assertEquals(2, findDuplicate(new int[]{1, 3, 4, 2, 2}));
     }
 
+    public int countPrimes(int n) {
+        if (n <= 1) return 0;
+        int count = 0;
+        for (int i = 2; i < n; i++) {
+            if (primeTester(i)) count++;
+        }
+        return count;
+    }
+
+    public boolean primeTester(int n) {
+        for (int i = 2; i < n; i++) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+
+
+    @Test
+    public void countPrimesTest() {
+        Assert.assertEquals(4, countPrimes(10));
+        Assert.assertEquals(0, countPrimes(0));
+        Assert.assertEquals(0, countPrimes(1));
+        Assert.assertEquals(41537, countPrimes(499979));
+
+    }
+
 }
 

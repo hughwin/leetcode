@@ -3410,5 +3410,15 @@ public class Solutions {
         Assert.assertEquals(41537, countPrimes(499979));
     }
 
+    public int[] sortArray(int[] nums) {
+        Arrays.sort(nums);
+        return nums;
+    }
+
+    @Test
+    public void sortArrayTest() {
+        Assert.assertArrayEquals(new int[]{1, 2, 3, 4, 5}, sortArray(new int[]{5, 4, 3, 2, 1}));
+    }
+
 }
 

@@ -3286,7 +3286,10 @@ public class Solutions {
         Assert.assertEquals(expected, stringMatching(new String[]{"mass", "as", "hero", "superhero"}));
 
         ArrayList<String> expected2 = new ArrayList<>(Arrays.asList("et", "code"));
-        Assert.assertEquals(expected2, stringMatching(new String[]{"leetcode", "et", "code"}));
+        List<String> actual = stringMatching(new String[]{"leetcode", "et", "code"});
+        Collections.sort(expected2);
+        Collections.sort(actual);
+        Assert.assertEquals(expected2, actual);
     }
 
     public int lastStoneWeight(int[] stones) {
@@ -3399,14 +3402,12 @@ public class Solutions {
         return true;
     }
 
-
     @Test
     public void countPrimesTest() {
         Assert.assertEquals(4, countPrimes(10));
         Assert.assertEquals(0, countPrimes(0));
         Assert.assertEquals(0, countPrimes(1));
         Assert.assertEquals(41537, countPrimes(499979));
-
     }
 
 }

@@ -3420,5 +3420,27 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{1, 2, 3, 4, 5}, sortArray(new int[]{5, 4, 3, 2, 1}));
     }
 
+    public List<String> findRepeatedDnaSequences(String s) {
+        System.out.println(s.length());
+        HashSet<String> repeatedSequences = new HashSet<>();
+        HashSet<String> sequences = new HashSet<>();
+        for (int i = 0; i < s.length(); i++) {
+            try {
+                System.out.println(s.substring(i, i + 10));
+                if (sequences.add(s.substring(i, i + 10))) sequences.add(s.substring(i, i + 10));
+                else repeatedSequences.add(s.substring(i, i + 10));
+            } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
+                break;
+            }
+        }
+        return new ArrayList<>(repeatedSequences);
+    }
+
+    @Test
+    public void findRepeatedDnaSequencesTest() {
+        List<String> expected = new ArrayList<>(Arrays.asList("AAAAACCCCC", "CCCCCAAAAA"));
+        Assert.assertEquals(expected, findRepeatedDnaSequences("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"));
+    }
+
 }
 

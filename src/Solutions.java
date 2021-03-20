@@ -3421,17 +3421,11 @@ public class Solutions {
     }
 
     public List<String> findRepeatedDnaSequences(String s) {
-        System.out.println(s.length());
         HashSet<String> repeatedSequences = new HashSet<>();
         HashSet<String> sequences = new HashSet<>();
-        for (int i = 0; i < s.length(); i++) {
-            try {
-                System.out.println(s.substring(i, i + 10));
-                if (sequences.add(s.substring(i, i + 10))) sequences.add(s.substring(i, i + 10));
-                else repeatedSequences.add(s.substring(i, i + 10));
-            } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
-                break;
-            }
+        for (int i = 0; i <= s.length() - 10; i++) {
+            if (sequences.add(s.substring(i, i + 10))) sequences.add(s.substring(i, i + 10));
+            else repeatedSequences.add(s.substring(i, i + 10));
         }
         return new ArrayList<>(repeatedSequences);
     }

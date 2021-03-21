@@ -456,40 +456,33 @@ public class Solutions {
 //        // TODO: Finish this
 //    }
 
-    public static TreeNode inorderTraversalHelp(TreeNode root){
-        if (root.right == null && root.left == null){
+    public static TreeNode inorderTraversalHelp(TreeNode root) {
+        if (root.right == null && root.left == null) {
             return root;
         }
-        if (root.left != null){
+        if (root.left != null) {
             return inorderTraversalHelp(root.left);
         }
-        if (root.right!= null){
+        if (root.right != null) {
             return inorderTraversalHelp(root.right);
         }
         return null;
     }
 
     // https://leetcode.com/problems/running-sum-of-1d-array/submissions/
-    public static int[] runningSum(int[] nums){
+    public static int[] runningSum(int[] nums) {
         int count = 0;
-        for (int i=0; i < nums.length ; i++){
+        for (int i = 0; i < nums.length; i++) {
             count += nums[i];
             nums[i] = count;
         }
         return nums;
     }
 
-    @Test
-    public void runningSumTest(){
-        int[] actual = runningSum(new int[]{1,2,3,4});
-        int[] expected = new int[]{1,3,6,10};
-        Assert.assertArrayEquals(actual, expected);
-    }
-
     // https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/submissions/
     public static int[] smallerNumbersThanCurrent(int[] nums) {
-        int [] shorter = new int[nums.length];
-        for (int i = 0 ; i < nums.length ; i++){
+        int[] shorter = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
             int count = 0;
             for (int num : nums) {
                 if (nums[i] > num) {
@@ -501,46 +494,143 @@ public class Solutions {
         return shorter;
     }
 
-    @Test
-    public void smallerNumbersThanCurrentTest(){
-        int[] actual = smallerNumbersThanCurrent(new int[]{8,1,2,2,3});
-        int[] expected = new int[]{4,0,1,1,3};
-        Assert.assertArrayEquals(expected, actual);
+    public static String[] findWords(String[] words) {
+        HashSet<Character> firstRow = new HashSet<>();
+        firstRow.add('q');
+        firstRow.add('w');
+        firstRow.add('e');
+        firstRow.add('r');
+        firstRow.add('t');
+        firstRow.add('y');
+        firstRow.add('u');
+        firstRow.add('i');
+        firstRow.add('o');
+        firstRow.add('p');
+
+        HashSet<Character> secondRow = new HashSet<>();
+        secondRow.add('a');
+        secondRow.add('s');
+        secondRow.add('d');
+        secondRow.add('f');
+        secondRow.add('g');
+        secondRow.add('h');
+        secondRow.add('j');
+        secondRow.add('k');
+        secondRow.add('l');
+
+        HashSet<Character> thirdRow = new HashSet<>();
+        thirdRow.add('z');
+        thirdRow.add('x');
+        thirdRow.add('c');
+        thirdRow.add('v');
+        thirdRow.add('b');
+        thirdRow.add('n');
+        thirdRow.add('m');
+
+
+        ArrayList<String> returnedWords = new ArrayList<>();
+
+        for (String word : words) {
+            if (findWordsHelper(word, firstRow) || findWordsHelper(word, secondRow) || findWordsHelper(word, thirdRow)) {
+                returnedWords.add(word);
+            }
+        }
+
+        for (String word : returnedWords) {
+            System.out.println(word);
+        }
+        return returnedWords.toArray(String[]::new);
     }
 
-    // https://leetcode.com/problems/count-of-smaller-numbers-after-self/
-    public List<Integer> countSmaller(int[] nums) {
-        List<Integer> shorterOnRight = new ArrayList<>();
-        for (int i = 0 ; i < nums.length ; i++){
-            int count = 0;
-            for (int k = i ; k < nums.length ; k++){
-                if(nums[i] > nums[k]){
-                    count++;
+    // https://leetcode.com/problems/fibonacci-number/
+    public static int fib(int n) {
+        if (n == 0) {
+            return 0;
+        }
+        if (n == 1) {
+            return 1;
+        }
+        int count = 1;
+        int current = 0;
+        int next;
+        int temp = 0;
+        while (count < n) {
+            if (current == 0) {
+                current = 1;
+            }
+            next = current + temp;
+            temp = current;
+            current = next;
+            count++;
+            System.out.println(current);
+        }
+        return current;
+    }
+
+    // https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array/submissions/
+    public static int maxProduct(int[] nums) {
+        Arrays.sort(nums);
+        return (nums[nums.length - 1] - 1) * (nums[nums.length - 2] - 1);
+    }
+
+    // https://leetcode.com/problems/available-captures-for-rook
+    public static int numRookCaptures(char[][] board) {
+        int count = 0;
+        ArrayList<int[][]> otherPieces = new ArrayList<>();
+        for (int i = 0; i < board.length; i++) {
+            for (int k = 0; k < board[i].length; k++) {
+                if (board[i][k] == 'R') {
+                    for (int j = i; j >= 0; j--) {
+                        if (board[j][k] == 'p') {
+                            count++;
+                            break;
+                        }
+                        if (board[j][k] == 'B') break;
+                    }
+                    for (int n = i; n < board.length; n++) {
+                        if (board[n][k] == 'p') {
+                            count++;
+                            break;
+                        }
+                        if (board[n][k] == 'B') break;
+                    }
+                    for (int m = k; m >= 0; m--) {
+                        if (board[i][m] == 'p') {
+                            count++;
+                            break;
+                        }
+                        if (board[i][m] == 'B') break;
+                    }
+                    for (int p = k; p < board[i].length; p++) {
+                        if (board[i][p] == 'p') {
+                            count++;
+                            break;
+                        }
+                        if (board[i][p] == 'B') break;
+                    }
                 }
             }
-            shorterOnRight.add(count);
         }
-        return shorterOnRight;
-    }
-
-    @Test
-    public void countSmallerTest(){
-        List<Integer> actual = countSmaller(new int[]{5,2,6,1});
-        List<Integer> expected = new ArrayList<>();
-        expected.add(2);
-        expected.add(1);
-        expected.add(1);
-        expected.add(0);
-        Assert.assertEquals(actual, expected);
+        return count;
     }
 
     public static String defangIPaddr(String address) {
         return address.replace(".", "[.]");
     }
 
-    @Test
-    public void defangIPaddrTest(){
-        Assert.assertEquals("1[.]1[.]1[.]1", defangIPaddr("1.1.1.1"));
+    // https://leetcode.com/problems/single-element-in-a-sorted-array/
+    // I have kept this method in as an example of a naive approach to the algorithm. A much improved solution is below.
+    public static int singleNonDuplicateSolution1(int[] nums) {
+        List<Integer> numsAsList = new ArrayList<>(nums.length);
+        for (int num : nums) {
+            numsAsList.add(num);
+        }
+        for (int i = 0; i < numsAsList.size(); i++) {
+            if (numsAsList.indexOf(numsAsList.get(i)) == numsAsList.lastIndexOf(numsAsList.get(i))) {
+                return numsAsList.get(i);
+            }
+        }
+        return 0;
     }
 
 
@@ -740,52 +830,17 @@ public class Solutions {
         return perimeter;
     }
 
-    public static String[] findWords(String[] words) {
-        HashSet<Character> firstRow = new HashSet<>();
-        firstRow.add('q');
-        firstRow.add('w');
-        firstRow.add('e');
-        firstRow.add('r');
-        firstRow.add('t');
-        firstRow.add('y');
-        firstRow.add('u');
-        firstRow.add('i');
-        firstRow.add('o');
-        firstRow.add('p');
-
-        HashSet<Character> secondRow = new HashSet<>();
-        secondRow.add('a');
-        secondRow.add('s');
-        secondRow.add('d');
-        secondRow.add('f');
-        secondRow.add('g');
-        secondRow.add('h');
-        secondRow.add('j');
-        secondRow.add('k');
-        secondRow.add('l');
-
-        HashSet<Character> thirdRow = new HashSet<>();
-        thirdRow.add('z');
-        thirdRow.add('x');
-        thirdRow.add('c');
-        thirdRow.add('v');
-        thirdRow.add('b');
-        thirdRow.add('n');
-        thirdRow.add('m');
-
-
-        ArrayList<String> returnedWords = new ArrayList<>();
-
-        for (String word : words){
-            if (findWordsHelper(word, firstRow) || findWordsHelper(word, secondRow) || findWordsHelper(word, thirdRow)){
-                returnedWords.add(word);
+    public static int singleNonDuplicate(int[] nums) {
+        for (int i = 0; i < nums.length; i += 2) {
+            try {
+                if (nums[i] != nums[i + 1]) {
+                    return nums[i];
+                }
+            } catch (IndexOutOfBoundsException e) {
+                return nums[i];
             }
         }
-
-        for (String word : returnedWords){
-            System.out.println(word);
-        }
-        return returnedWords.toArray(String[]::new);
+        return 0;
     }
 
     public static boolean findWordsHelper(String word, HashSet<Character> row) {
@@ -864,46 +919,52 @@ public class Solutions {
         Assert.assertEquals(7.5, angleClock(3, 15), 0.0);
     }
 
-
-    // https://leetcode.com/problems/fibonacci-number/
-    public static int fib(int n) {
-        if (n == 0){return 0;}
-        if (n == 1){return 1;}
-        int count = 1;
-        int current = 0;
-        int next;
-        int temp = 0;
-        while(count < n){
-            if (current == 0){
-                current = 1;
-            }
-            next = current + temp;
-            temp = current;
-            current = next;
-            count++;
-            System.out.println(current);
+    // https://leetcode.com/problems/middle-of-the-linked-list/
+    public static ListNode middleNode(ListNode head) {
+        ArrayList<ListNode> nodes = new ArrayList<>();
+        while (head != null) {
+            nodes.add(head);
+            head = head.next;
         }
-        return current;
+        return nodes.get(nodes.size() / 2);
     }
 
-    @Test
-    public void fibTest(){
-        Assert.assertEquals(1, fib(2));
-        Assert.assertEquals(2, fib(3));
-        Assert.assertEquals(3, fib(4));
+    // https://leetcode.com/problems/shuffle-string/discuss/765424/Easy-Approach-or-Java-Solution
+    public static String restoreString(String s, int[] indices) {
+        String[] split = s.split("");
+        String[] reconstituted = new String[split.length];
+
+        for (int i = 0; i < indices.length; i++) {
+            int key = indices[i];
+            reconstituted[key] = split[i];
+        }
+        return String.join("", reconstituted);
     }
 
-    // https://leetcode.com/problems/maximum-product-of-two-elements-in-an-array/submissions/
-    public static int maxProduct(int[] nums) {
-        Arrays.sort(nums);
-        return (nums[nums.length - 1] -1) * (nums[nums.length - 2] - 1);
+    public static boolean selfDividingNumber(int num) {
+        String[] nums = String.valueOf(num).split("");
+        for (String s : nums) {
+            if (Integer.parseInt(s) == 0) {
+                return false;
+            }
+            if (num % Integer.parseInt(s) != 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    @Test
-    public void maxProductTest(){
-        Assert.assertEquals(16, maxProduct(new int[]{1,5,4,5}));
-        Assert.assertEquals(12, maxProduct(new int[]{3,4,5,2}));
-        Assert.assertEquals(12, maxProduct(new int[]{3,7}));
+    // https://leetcode.com/problems/flipping-an-image/
+    public static int[][] flipAndInvertImage(int[][] A) {
+        int[][] b = A.clone();
+        for (int i = 0; i < A.length; i++) {
+            int[] copy = new int[A[i].length];
+            for (int k = 0; k < A[i].length; k++) {
+                copy[A[i].length - k - 1] = (A[i][k] == 0 ? 1 : 0);
+                b[i] = copy;
+            }
+        }
+        return b;
     }
 
     public static int getDecimalValue(ListNode head) {
@@ -959,92 +1020,61 @@ public class Solutions {
         Assert.assertEquals("hello", toLowerCase("HELLO"));
     }
 
-
-    // https://leetcode.com/problems/available-captures-for-rook
-    public static int numRookCaptures(char[][] board) {
+    // https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix/
+    public static int countNegatives(int[][] grid) {
         int count = 0;
-        ArrayList<int[][]> otherPieces = new ArrayList<>();
-        for (int i = 0 ; i < board.length ; i++){
-            for (int k = 0 ; k < board[i].length ; k++){
-                if(board[i][k] == 'R'){
-                    for(int j = i ; j >= 0 ; j--){
-                        if(board[j][k] == 'p'){
-                            count++;
-                            break;
-                        }
-                        if(board[j][k] == 'B') break;
-                    }
-                    for(int n = i ; n < board.length ; n++){
-                        if(board[n][k] == 'p'){
-                            count++;
-                            break;
-                        }
-                        if(board[n][k] == 'B') break;
-                    }
-                    for(int m = k ; m >= 0 ; m--){
-                        if(board[i][m] == 'p'){
-                            count++;
-                            break;
-                        }
-                        if(board[i][m] == 'B') break;
-                    }
-                    for(int p = k ; p < board[i].length ; p++){
-                        if(board[i][p] == 'p'){
-                            count++;
-                            break;
-                        }
-                        if(board[i][p] == 'B') break;
-                    }
+        for (int[] ints : grid) {
+            for (int k = ints.length - 1; k >= 0; k--) {
+                if (ints[k] < 0) {
+                    count++;
+                } else {
+                    break;
                 }
             }
         }
         return count;
     }
 
-    // https://leetcode.com/problems/single-element-in-a-sorted-array/
-    // I have kept this method in as an example of a naive approach to the algorithm. A much improved solution is below.
-    public static int singleNonDuplicateSolution1(int[] nums) {
-        List<Integer> numsAsList = new ArrayList<>(nums.length);
-        for (int num : nums) {
-            numsAsList.add(num);
+    // https://leetcode.com/problems/water-bottles
+    public static int numWaterBottles(int numBottles, int numExchange) {
+        int count = 0;
+        int empties = 0;
+        while (numBottles != 0) {
+            count += numBottles;
+            numBottles = numBottles + empties;
+            empties = numBottles % numExchange;
+            numBottles = numBottles / numExchange;
         }
-        for(int i = 0 ; i < numsAsList.size() ; i++){
-            if(numsAsList.indexOf(numsAsList.get(i)) == numsAsList.lastIndexOf(numsAsList.get(i))){
-                return numsAsList.get(i);
-            }
-        }
-        return 0;
+        return count;
     }
 
-    public static int singleNonDuplicate(int[] nums) {
-        for (int i = 0; i < nums.length ; i+=2){
-            try {
-                if (nums[i] != nums[i + 1]) {
-                    return nums[i];
-                }
-            }catch (IndexOutOfBoundsException e){
-                return nums[i];
-            }
-        }
-        return 0;
+    // https://leetcode.com/problems/maximum-69-number/
+    public static int maximum69Number(int num) {
+        String numString = String.valueOf(num);
+        numString = numString.replaceFirst("6", "9");
+        return Integer.parseInt(numString);
     }
 
-    @Test
-    public void singleNonDuplicateTest() {
-        int[] input1 = new int[]{1,1,2,3,3,4,4,8,8};
-        int[] input2 = new int[]{3,3,7,7,10,11,11};
-        Assert.assertEquals(2, singleNonDuplicate(input1));
-        Assert.assertEquals(10, singleNonDuplicate(input2));
+    // https://leetcode.com/problems/create-target-array-in-the-given-order/
+    public static int[] createTargetArray(int[] nums, int[] index) {
+        List<Integer> numsList = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            numsList.add(index[i], nums[i]);
+        }
+        for (int i = 0; i < index.length; i++) {
+            index[i] = numsList.get(i);
+        }
+        return index;
     }
 
-    // https://leetcode.com/problems/middle-of-the-linked-list/
-    public static ListNode middleNode(ListNode head) {
-        ArrayList<ListNode> nodes = new ArrayList<>();
-        while(head != null){
-            nodes.add(head);
-            head = head.next;
+    // https://leetcode.com/problems/squares-of-a-sorted-array/submissions/
+    public static int[] sortedSquares(int[] A) {
+
+        for (int i = 0; i < A.length; i++) {
+            A[i] = A[i] * A[i];
         }
-        return nodes.get(nodes.size() / 2);
+        Arrays.sort(A);
+        return A;
     }
 
     @Test
@@ -1188,64 +1218,49 @@ public class Solutions {
         return true;
     }
 
-    // https://leetcode.com/problems/shuffle-string/discuss/765424/Easy-Approach-or-Java-Solution
-    public static String restoreString(String s, int[] indices) {
-        String[] split = s.split("");
-        String[] reconstituted = new String[split.length];
-
-        for(int i = 0 ; i < indices.length ; i++){
-            int key = indices[i];
-            reconstituted[key] = split[i];
-        }
-        return String.join("", reconstituted);
+    @Test
+    public void runningSumTest() {
+        int[] actual = runningSum(new int[]{1, 2, 3, 4});
+        int[] expected = new int[]{1, 3, 6, 10};
+        Assert.assertArrayEquals(actual, expected);
     }
 
     @Test
-    public void restoreStringTest(){
-        Assert.assertEquals("nihao", restoreString("aiohn", new int[]{3, 1, 4, 2, 0}));
+    public void smallerNumbersThanCurrentTest() {
+        int[] actual = smallerNumbersThanCurrent(new int[]{8, 1, 2, 2, 3});
+        int[] expected = new int[]{4, 0, 1, 1, 3};
+        Assert.assertArrayEquals(expected, actual);
     }
 
-    // https://leetcode.com/problems/self-dividing-numbers/discuss/758471/Java-oror-2ms
-    public List<Integer> selfDividingNumbers(int left, int right) {
-        List<Integer> numbers = new ArrayList<>();
-        for(int i = left ; i <= right ; i++){
-            if(selfDividingNumber(i)){
-                numbers.add(i);
+    // https://leetcode.com/problems/count-of-smaller-numbers-after-self/
+    public List<Integer> countSmaller(int[] nums) {
+        List<Integer> shorterOnRight = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            int count = 0;
+            for (int k = i; k < nums.length; k++) {
+                if (nums[i] > nums[k]) {
+                    count++;
+                }
             }
+            shorterOnRight.add(count);
         }
-        return numbers;
-    }
-
-    public static boolean selfDividingNumber(int num){
-        String[] nums = String.valueOf(num).split("");
-        for(String s : nums){
-            if(Integer.parseInt(s) == 0){
-                return false;
-            }
-            if(num % Integer.parseInt(s) != 0){
-                return false;
-            }
-        }
-        return true;
+        return shorterOnRight;
     }
 
     @Test
-    public void selfDividingNumbersTest(){
-        List<Integer> input = new ArrayList<>();
-        input.add(1);
-        input.add(2);
-        input.add(3);
-        input.add(4);
-        input.add(5);
-        input.add(6);
-        input.add(7);
-        input.add(8);
-        input.add(9);
-        input.add(11);
-        input.add(12);
-        input.add(15);
-        input.add(22);
-        Assert.assertEquals(input, selfDividingNumbers(1, 22));
+    public void countSmallerTest() {
+        List<Integer> actual = countSmaller(new int[]{5, 2, 6, 1});
+        List<Integer> expected = new ArrayList<>();
+        expected.add(2);
+        expected.add(1);
+        expected.add(1);
+        expected.add(0);
+        Assert.assertEquals(actual, expected);
+    }
+
+    @Test
+    public void defangIPaddrTest() {
+        Assert.assertEquals("1[.]1[.]1[.]1", defangIPaddr("1.1.1.1"));
     }
 
     public static List<Integer> preorderTraversal(TreeNode root) {
@@ -1288,53 +1303,86 @@ public class Solutions {
     }
 
     @Test
-    public void dayOfTheWeekTest(){
+    public void fibTest() {
+        Assert.assertEquals(1, fib(2));
+        Assert.assertEquals(2, fib(3));
+        Assert.assertEquals(3, fib(4));
+    }
+
+    @Test
+    public void maxProductTest() {
+        Assert.assertEquals(16, maxProduct(new int[]{1, 5, 4, 5}));
+        Assert.assertEquals(12, maxProduct(new int[]{3, 4, 5, 2}));
+        Assert.assertEquals(12, maxProduct(new int[]{3, 7}));
+    }
+
+    @Test
+    public void singleNonDuplicateTest() {
+        int[] input1 = new int[]{1, 1, 2, 3, 3, 4, 4, 8, 8};
+        int[] input2 = new int[]{3, 3, 7, 7, 10, 11, 11};
+        Assert.assertEquals(2, singleNonDuplicate(input1));
+        Assert.assertEquals(10, singleNonDuplicate(input2));
+    }
+
+    @Test
+    public void restoreStringTest() {
+        Assert.assertEquals("nihao", restoreString("aiohn", new int[]{3, 1, 4, 2, 0}));
+    }
+
+    // https://leetcode.com/problems/self-dividing-numbers/discuss/758471/Java-oror-2ms
+    public List<Integer> selfDividingNumbers(int left, int right) {
+        List<Integer> numbers = new ArrayList<>();
+        for (int i = left; i <= right; i++) {
+            if (selfDividingNumber(i)) {
+                numbers.add(i);
+            }
+        }
+        return numbers;
+    }
+
+    @Test
+    public void selfDividingNumbersTest() {
+        List<Integer> input = new ArrayList<>();
+        input.add(1);
+        input.add(2);
+        input.add(3);
+        input.add(4);
+        input.add(5);
+        input.add(6);
+        input.add(7);
+        input.add(8);
+        input.add(9);
+        input.add(11);
+        input.add(12);
+        input.add(15);
+        input.add(22);
+        Assert.assertEquals(input, selfDividingNumbers(1, 22));
+    }
+
+    @Test
+    public void dayOfTheWeekTest() {
         Assert.assertEquals("Saturday", dayOfTheWeek(31, 8, 2019));
         Assert.assertEquals("Sunday", dayOfTheWeek(15, 8, 1993));
 
     }
 
-    // https://leetcode.com/problems/flipping-an-image/
-    public static int[][] flipAndInvertImage(int[][] A) {
-        int[][] b = A.clone();
-        for(int i = 0 ; i < A.length ; i++) {
-            int[] copy = new int[A[i].length];
-            for(int k = 0; k < A[i].length; k++){
-                copy[A[i].length - k - 1] = (A[i][k] == 0 ? 1 : 0);
-                b[i] = copy;
-            }
-        }
-        return b;
-    }
-
-    // https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix/
-    public static int countNegatives(int[][] grid){
-        int count =0;
-        for (int[] ints : grid) {
-            for (int k = ints.length - 1; k >= 0; k--) {
-                if (ints[k] < 0) {
-                    count++;
-                } else {
-                    break;
-                }
-            }
-        }
-        return count;
+    @Test
+    public void deleteNodeTest() {
+        //TODO: Finish this later
     }
 
     @Test
-    public void countNegativesTest(){
+    public void countNegativesTest() {
         int[][] input = new int[2][4];
-        input[0] = new int []{3,2,-1,-2};
-        input[1] = new int []{1,0,0,-3};
+        input[0] = new int[]{3, 2, -1, -2};
+        input[1] = new int[]{1, 0, 0, -3};
         Assert.assertEquals(3, countNegatives(input));
 
         int[][] input2 = new int[2][2];
-        input[0] = new int []{3,2};
-        input[1] = new int []{1,0};
+        input[0] = new int[]{3, 2};
+        input[1] = new int[]{1, 0};
         Assert.assertEquals(0, countNegatives(input2));
     }
-
 
     // https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string/
     public String removeDuplicates(String S) {
@@ -1343,7 +1391,7 @@ public class Solutions {
         for (int i = 0; i < stringArr.length - 1; i++) {
             if (stringArr[i] == stringArr[i + 1]) {
                 String beginning = String.valueOf(Arrays.copyOfRange(stringArr, 0, i));
-                String end = i+1 > stringArr.length ? "" : String.valueOf(Arrays.copyOfRange(stringArr, i + 2, stringArr.length));
+                String end = i + 1 > stringArr.length ? "" : String.valueOf(Arrays.copyOfRange(stringArr, i + 2, stringArr.length));
 
                 return this.removeDuplicates(beginning + end);
             }
@@ -1353,52 +1401,8 @@ public class Solutions {
     }
 
     @Test
-    public void removeDuplicatesTest(){
+    public void removeDuplicatesTest() {
         Assert.assertEquals("ca", removeDuplicates("abbaca"));
-    }
-
-    // https://leetcode.com/problems/delete-node-in-a-linked-list/
-    public void deleteNode(ListNode node) {
-        if (node.next != null || node != null){
-            node.val = node.next.val;
-            node.next = node.next.next;
-        }
-    }
-
-    @Test
-    public void deleteNodeTest() {
-        //TODO: Finish this later
-    }
-
-    public String reverseWords2(String s) {
-        String[] strSplit = s.split(" ");
-        List<String> strClone = new ArrayList<>();
-
-        for(int i = strSplit.length - 1 ; i >= 0; i--){
-            if(!strSplit[i].equals("")){
-                strClone.add(strSplit[i].strip());
-            }
-        }
-
-        return String.join(" ", strClone);
-    }
-
-    @Test
-    public void reverseWords2Test(){
-        Assert.assertEquals("blue is sky the", reverseWords2("the   sky is blue"));
-    }
-
-    // https://leetcode.com/problems/water-bottles
-    public static int numWaterBottles(int numBottles, int numExchange) {
-        int count = 0;
-        int empties = 0;
-        while (numBottles != 0){
-            count += numBottles;
-            numBottles = numBottles + empties;
-            empties = numBottles % numExchange;
-            numBottles = numBottles / numExchange;
-        }
-        return count;
     }
 
     @Test
@@ -1503,12 +1507,12 @@ public class Solutions {
         return -1;
     }
 
-    @Test
-    public void isPrefixOfWordTest(){
-        Assert.assertEquals(4, isPrefixOfWord("i love eating burger", "burg"));
-        Assert.assertEquals(2, isPrefixOfWord("this problem is an easy problem", "pro"));
-        Assert.assertEquals(2, isPrefixOfWord("dumb dream duck duck i", "drea"));
-        Assert.assertEquals(4, isPrefixOfWord("love errichto jonathan dumb", "dumb"));
+    // https://leetcode.com/problems/delete-node-in-a-linked-list/
+    public void deleteNode(ListNode node) {
+        if (node.next != null || node != null) {
+            node.val = node.next.val;
+            node.next = node.next.next;
+        }
     }
 
     // https://leetcode.com/problems/single-number/
@@ -1522,9 +1526,17 @@ public class Solutions {
         return -1;
     }
 
-    @Test
-    public void singleNumberTest(){
-        Assert.assertEquals(1, singleNumber(new int[]{2,2,1}));
+    public String reverseWords2(String s) {
+        String[] strSplit = s.split(" ");
+        List<String> strClone = new ArrayList<>();
+
+        for (int i = strSplit.length - 1; i >= 0; i--) {
+            if (!strSplit[i].equals("")) {
+                strClone.add(strSplit[i].strip());
+            }
+        }
+
+        return String.join(" ", strClone);
     }
 
     // https://leetcode.com/problems/sort-integers-by-the-number-of-1-bits/
@@ -1543,18 +1555,8 @@ public class Solutions {
     }
 
     @Test
-    public void sortByBitsTest(){
-        int[] expected = new int[]{0,1,2,4,8,3,5,6,7};
-        int[] input = new int[]{0,1,2,4,8,3,5,6,7};
-        Assert.assertArrayEquals(expected, sortByBits(input));
-
-        int[] expected1 = new int[]{2, 3, 5, 17, 7, 11, 13, 19};
-        int[] input1 = new int[]{2, 3, 5, 7, 11, 13, 17, 19};
-        Assert.assertArrayEquals(expected1, sortByBits(input1));
-
-        int[] expected2 = new int[]{1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024};
-        int[] input2 = new int[]{1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1};
-        Assert.assertArrayEquals(expected2, sortByBits(input2));
+    public void reverseWords2Test() {
+        Assert.assertEquals("blue is sky the", reverseWords2("the   sky is blue"));
     }
 
     // https://leetcode.com/problems/binary-prefix-divisible-by-5/submissions/
@@ -1578,13 +1580,12 @@ public class Solutions {
         Assert.assertEquals(expected, prefixesDivBy5(input));
     }
 
-    public int reverse(int x) {
-        boolean lessThan  = x < 0;
-        x = Math.abs(x);
-        StringBuilder sb = new StringBuilder(String.valueOf(x));
-        String reversed = sb.reverse().toString();
-        reversed = Integer.toBinaryString(Integer.parseInt(reversed));
-        return (lessThan) ? -Integer.parseInt(reversed, 2) : Integer.parseInt(reversed, 2);
+    @Test
+    public void isPrefixOfWordTest() {
+        Assert.assertEquals(4, isPrefixOfWord("i love eating burger", "burg"));
+        Assert.assertEquals(2, isPrefixOfWord("this problem is an easy problem", "pro"));
+        Assert.assertEquals(2, isPrefixOfWord("dumb dream duck duck i", "drea"));
+        Assert.assertEquals(4, isPrefixOfWord("love errichto jonathan dumb", "dumb"));
     }
 
     @Test
@@ -1685,19 +1686,23 @@ public class Solutions {
     }
 
     @Test
-    public void majorityElementTest(){
-        Assert.assertEquals(3, majorityElement(new int[]{3,2,3}));
-        Assert.assertEquals(2, majorityElement(new int[]{2,2,1,1,1,2,2}));
+    public void singleNumberTest() {
+        Assert.assertEquals(1, singleNumber(new int[]{2, 2, 1}));
     }
 
-    // https://leetcode.com/problems/three-consecutive-odds/
-    public boolean threeConsecutiveOdds(int[] arr) {
-        for(int i = 0; i < arr.length - 2; i++){
-            if(arr[i] % 2 != 0 && arr[i + 1] % 2 != 0 && arr[i + 2] % 2 != 0){
-                return true;
-            }
-        }
-        return false;
+    @Test
+    public void sortByBitsTest() {
+        int[] expected = new int[]{0, 1, 2, 4, 8, 3, 5, 6, 7};
+        int[] input = new int[]{0, 1, 2, 4, 8, 3, 5, 6, 7};
+        Assert.assertArrayEquals(expected, sortByBits(input));
+
+        int[] expected1 = new int[]{2, 3, 5, 17, 7, 11, 13, 19};
+        int[] input1 = new int[]{2, 3, 5, 7, 11, 13, 17, 19};
+        Assert.assertArrayEquals(expected1, sortByBits(input1));
+
+        int[] expected2 = new int[]{1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024};
+        int[] input2 = new int[]{1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1};
+        Assert.assertArrayEquals(expected2, sortByBits(input2));
     }
 
     @Test
@@ -1793,31 +1798,29 @@ public class Solutions {
         return maxItem;
     }
 
-    @Test
-    public void preorderTraversalTest(){
-        List<Integer> expected = new ArrayList<>();
-        expected.add(1); expected.add(2); expected.add(3);
-
-        TreeNode root = new TreeNode(1);
-        root.left = null;
-        root.right = new TreeNode(2);
-        root.right.left = new TreeNode(3);
-
-        Assert.assertEquals(expected, preorderTraversal(root));
-    }
-
-    // https://leetcode.com/problems/maximum-69-number/
-    public static int maximum69Number (int num) {
-        String numString = String.valueOf(num);
-        numString = numString.replaceFirst("6", "9");
-        return Integer.parseInt(numString);
+    public int reverse(int x) {
+        boolean lessThan = x < 0;
+        x = Math.abs(x);
+        StringBuilder sb = new StringBuilder(String.valueOf(x));
+        String reversed = sb.reverse().toString();
+        reversed = Integer.toBinaryString(Integer.parseInt(reversed));
+        return (lessThan) ? -Integer.parseInt(reversed, 2) : Integer.parseInt(reversed, 2);
     }
 
     @Test
-    public void maximum69NumberTest(){
-        Assert.assertEquals(9969, maximum69Number(9669));
-        Assert.assertEquals(9999, maximum69Number(9999));
-        Assert.assertEquals(9999, maximum69Number(9996));
+    public void majorityElementTest() {
+        Assert.assertEquals(3, majorityElement(new int[]{3, 2, 3}));
+        Assert.assertEquals(2, majorityElement(new int[]{2, 2, 1, 1, 1, 2, 2}));
+    }
+
+    // https://leetcode.com/problems/three-consecutive-odds/
+    public boolean threeConsecutiveOdds(int[] arr) {
+        for (int i = 0; i < arr.length - 2; i++) {
+            if (arr[i] % 2 != 0 && arr[i + 1] % 2 != 0 && arr[i + 2] % 2 != 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // https://leetcode.com/problems/generate-a-string-with-characters-that-have-odd-counts/
@@ -1832,31 +1835,31 @@ public class Solutions {
         return sb.toString();
     }
 
-    // https://leetcode.com/problems/create-target-array-in-the-given-order/
-    public static int[] createTargetArray(int[] nums, int[] index) {
-        List<Integer> numsList = new ArrayList<>();
-        for(int i = 0 ; i < nums.length; i++){
-            numsList.add(index[i], nums[i]);
-        }
-        for (int i = 0; i < index.length; i++){
-            index[i] = numsList.get(i);
-        }
-        return index;
+    @Test
+    public void preorderTraversalTest() {
+        List<Integer> expected = new ArrayList<>();
+        expected.add(1);
+        expected.add(2);
+        expected.add(3);
+
+        TreeNode root = new TreeNode(1);
+        root.left = null;
+        root.right = new TreeNode(2);
+        root.right.left = new TreeNode(3);
+
+        Assert.assertEquals(expected, preorderTraversal(root));
     }
 
     @Test
-    public void createTargetArrayTest(){
-        Assert.assertArrayEquals(new int[]{0,4,1,3,2}, createTargetArray(new int[]{0,1,2,3,4},new int[]{0,1,2,2,1}));
+    public void maximum69NumberTest() {
+        Assert.assertEquals(9969, maximum69Number(9669));
+        Assert.assertEquals(9999, maximum69Number(9999));
+        Assert.assertEquals(9999, maximum69Number(9996));
     }
 
-    // https://leetcode.com/problems/squares-of-a-sorted-array/submissions/
-    public static int[] sortedSquares(int[] A) {
-
-        for(int i = 0 ; i < A.length ; i++){
-            A[i] = A[i] * A[i];
-        }
-        Arrays.sort(A);
-        return A;
+    @Test
+    public void createTargetArrayTest() {
+        Assert.assertArrayEquals(new int[]{0, 4, 1, 3, 2}, createTargetArray(new int[]{0, 1, 2, 3, 4}, new int[]{0, 1, 2, 2, 1}));
     }
 
     @Test
@@ -1949,7 +1952,7 @@ public class Solutions {
     public String toGoatLatin(String S) {
         String[] sArray = S.split(" ");
 
-        for(int i = 0; i < sArray.length ; i++){
+        for (int i = 0; i < sArray.length; i++) {
             if (sArray[i].toLowerCase().charAt(0) == 'a' || sArray[i].toLowerCase().charAt(0) == 'e' ||
                     sArray[i].toLowerCase().charAt(0) == 'i' || sArray[i].toLowerCase().charAt(0) == 'o' ||
                     sArray[i].toLowerCase().charAt(0) == 'u') {
@@ -1963,7 +1966,7 @@ public class Solutions {
                 consonants.add(temp + "ma");
                 sArray[i] = String.join("", consonants);
             }
-            for(int k = 0; k < i + 1 ; k++) {
+            for (int k = 0; k < i + 1; k++) {
                 sArray[i] = sArray[i].concat("a");
             }
         }
@@ -1971,7 +1974,7 @@ public class Solutions {
     }
 
     @Test
-    public void goatLatinTest(){
+    public void goatLatinTest() {
         Assert.assertEquals("Imaa peaksmaaa oatGmaaaa atinLmaaaaa", toGoatLatin("I speak Goat Latin"));
     }
 
@@ -2178,7 +2181,7 @@ public class Solutions {
         ArrayList<Character> digits = new ArrayList<>();
         ArrayList<Character> letters = new ArrayList<>();
 
-        for(int i = 0 ; i < s.length() ; i++){
+        for (int i = 0; i < s.length(); i++) {
             if (Character.isDigit(s.charAt(i))) {
                 digits.add(s.charAt(i));
             } else letters.add(s.charAt(i));
@@ -2187,11 +2190,11 @@ public class Solutions {
         StringBuilder sb = new StringBuilder();
         boolean even = false;
 
-        if(digits.size() > letters.size()){
+        if (digits.size() > letters.size()) {
             even = true;
         }
 
-        for(int i = 0 ; i < s.length() ; i++){
+        for (int i = 0; i < s.length(); i++) {
             if (even) {
                 if (digits.isEmpty()) {
                     return "";
@@ -2212,7 +2215,7 @@ public class Solutions {
     }
 
     @Test
-    public void reformatTest(){
+    public void reformatTest() {
         Assert.assertEquals("0a1b2c", reformat("ab123"));
     }
 
@@ -2375,12 +2378,12 @@ public class Solutions {
 
         HashSet<Character> jewelSigns = new HashSet<>();
 
-        for(int i = 0; i < jewels.length() ; i++){
+        for (int i = 0; i < jewels.length(); i++) {
             jewelSigns.add(jewels.charAt(i));
         }
 
-        for(int k = 0; k < stones.length(); k++){
-            if(jewelSigns.contains(stones.charAt(k))) count++;
+        for (int k = 0; k < stones.length(); k++) {
+            if (jewelSigns.contains(stones.charAt(k))) count++;
         }
         return count;
     }
@@ -3007,8 +3010,8 @@ public class Solutions {
 
 
     public int[] replaceElements(int[] arr) { //Terribly slow, but learnt something.
-        for(int i = 0; i < arr.length; i++){
-            if(i == arr.length - 1) arr[i] = -1;
+        for (int i = 0; i < arr.length; i++) {
+            if (i == arr.length - 1) arr[i] = -1;
             else {
                 arr[i] = Arrays.stream(Arrays.copyOfRange(arr, i + 1, arr.length)).max().orElse(0);
             }
@@ -3017,18 +3020,17 @@ public class Solutions {
     }
 
     @Test
-    public void replaceElementsTest(){
-        Assert.assertArrayEquals(new int[]{18,6,6,6,1,-1}, replaceElements(new int[]{17,18,5,4,6,1}));
+    public void replaceElementsTest() {
+        Assert.assertArrayEquals(new int[]{18, 6, 6, 6, 1, -1}, replaceElements(new int[]{17, 18, 5, 4, 6, 1}));
     }
 
     public int countBalls(int lowLimit, int highLimit) {
         HashMap<Integer, Integer> boxes = new HashMap<>();
-        for(int i = lowLimit; i <= highLimit; i++){
+        for (int i = lowLimit; i <= highLimit; i++) {
             int sum = countBallsSum(i);
-            if(boxes.containsKey(sum)){
+            if (boxes.containsKey(sum)) {
                 boxes.put(sum, boxes.get(sum) + 1);
-            }
-            else boxes.put(sum, 1);
+            } else boxes.put(sum, 1);
         }
         int largestCount = 0;
         for (int key : boxes.keySet()) {
@@ -3181,7 +3183,7 @@ public class Solutions {
     public int largestAltitude(int[] gain) {
         int height = 0;
         int max = 0;
-        for(int change: gain){
+        for (int change : gain) {
             height += change;
             max = height > max ? height : max;
         }
@@ -3190,8 +3192,8 @@ public class Solutions {
 
     @Test
     public void largestAltitudeTest() {
-        Assert.assertEquals(1, largestAltitude(new int[]{-5,1,5,0,-7}));
-        Assert.assertEquals(0, largestAltitude(new int[]{-4,-3,-2,-1,4,3,2}));
+        Assert.assertEquals(1, largestAltitude(new int[]{-5, 1, 5, 0, -7}));
+        Assert.assertEquals(0, largestAltitude(new int[]{-4, -3, -2, -1, 4, 3, 2}));
 
     }
 
@@ -3214,12 +3216,12 @@ public class Solutions {
     }
 
     @Test
-    public void maxIncreaseKeepingSkylineTest(){
+    public void maxIncreaseKeepingSkylineTest() {
         int[][] block = new int[4][];
-        int[] row1 = new int[]{3,0,8,4};
-        int[] row2 = new int[]{2,4,5,7};
-        int[] row3 = new int[]{9,2,6,3};
-        int[] row4 = new int[]{0,3,1,0};
+        int[] row1 = new int[]{3, 0, 8, 4};
+        int[] row2 = new int[]{2, 4, 5, 7};
+        int[] row3 = new int[]{9, 2, 6, 3};
+        int[] row4 = new int[]{0, 3, 1, 0};
 
         block[0] = row1;
         block[1] = row2;
@@ -3436,5 +3438,26 @@ public class Solutions {
         Assert.assertEquals(expected, findRepeatedDnaSequences("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"));
     }
 
+    public int[] singleNumber2(int[] nums) {
+        HashMap<Integer, Integer> counterOfNums = new HashMap<>();
+        for (int num : nums) {
+            if (!counterOfNums.containsKey(num)) counterOfNums.put(num, 1);
+            else counterOfNums.put(num, counterOfNums.get(num) + 1);
+        }
+        ArrayList<Integer> singles = new ArrayList<>();
+        for (int key : counterOfNums.keySet()) {
+            if (counterOfNums.get(key) == 1) singles.add(key);
+        }
+        int[] singlesArray = new int[singles.size()];
+        for (int i = 0; i < singles.size(); i++) {
+            singlesArray[i] = singles.get(i);
+        }
+        return singlesArray;
+    }
+
+    @Test
+    public void singleNumber3Test() {
+        Assert.assertArrayEquals(new int[]{3, 5}, singleNumber2(new int[]{1, 2, 1, 3, 2, 5}));
+    }
 }
 

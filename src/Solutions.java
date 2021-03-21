@@ -3439,21 +3439,24 @@ public class Solutions {
     }
 
     public int[] singleNumber2(int[] nums) {
-        HashMap<Integer, Integer> counterOfNums = new HashMap<>();
-        for (int num : nums) {
-            if (!counterOfNums.containsKey(num)) counterOfNums.put(num, 1);
-            else counterOfNums.put(num, counterOfNums.get(num) + 1);
+        if (nums.length == 0)
+            return new int[]{0, 0};
+        HashSet<Integer> set = new HashSet<>();
+        for (int n : nums) {
+            if (set.contains(n)) {
+                set.remove(n);
+            } else
+                set.add(n);
         }
-        ArrayList<Integer> singles = new ArrayList<>();
-        for (int key : counterOfNums.keySet()) {
-            if (counterOfNums.get(key) == 1) singles.add(key);
+        int[] arr = new int[2];
+        int i = 0;
+        for (int n : set) {
+            arr[i] = n;
+            i++;
         }
-        int[] singlesArray = new int[singles.size()];
-        for (int i = 0; i < singles.size(); i++) {
-            singlesArray[i] = singles.get(i);
-        }
-        return singlesArray;
+        return arr;
     }
+
 
     @Test
     public void singleNumber3Test() {

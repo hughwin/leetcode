@@ -3463,5 +3463,15 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{3, 5}, singleNumber3(new int[]{1, 2, 1, 3, 2, 5}));
     }
 
+    public int dayOfYear(String date) {
+        LocalDate localDate = LocalDate.parse(date);
+        return localDate.getDayOfYear();
+    }
+
+    @Test
+    public void dayOfYearTest() {
+        Assert.assertEquals(9, dayOfYear("2019-01-09"));
+    }
+
 }
 

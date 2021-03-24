@@ -3439,7 +3439,7 @@ public class Solutions {
     }
 
     // https://leetcode.com/problems/single-number-iii/submissions/
-    public int[] singleNumber2(int[] nums) {
+    public int[] singleNumber3(int[] nums) {
         if (nums.length == 0)
             return new int[]{0, 0};
         HashSet<Integer> set = new HashSet<>();
@@ -3458,10 +3458,10 @@ public class Solutions {
         return arr;
     }
 
-
     @Test
     public void singleNumber3Test() {
-        Assert.assertArrayEquals(new int[]{3, 5}, singleNumber2(new int[]{1, 2, 1, 3, 2, 5}));
+        Assert.assertArrayEquals(new int[]{3, 5}, singleNumber3(new int[]{1, 2, 1, 3, 2, 5}));
     }
+
 }
 

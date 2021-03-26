@@ -3473,5 +3473,25 @@ public class Solutions {
         Assert.assertEquals(9, dayOfYear("2019-01-09"));
     }
 
+    public boolean isHappy(int n) {
+            if (n == 1) return true;
+            if (n == 7) return true;
+            if (n < 10) return false;
+            int count = 0;
+            while(n / 10 != 0) {
+                count += (n % 10) * (n % 10);
+                n = (n / 10);
+            }
+            count += n * n;
+            return isHappy(count);
+    }
+
+    @Test
+    public void isHappyTest(){
+        Assert.assertTrue(isHappy(19));
+        Assert.assertTrue(isHappy(7));
+        Assert.assertFalse(isHappy(2));
+    }
+
 }
 

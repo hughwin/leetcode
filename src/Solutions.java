@@ -3474,44 +3474,43 @@ public class Solutions {
     }
 
     public boolean isHappy(int n) {
-            if (n == 1) return true;
-            if (n == 7) return true;
-            if (n < 10) return false;
-            int count = 0;
-            while(n / 10 != 0) {
-                count += (n % 10) * (n % 10);
-                n = (n / 10);
-            }
-            count += n * n;
-            return isHappy(count);
+        if (n == 1) return true;
+        if (n == 7) return true;
+        if (n < 10) return false;
+        int count = 0;
+        while (n / 10 != 0) {
+            count += (n % 10) * (n % 10);
+            n = (n / 10);
+        }
+        count += n * n;
+        return isHappy(count);
     }
 
     @Test
-    public void isHappyTest(){
+    public void isHappyTest() {
         Assert.assertTrue(isHappy(19));
         Assert.assertTrue(isHappy(7));
         Assert.assertFalse(isHappy(2));
     }
 
     public boolean isUgly(int n) {
-            if(n==0)return false;
-            while(n!=1)
-            {
-                if(n%2==0)
-                    n=n/2;
-                else if(n%3==0)
-                    n=n/3;
-                else if(n%5==0)
-                    n=n/5;
-                else
-                    return false;
+        if (n == 0) return false;
+        while (n != 1) {
+            if (n % 2 == 0)
+                n = n / 2;
+            else if (n % 3 == 0)
+                n = n / 3;
+            else if (n % 5 == 0)
+                n = n / 5;
+            else
+                return false;
 
-            }
-            return true;
+        }
+        return true;
     }
 
     @Test
-    public void isUglyTest(){
+    public void isUglyTest() {
         Assert.assertTrue(isUgly(6));
         Assert.assertTrue(isUgly(8));
         Assert.assertFalse(isUgly(14));

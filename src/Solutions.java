@@ -3517,5 +3517,18 @@ public class Solutions {
         Assert.assertFalse(isUgly(-2147483648));
     }
 
+
+    public int maximumProduct(int[] nums) {
+        Arrays.sort(nums);
+        return Math.max(nums[nums.length -1] * nums[nums.length - 2] * nums[nums.length - 3], nums[nums.length - 1] * nums[0] * nums[1]);
+    }
+
+    @Test
+    public void maximumProductTest(){
+        Assert.assertEquals(6, maximumProduct(new int[]{1,2,3}));
+        Assert.assertEquals(24, maximumProduct(new int[]{1,2,3,4}));
+        Assert.assertEquals(39200, maximumProduct(new int[]{-100, -98, -1,2,3,4}));
+    }
+
 }
 

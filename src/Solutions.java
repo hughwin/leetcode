@@ -3530,5 +3530,25 @@ public class Solutions {
         Assert.assertEquals(39200, maximumProduct(new int[]{-100, -98, -1,2,3,4}));
     }
 
+    public int findKthPositive(int[] arr, int k) {
+        HashSet<Integer> existingNumbers = new HashSet<>();
+        for(int num : arr) existingNumbers.add(num);
+        ArrayList<Integer> missingNums = new ArrayList<>();
+        int i = 1;
+        while(missingNums.size() < k){
+            if(!existingNumbers.contains(i)) missingNums.add(i);
+            i++;
+        }
+        return missingNums.get(k - 1);
+    }
+
+    @Test
+    public void findKthPositiveTest(){
+        Assert.assertEquals(9, findKthPositive(new int[]{2,3,4,7,11}, 5));
+        Assert.assertEquals(6, findKthPositive(new int[]{1,2,3,4}, 2));
+    }
+
+
+
 }
 

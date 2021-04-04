@@ -3531,15 +3531,16 @@ public class Solutions {
     }
 
     public int findKthPositive(int[] arr, int k) {
-        HashSet<Integer> existingNumbers = new HashSet<>();
-        for(int num : arr) existingNumbers.add(num);
-        ArrayList<Integer> missingNums = new ArrayList<>();
+        int nextNumber = arr[0];
+        int index = 0;
+        int missingCount = 0;
         int i = 1;
-        while(missingNums.size() < k){
-            if(!existingNumbers.contains(i)) missingNums.add(i);
+        while(true){
+            if(i != nextNumber) missingCount++;
+            if(i == nextNumber && index + 1 < arr.length) nextNumber = arr[++index];
+            if(missingCount == k) return i;
             i++;
         }
-        return missingNums.get(k - 1);
     }
 
     @Test

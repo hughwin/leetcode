@@ -3593,6 +3593,21 @@ public class Solutions {
         Assert.assertFalse(checkOnesSegment("111100001111"));
     }
 
+    public int bitwiseComplement(int n) {
+        char[] nAsArray = Integer.toBinaryString(n).toCharArray();
+        for(int i = 0; i < nAsArray.length ; i++){
+            if(nAsArray[i] == '0') nAsArray[i] = '1';
+            else nAsArray[i] = '0';
+        }
+        return Integer.parseInt(String.valueOf(nAsArray), 2);
+    }
+
+    @Test
+    public void bitwiseComplementTest(){
+        Assert.assertEquals(2, bitwiseComplement(5));
+        Assert.assertEquals(0, bitwiseComplement(7));
+    }
+
 
 }
 

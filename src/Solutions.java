@@ -3549,6 +3549,35 @@ public class Solutions {
         Assert.assertEquals(6, findKthPositive(new int[]{1,2,3,4}, 2));
     }
 
+    public boolean areAlmostEqual(String s1, String s2) {
+        if(s1.length() != s2.length()) return false;
+        if(s1.equals(s2)) return true;
+        char[] s1CharArray = s1.toCharArray();
+        char[] s2CharArray = s2.toCharArray();
+        boolean swapped = false;
+        char tempChar = '0';
+        int index = 0;
+        for(int i = 0; i < s1CharArray.length; i++){
+            if(s1CharArray[i] != s2CharArray[i] && swapped){
+                s2CharArray[index] = s2CharArray[i];
+                s2CharArray[i] = tempChar;
+                break;
+            }
+            if(s1CharArray[i] != s2CharArray[i] && !swapped){
+                swapped = true;
+                tempChar = s2CharArray[i];
+                index = i;
+            }
+        }
+        return String.valueOf(s2CharArray).equals(String.valueOf(s1CharArray));
+    }
+
+    @Test
+    public void areAlmostEqualTest(){
+        Assert.assertTrue(areAlmostEqual("bank", "kanb"));
+        Assert.assertFalse(areAlmostEqual("attack", "defend"));
+    }
+
 
 
 }

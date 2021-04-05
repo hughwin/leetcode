@@ -3578,6 +3578,20 @@ public class Solutions {
         Assert.assertFalse(areAlmostEqual("attack", "defend"));
     }
 
+    public boolean checkOnesSegment(String s) {
+        boolean ones = true;
+        for(int i = 0; i < s.length() ; i++){
+            if(s.charAt(i) == '0' && ones) ones = false;
+            if(s.charAt(i) == '1' && !ones) return false;
+        }
+        return true;
+    }
+
+    @Test
+    public void checkOnesSegmentTest(){
+        Assert.assertTrue(checkOnesSegment("11110000"));
+        Assert.assertFalse(checkOnesSegment("111100001111"));
+    }
 
 
 }

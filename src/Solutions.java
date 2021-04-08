@@ -3608,6 +3608,22 @@ public class Solutions {
         Assert.assertEquals(0, bitwiseComplement(7));
     }
 
+    public String truncateSentence(String s, int k) {
+        String[] stringArray = s.split(" ");
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < k; i++){
+            if(i == k - 1) sb.append(stringArray[i]);
+            else sb.append(stringArray[i]).append(" ");
+        }
+        return sb.toString();
+    }
+
+    @Test
+    public void truncateSentence(){
+        Assert.assertTrue("Hello how are you".equals(truncateSentence("Hello how are you Contestant", 4)));
+        Assert.assertTrue("What is the solution".equals(truncateSentence("What is the solution to this problem", 4)));
+
+    }
 
 }
 

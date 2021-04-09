@@ -3625,5 +3625,46 @@ public class Solutions {
 
     }
 
+//    public int hammingDistance(int x, int y) {
+//    }
+//
+//    @Test
+//    public void hammingDistanceTest(){
+//        Assert.assertEquals(2, hammingDistance(1, 4));
+//    }
+
+    public int findLucky(int[] arr) {
+        if(arr.length == 1 && arr[0] != 1) return -1;
+        Arrays.sort(arr);
+        int count = 0;
+        int num = arr.length - 1;
+        for(int i = arr.length - 1 ; i >= 0; i--){
+            if(num == arr[i]) count++;
+            if(i != 0) {
+                if (count == num && arr[i - 1] != count) return num;
+            }
+            else{
+                if(count == num) return num;
+            }
+            if(num != arr[i]){
+                num = arr[i];
+                count = 1;
+                if(num == 1 && i == 0) return 1;
+            }
+        }
+        return -1;
+    }
+
+    @Test
+    public void findLuckyTest(){
+        Assert.assertEquals(-1, findLucky(new int[]{13,16,7,3,14,4,12,19,6,6,7,16,17,17}));
+        Assert.assertEquals(-1, findLucky(new int[]{5}));
+        Assert.assertEquals(2, findLucky(new int[]{1,2,2,3,4,5}));
+        Assert.assertEquals(4, findLucky(new int[]{1,2,2,3,4,4,4,4,5}));
+        Assert.assertEquals(2, findLucky(new int[]{2,2,3,3,4,5}));
+
+
+    }
+
 }
 

@@ -2188,11 +2188,7 @@ public class Solutions {
         }
 
         StringBuilder sb = new StringBuilder();
-        boolean even = false;
-
-        if (digits.size() > letters.size()) {
-            even = true;
-        }
+        boolean even = digits.size() > letters.size();
 
         for (int i = 0; i < s.length(); i++) {
             if (even) {
@@ -3603,11 +3599,40 @@ public class Solutions {
     }
 
     @Test
-    public void bitwiseComplementTest(){
+    public void bitwiseComplementTest() {
         Assert.assertEquals(2, bitwiseComplement(5));
         Assert.assertEquals(0, bitwiseComplement(7));
     }
 
+    public int[] kWeakestRows(int[][] mat, int k) {
+        int row = mat.length, col = mat[0].length, index = 0;
+        Set<Integer> seen = new HashSet<>();
+        int[] res = new int[k];
+        for (int j = 0; j < col; j++) {
+            for (int i = 0; i < row; i++) {
+                if (mat[i][j] == 0 && !seen.contains(i)) {
+                    res[index++] = i;
+                    seen.add(i);
+                    k--;
+                    if (k == 0) {
+                        return res;
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < row; i++) {
+            if (!seen.contains(i)) {
+                res[index++] = i;
+                seen.add(i);
+                k--;
+                if (k == 0) {
+                    return res;
+                }
+            }
+        }
+        return res;
+    }
 
+    
 }
 

@@ -3649,6 +3649,20 @@ public class Solutions {
         return res;
     }
 
+    public boolean squareIsWhite(String coordinates) {
+        if (Character.codePointAt(coordinates, 0) % 2 != 0 && Character.getNumericValue(coordinates.charAt(1)) % 2 != 0)
+            return false;
+        return Character.codePointAt(coordinates, 0) % 2 != 0 || Character.getNumericValue(coordinates.charAt(1)) % 2 != 0;
+    }
+
+    @Test
+    public void squareIsWhiteTest() {
+        Assert.assertFalse(squareIsWhite("a1"));
+        Assert.assertTrue(squareIsWhite("h3"));
+        Assert.assertFalse(squareIsWhite("h8"));
+        Assert.assertFalse(squareIsWhite("c7"));
+    }
+
 
 }
 

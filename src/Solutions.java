@@ -3616,8 +3616,8 @@ public class Solutions {
 
     @Test
     public void truncateSentence(){
-        Assert.assertTrue("Hello how are you".equals(truncateSentence("Hello how are you Contestant", 4)));
-        Assert.assertTrue("What is the solution".equals(truncateSentence("What is the solution to this problem", 4)));
+        Assert.assertEquals("Hello how are you", truncateSentence("Hello how are you Contestant", 4));
+        Assert.assertEquals("What is the solution", truncateSentence("What is the solution to this problem", 4));
 
     }
     public int[] kWeakestRows(int[][] mat, int k) {
@@ -3677,6 +3677,29 @@ public class Solutions {
     public void checkIfPangramTest() {
         Assert.assertTrue(checkIfPangram("abcdefghijklmnopqrstuvwxyz"));
         Assert.assertFalse(checkIfPangram("abcde"));
+    }
+
+    public String reverseOnlyLetters(String S) {
+        StringBuilder sb = new StringBuilder();
+        int index = S.length() - 1;
+        for (int i = 0; i < S.length(); i++) {
+            if (Character.toString(S.charAt(index)).matches("[A-Za-z]")) {
+                sb.append(S.charAt(index));
+            }
+            index--;
+        }
+        for (int i = 0; i < S.length(); i++) {
+            if (!Character.toString(S.charAt(i)).matches("[A-Za-z]")) sb.insert(i, S.charAt(i));
+        }
+        return sb.toString();
+    }
+
+    @Test
+    public void reverseOnlyLetters() {
+        Assert.assertTrue("dc-ba".equals(reverseOnlyLetters("ab-cd")));
+        Assert.assertTrue("j-Ih-gfE-dCba".equals(reverseOnlyLetters("a-bC-dEf-ghIj")));
+        Assert.assertFalse(!"Qedo1ct-eeLg=ntse-T!".equals(reverseOnlyLetters("Test1ng-Leet=code-Q!")));
+
     }
 
 

@@ -3699,9 +3699,30 @@ public class Solutions {
 
     @Test
     public void reverseOnlyLetters() {
-        Assert.assertTrue("dc-ba".equals(reverseOnlyLetters("ab-cd")));
-        Assert.assertTrue("j-Ih-gfE-dCba".equals(reverseOnlyLetters("a-bC-dEf-ghIj")));
-        Assert.assertFalse(!"Qedo1ct-eeLg=ntse-T!".equals(reverseOnlyLetters("Test1ng-Leet=code-Q!")));
+        Assert.assertEquals("dc-ba", reverseOnlyLetters("ab-cd"));
+        Assert.assertEquals("j-Ih-gfE-dCba", reverseOnlyLetters("a-bC-dEf-ghIj"));
+        Assert.assertEquals("Qedo1ct-eeLg=ntse-T!", reverseOnlyLetters("Test1ng-Leet=code-Q!"));
+    }
+
+    public int maxLengthBetweenEqualCharacters(String s) {
+        char[] charArray = s.toCharArray();
+        int longestGap = 0;
+        for (int i = 0; i < charArray.length; i++) {
+            for (int k = charArray.length - 1; k > i; k--) {
+                if (charArray[i] == charArray[k]) {
+                    if (k - i > longestGap) longestGap = k - i - 1;
+                }
+            }
+        }
+        return longestGap;
+    }
+
+    @Test
+    public void maxLengthBetweenEqualCharactersTest() {
+        Assert.assertEquals(0, maxLengthBetweenEqualCharacters("aa"));
+        Assert.assertEquals(2, maxLengthBetweenEqualCharacters("abca"));
+        Assert.assertEquals(0, maxLengthBetweenEqualCharacters("abcdef"));
+        Assert.assertEquals(4, maxLengthBetweenEqualCharacters("cabbac"));
 
     }
 

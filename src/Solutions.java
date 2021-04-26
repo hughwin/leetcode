@@ -3706,11 +3706,14 @@ public class Solutions {
 
     public int maxLengthBetweenEqualCharacters(String s) {
         char[] charArray = s.toCharArray();
-        int longestGap = 0;
+        int longestGap = -1;
         for (int i = 0; i < charArray.length; i++) {
             for (int k = charArray.length - 1; k > i; k--) {
                 if (charArray[i] == charArray[k]) {
-                    if (k - i > longestGap) longestGap = k - i - 1;
+                    if (k - i > longestGap) {
+                        longestGap = k - i - 1;
+                        break;
+                    }
                 }
             }
         }

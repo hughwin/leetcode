@@ -3663,6 +3663,23 @@ public class Solutions {
         Assert.assertFalse(squareIsWhite("c7"));
     }
 
+    public boolean checkIfPangram(String sentence) {
+        HashSet<Character> stringSet = new HashSet<>();
+        char[] sentenceArray = sentence.toCharArray();
+        for (int i = 0; i < sentence.length(); i++) {
+            stringSet.add(sentenceArray[i]);
+        }
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        for (char c : alphabet) if (!stringSet.contains(c)) return false;
+        return true;
+    }
+
+    @Test
+    public void checkIfPangramTest() {
+        Assert.assertTrue(checkIfPangram("abcdefghijklmnopqrstuvwxyz"));
+        Assert.assertFalse(checkIfPangram("abcde"));
+    }
+
 
 }
 

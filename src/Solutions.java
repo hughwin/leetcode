@@ -3668,10 +3668,9 @@ public class Solutions {
         char[] sentenceArray = sentence.toCharArray();
         for (int i = 0; i < sentence.length(); i++) {
             stringSet.add(sentenceArray[i]);
+            if (stringSet.size() == 26) return true;
         }
-        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-        for (char c : alphabet) if (!stringSet.contains(c)) return false;
-        return true;
+        return false;
     }
 
     @Test

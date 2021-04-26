@@ -3680,18 +3680,21 @@ public class Solutions {
     }
 
     public String reverseOnlyLetters(String S) {
-        StringBuilder sb = new StringBuilder();
-        int index = S.length() - 1;
-        for (int i = 0; i < S.length(); i++) {
-            if (Character.toString(S.charAt(index)).matches("[A-Za-z]")) {
-                sb.append(S.charAt(index));
+        char[] sArr = S.toCharArray();
+        int left = 0, right = S.length() - 1;
+        while (left < right) {
+            if (Character.isLetter(sArr[left]) && Character.isLetter(sArr[right])) {
+                char temp = sArr[left];
+                sArr[left] = sArr[right];
+                sArr[right] = temp;
+                left++;
+                right--;
+            } else {
+                if (!Character.isLetter(sArr[left])) left++;
+                if (!Character.isLetter(sArr[right])) right--;
             }
-            index--;
         }
-        for (int i = 0; i < S.length(); i++) {
-            if (!Character.toString(S.charAt(i)).matches("[A-Za-z]")) sb.insert(i, S.charAt(i));
-        }
-        return sb.toString();
+        return new String(sArr);
     }
 
     @Test

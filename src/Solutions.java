@@ -3726,6 +3726,22 @@ public class Solutions {
         Assert.assertEquals(2, maxLengthBetweenEqualCharacters("abca"));
         Assert.assertEquals(0, maxLengthBetweenEqualCharacters("abcdef"));
         Assert.assertEquals(4, maxLengthBetweenEqualCharacters("cabbac"));
+    }
+
+    public int addDigits(int num) {
+        int sum = 0;
+        while (num > 0) {
+            sum = sum + num % 10;
+            num = num / 10;
+        }
+        if (String.valueOf(sum).length() == 1) return sum;
+        return addDigits(sum);
+    }
+
+    @Test
+    public void addDigitsTest() {
+        Assert.assertEquals(2, addDigits(38));
+        Assert.assertEquals(2, addDigits(11));
 
     }
 

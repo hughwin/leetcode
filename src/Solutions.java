@@ -3783,8 +3783,19 @@ public class Solutions {
         Assert.assertEquals(2, findLucky(new int[]{1,2,2,3,4,5}));
         Assert.assertEquals(4, findLucky(new int[]{1,2,2,3,4,4,4,4,5}));
         Assert.assertEquals(2, findLucky(new int[]{2,2,3,3,4,5}));
+    }
 
+    public int distributeCandies(int[] candyType) {
+        HashSet<Integer> uniques = new HashSet<>();
+        for(int candy : candyType) uniques.add(candy);
+        return Math.min(uniques.size(), candyType.length / 2);
+    }
 
+    @Test
+    public void distributeCandiesTest() {
+        Assert.assertEquals(3, distributeCandies(new int[]{1,1,2,2,3,3}));
+        Assert.assertEquals(2, distributeCandies(new int[]{1,1,2,3}));
+        Assert.assertEquals(1, distributeCandies(new int[]{1,1,1,1}));
     }
 
 }

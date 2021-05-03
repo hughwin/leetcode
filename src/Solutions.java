@@ -3817,5 +3817,16 @@ public class Solutions {
 
     // Test not appropriate
 
+    public int countOdds(int low, int high) {
+        if (low % 2 == 0 && high % 2 == 0) return (high - low) / 2;
+        return ((high - low) / 2) + 1;
+    }
+
+    @Test
+    public void countOddsTest() {
+        Assert.assertEquals(3, countOdds(3, 7));
+        Assert.assertEquals(1, countOdds(8, 10));
+    }
+
 }
 

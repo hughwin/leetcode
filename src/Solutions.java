@@ -3828,5 +3828,21 @@ public class Solutions {
         Assert.assertEquals(1, countOdds(8, 10));
     }
 
+    public boolean checkPerfectNumber(int num) {
+        int sum = 0;
+        for (int i = 1; i < num / 2; i++) {
+            if (num % i == 0) sum += i;
+        }
+        return num == sum;
+    }
+
+    @Test
+    public void checkPerfectNumberTest() {
+        Assert.assertTrue(checkPerfectNumber(28));
+        Assert.assertTrue(checkPerfectNumber(496));
+        Assert.assertTrue(checkPerfectNumber(8128));
+        Assert.assertFalse(checkPerfectNumber(2));
+    }
+
 }
 

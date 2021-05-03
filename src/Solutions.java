@@ -2188,11 +2188,7 @@ public class Solutions {
         }
 
         StringBuilder sb = new StringBuilder();
-        boolean even = false;
-
-        if (digits.size() > letters.size()) {
-            even = true;
-        }
+        boolean even = digits.size() > letters.size();
 
         for (int i = 0; i < s.length(); i++) {
             if (even) {
@@ -3603,7 +3599,7 @@ public class Solutions {
     }
 
     @Test
-    public void bitwiseComplementTest(){
+    public void bitwiseComplementTest() {
         Assert.assertEquals(2, bitwiseComplement(5));
         Assert.assertEquals(0, bitwiseComplement(7));
     }
@@ -3620,10 +3616,135 @@ public class Solutions {
 
     @Test
     public void truncateSentence(){
-        Assert.assertTrue("Hello how are you".equals(truncateSentence("Hello how are you Contestant", 4)));
-        Assert.assertTrue("What is the solution".equals(truncateSentence("What is the solution to this problem", 4)));
+        Assert.assertEquals("Hello how are you", truncateSentence("Hello how are you Contestant", 4));
+        Assert.assertEquals("What is the solution", truncateSentence("What is the solution to this problem", 4));
 
     }
+    public int[] kWeakestRows(int[][] mat, int k) {
+        int row = mat.length, col = mat[0].length, index = 0;
+        Set<Integer> seen = new HashSet<>();
+        int[] res = new int[k];
+        for (int j = 0; j < col; j++) {
+            for (int i = 0; i < row; i++) {
+                if (mat[i][j] == 0 && !seen.contains(i)) {
+                    res[index++] = i;
+                    seen.add(i);
+                    k--;
+                    if (k == 0) {
+                        return res;
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < row; i++) {
+            if (!seen.contains(i)) {
+                res[index++] = i;
+                seen.add(i);
+                k--;
+                if (k == 0) {
+                    return res;
+                }
+            }
+        }
+        return res;
+    }
+
+    public boolean squareIsWhite(String coordinates) {
+        if (Character.codePointAt(coordinates, 0) % 2 != 0 && Character.getNumericValue(coordinates.charAt(1)) % 2 != 0)
+            return false;
+        return Character.codePointAt(coordinates, 0) % 2 != 0 || Character.getNumericValue(coordinates.charAt(1)) % 2 != 0;
+    }
+
+    @Test
+    public void squareIsWhiteTest() {
+        Assert.assertFalse(squareIsWhite("a1"));
+        Assert.assertTrue(squareIsWhite("h3"));
+        Assert.assertFalse(squareIsWhite("h8"));
+        Assert.assertFalse(squareIsWhite("c7"));
+    }
+
+    public boolean checkIfPangram(String sentence) {
+        HashSet<Character> stringSet = new HashSet<>();
+        char[] sentenceArray = sentence.toCharArray();
+        for (int i = 0; i < sentence.length(); i++) {
+            stringSet.add(sentenceArray[i]);
+            if (stringSet.size() == 26) return true;
+        }
+        return false;
+    }
+
+    @Test
+    public void checkIfPangramTest() {
+        Assert.assertTrue(checkIfPangram("abcdefghijklmnopqrstuvwxyz"));
+        Assert.assertFalse(checkIfPangram("abcde"));
+    }
+
+    public String reverseOnlyLetters(String S) {
+        char[] sArr = S.toCharArray();
+        int left = 0, right = S.length() - 1;
+        while (left < right) {
+            if (Character.isLetter(sArr[left]) && Character.isLetter(sArr[right])) {
+                char temp = sArr[left];
+                sArr[left] = sArr[right];
+                sArr[right] = temp;
+                left++;
+                right--;
+            } else {
+                if (!Character.isLetter(sArr[left])) left++;
+                if (!Character.isLetter(sArr[right])) right--;
+            }
+        }
+        return new String(sArr);
+    }
+
+    @Test
+    public void reverseOnlyLetters() {
+        Assert.assertEquals("dc-ba", reverseOnlyLetters("ab-cd"));
+        Assert.assertEquals("j-Ih-gfE-dCba", reverseOnlyLetters("a-bC-dEf-ghIj"));
+        Assert.assertEquals("Qedo1ct-eeLg=ntse-T!", reverseOnlyLetters("Test1ng-Leet=code-Q!"));
+    }
+
+    public int maxLengthBetweenEqualCharacters(String s) {
+        char[] charArray = s.toCharArray();
+        int longestGap = -1;
+        for (int i = 0; i < charArray.length; i++) {
+            for (int k = charArray.length - 1; k > i; k--) {
+                if (charArray[i] == charArray[k]) {
+                    if (k - i > longestGap) {
+                        longestGap = k - i - 1;
+                        break;
+                    }
+                }
+            }
+        }
+        return longestGap;
+    }
+
+    @Test
+    public void maxLengthBetweenEqualCharactersTest() {
+        Assert.assertEquals(0, maxLengthBetweenEqualCharacters("aa"));
+        Assert.assertEquals(2, maxLengthBetweenEqualCharacters("abca"));
+        Assert.assertEquals(0, maxLengthBetweenEqualCharacters("abcdef"));
+        Assert.assertEquals(4, maxLengthBetweenEqualCharacters("cabbac"));
+    }
+
+    public int addDigits(int num) {
+        int sum = 0;
+        while (num > 0) {
+            sum = sum + num % 10;
+            num = num / 10;
+        }
+        if (String.valueOf(sum).length() == 1) return sum;
+        return addDigits(sum);
+    }
+
+    @Test
+    public void addDigitsTest() {
+        Assert.assertEquals(2, addDigits(38));
+        Assert.assertEquals(2, addDigits(11));
+
+    }
+
 
 //    public int hammingDistance(int x, int y) {
 //    }

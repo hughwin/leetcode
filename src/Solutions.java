@@ -3801,5 +3801,21 @@ public class Solutions {
         Assert.assertEquals(1, distributeCandies(new int[]{1,1,1,1}));
     }
 
+    public void moveZeroes(int[] nums) {
+        for(int i = 0 ; i < nums.length ; i++){
+            if(nums[i] == 0){
+                for(int k = i ; k < nums.length ; k++){
+                    if(nums[k] != 0){
+                        nums[i] = nums[k];
+                        nums[k] = 0;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    // Test not appropriate
+
 }
 

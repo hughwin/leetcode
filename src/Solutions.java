@@ -3787,8 +3787,11 @@ public class Solutions {
 
     public int distributeCandies(int[] candyType) {
         HashSet<Integer> uniques = new HashSet<>();
-        for(int candy : candyType) uniques.add(candy);
-        return Math.min(uniques.size(), candyType.length / 2);
+        for(int candy : candyType) {
+            uniques.add(candy);
+            if(uniques.size() >= candyType.length / 2) return candyType.length / 2;
+        }
+        return uniques.size();
     }
 
     @Test

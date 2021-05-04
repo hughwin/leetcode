@@ -3844,5 +3844,47 @@ public class Solutions {
         Assert.assertFalse(checkPerfectNumber(2));
     }
 
+    public String[] findRestaurant(String[] list1, String[] list2) {
+        if (list1.length == 0) return Arrays.copyOfRange(list2, 0, 1);
+        if (list2.length == 0) return Arrays.copyOfRange(list1, 0, 1);
+
+        HashSet<String> likes = new HashSet<>();
+        ArrayList<String> commonLikes = new ArrayList<>();
+        Collections.addAll(likes, list1);
+        for (String s : list2) {
+            if (likes.contains(s)) commonLikes.add(s);
+        }
+
+
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        for (String s : commonLikes) {
+            int x = 0, y = 0;
+            for (int i = 0; i < list1.length; i++) {
+                if (list1[i].equals(s)) x = i;
+            }
+            for (int i = 0; i < list2.length; i++) {
+                if (list2[i].equals(s)) y = i;
+            }
+            hashMap.put(s, x + y);
+        }
+        int min = Collections.min(hashMap.values());
+        ArrayList<String> returnList = new ArrayList<>();
+        for (String s : hashMap.keySet()) {
+            if (hashMap.get(s) == min) returnList.add(s);
+        }
+        return returnList.toArray(new String[0]);
+    }
+
+    @Test
+    public void findRestaurantTest() {
+        Assert.assertArrayEquals(new String[]{"Shogun"},
+                findRestaurant(new String[]{"Shogun", "Tapioca Express", "Burger King", "KFC"},
+                        new String[]{"Piatti", "The Grill at Torrey Pines", "Hungry Hunter Steakhouse", "Shogun"}));
+
+        Assert.assertArrayEquals(new String[]{"Shogun"},
+                findRestaurant(new String[]{"Shogun", "Tapioca Express", "Burger King", "KFC"},
+                        new String[]{"KFC", "Shogun", "Burger King"}));
+    }
+
 }
 

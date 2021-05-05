@@ -3931,6 +3931,23 @@ public class Solutions {
         Assert.assertTrue(halvesAreAlike("AbCdEfGh"));
     }
 
+    public int sumBase(int n, int k) {
+        int base = Integer.parseInt(Integer.toString(Integer.parseInt(String.valueOf(n), 10), k));
+        int sum = 0;
+        while (base != 0) {
+            sum += base % 10;
+            base /= 10;
+        }
+        return sum;
+    }
+
+    @Test
+    public void sumBaseTest() {
+        Assert.assertEquals(9, sumBase(34, 6));
+        Assert.assertEquals(1, sumBase(1, 10));
+
+    }
+
 
 }
 

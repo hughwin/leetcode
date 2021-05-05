@@ -3948,22 +3948,18 @@ public class Solutions {
     }
 
     public String longestCommonPrefix(String[] strs) {
-        if (strs.length == 1) return strs[0];
-        String returnString = "";
-        try {
-            for (int i = 1; i <= strs[0].length(); i++) {
-                char[] common = strs[0].substring(0, i).toCharArray();
-                for (String s : strs) {
-                    char[] charArray = s.substring(0, i).toCharArray();
-                    if (!Arrays.equals(common, charArray)) return returnString;
-                }
-                returnString = String.valueOf(common);
-            }
-        } catch (Exception e) {
-            return returnString;
+        if (strs.length == 0) {
+            return "";
         }
-        return returnString;
+        String output = strs[0];
+        for (int i = 1; i < strs.length; i++) {
+            while (strs[i].indexOf(output) != 0) {
+                output = output.substring(0, output.length() - 1);
+            }
+        }
+        return output;
     }
+
 
     @Test
     public void longestCommonPrefixTest() {

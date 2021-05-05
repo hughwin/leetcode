@@ -3900,14 +3900,35 @@ public class Solutions {
         return result;
     }
 
-
     @Test
     public void plusOneTest() {
 //        Assert.assertArrayEquals(new int[]{1, 2, 4}, plusOne(new int[]{1, 2, 3}));
         Assert.assertArrayEquals(new int[]{9, 8, 7, 6, 5, 4, 3, 2, 1, 1},
                 plusOne(new int[]{9, 8, 7, 6, 5, 4, 3, 2, 1, 0}));
+    }
 
+    public boolean halvesAreAlike(String s) {
+        s = s.toLowerCase();
+        char[] vowelsArr = new char[]{'a', 'e', 'o', 'i', 'u'};
+        HashSet<Character> vowels = new HashSet<>();
+        for (char c : vowelsArr) vowels.add(c);
 
+        char[] stringArr = s.toCharArray();
+        int left = 0, right = 0;
+
+        for (int i = 0; i < stringArr.length; i++) {
+            if (vowels.contains(stringArr[i]) && i < stringArr.length / 2) left++;
+            else if (vowels.contains(stringArr[i])) right++;
+        }
+        return left == right;
+    }
+
+    @Test
+    public void halvesAreAlikeTest() {
+        Assert.assertTrue(halvesAreAlike("heel"));
+        Assert.assertTrue(halvesAreAlike("book"));
+        Assert.assertFalse(halvesAreAlike("MerryChristmas"));
+        Assert.assertTrue(halvesAreAlike("AbCdEfGh"));
     }
 
 

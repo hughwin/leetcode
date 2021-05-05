@@ -3945,9 +3945,31 @@ public class Solutions {
     public void sumBaseTest() {
         Assert.assertEquals(9, sumBase(34, 6));
         Assert.assertEquals(1, sumBase(1, 10));
-
     }
 
+    public String longestCommonPrefix(String[] strs) {
+        if (strs.length == 1) return strs[0];
+        String returnString = "";
+        try {
+            for (int i = 1; i <= strs[0].length(); i++) {
+                char[] common = strs[0].substring(0, i).toCharArray();
+                for (String s : strs) {
+                    char[] charArray = s.substring(0, i).toCharArray();
+                    if (!Arrays.equals(common, charArray)) return returnString;
+                }
+                returnString = String.valueOf(common);
+            }
+        } catch (Exception e) {
+            return returnString;
+        }
+        return returnString;
+    }
+
+    @Test
+    public void longestCommonPrefixTest() {
+        Assert.assertEquals("fl", longestCommonPrefix(new String[]{"flower", "flow", "flight"}));
+        Assert.assertEquals("", longestCommonPrefix(new String[]{"dog", "racecar", "car"}));
+    }
 
 }
 

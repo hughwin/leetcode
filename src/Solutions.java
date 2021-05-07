@@ -3993,7 +3993,6 @@ public class Solutions {
         headtemp.next = new ListNode(5);
 
         ListNode headTest = new ListNode(1);
-        ListNode headTestTemp = headTest;
         headtemp.next = new ListNode(3);
         headtemp = headtemp.next;
         headtemp.next = new ListNode(5);
@@ -4001,10 +4000,46 @@ public class Solutions {
         headtemp.next = new ListNode(2);
         headtemp = headtemp.next;
         headtemp.next = new ListNode(4);
-        headtemp = headtemp.next;
 
         Assert.assertEquals(headTest, oddEvenList(head));
     }
 
+    public ListNode sortList(ListNode head) {
+        ArrayList<Integer> values = new ArrayList<>();
+        while (head != null) {
+            values.add(head.val);
+            head = head.next;
+        }
+        Collections.sort(values);
+        ListNode headOfSorted = null;
+        ListNode tail = null;
+        for (Integer val : values) {
+            if (headOfSorted == null) {
+                headOfSorted = new ListNode(val);
+                tail = headOfSorted;
+            } else {
+                tail.next = new ListNode(val);
+                tail = tail.next;
+            }
+        }
+        return headOfSorted;
+    }
+
+    @Test
+    public void sortListTest() {
+        ListNode head = new ListNode(1);
+        ListNode headtemp = head;
+        headtemp.next = new ListNode(3);
+        headtemp = headtemp.next;
+        headtemp.next = new ListNode(5);
+        headtemp = headtemp.next;
+        headtemp.next = new ListNode(4);
+        headtemp = headtemp.next;
+        headtemp.next = new ListNode(2);
+
+        ListNode headTest = new ListNode(1);
+
+        Assert.assertEquals(headTest, sortList(head));
+    }
 }
 

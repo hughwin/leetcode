@@ -3620,6 +3620,7 @@ public class Solutions {
         Assert.assertEquals("What is the solution", truncateSentence("What is the solution to this problem", 4));
 
     }
+
     public int[] kWeakestRows(int[][] mat, int k) {
         int row = mat.length, col = mat[0].length, index = 0;
         Set<Integer> seen = new HashSet<>();
@@ -3760,17 +3761,16 @@ public class Solutions {
         int count = 0;
         int num = arr.length - 1;
         for(int i = arr.length - 1 ; i >= 0; i--){
-            if(num == arr[i]) count++;
-            if(i != 0) {
+            if (num == arr[i]) count++;
+            if (i != 0) {
                 if (count == num && arr[i - 1] != count) return num;
+            } else {
+                if (count == num) return num;
             }
-            else{
-                if(count == num) return num;
-            }
-            if(num != arr[i]){
+            if (num != arr[i]) {
                 num = arr[i];
                 count = 1;
-                if(num == 1 && i == 0) return 1;
+                if (num == 1 && i == 0) return 1;
             }
         }
         return -1;
@@ -3960,11 +3960,50 @@ public class Solutions {
         return output;
     }
 
-
     @Test
     public void longestCommonPrefixTest() {
         Assert.assertEquals("fl", longestCommonPrefix(new String[]{"flower", "flow", "flight"}));
         Assert.assertEquals("", longestCommonPrefix(new String[]{"dog", "racecar", "car"}));
+    }
+
+    public ListNode oddEvenList(ListNode head) {
+        if (head != null) {
+            ListNode odd = head, even = head.next, evenh = even;
+            while (even != null && even.next != null) {
+                odd.next = odd.next.next;
+                even.next = even.next.next;
+                odd = odd.next;
+                even = even.next;
+            }
+            odd.next = evenh;
+        }
+        return head;
+    }
+
+    @Test
+    public void oddEvenListTest() {
+        ListNode head = new ListNode(1);
+        ListNode headtemp = head;
+        headtemp.next = new ListNode(2);
+        headtemp = headtemp.next;
+        headtemp.next = new ListNode(3);
+        headtemp = headtemp.next;
+        headtemp.next = new ListNode(4);
+        headtemp = headtemp.next;
+        headtemp.next = new ListNode(5);
+
+        ListNode headTest = new ListNode(1);
+        ListNode headTestTemp = headTest;
+        headtemp.next = new ListNode(3);
+        headtemp = headtemp.next;
+        headtemp.next = new ListNode(5);
+        headtemp = headtemp.next;
+        headtemp.next = new ListNode(2);
+        headtemp = headtemp.next;
+        headtemp.next = new ListNode(4);
+        headtemp = headtemp.next;
+
+        Assert.assertEquals(headTest, oddEvenList(head));
     }
 
 }

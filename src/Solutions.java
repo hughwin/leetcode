@@ -4055,7 +4055,15 @@ public class Solutions {
     public void arrayPairSumTest() {
         Assert.assertEquals(4, arrayPairSum(new int[]{1, 4, 3, 2}));
         Assert.assertEquals(9, arrayPairSum(new int[]{6, 2, 6, 5, 1, 2}));
+    }
 
+    public int hammingDistance(int x, int y) {
+        return Integer.bitCount(x ^ y);
+    }
+
+    @Test
+    public void hammingDistanceTest() {
+        Assert.assertEquals(2, hammingDistance(1, 4));
     }
 }
 

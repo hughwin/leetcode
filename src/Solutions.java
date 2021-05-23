@@ -4067,23 +4067,21 @@ public class Solutions {
     }
 
     public int arraySign(int[] nums) {
-        int count = nums[0];
-        for(int i = 1; i < nums.length; i++){
-            count *= nums[i];
+        int x = 1;
+        for (int num : nums) {
+            if (num < 0)
+                x *= -1;
+            else if (num == 0)
+                return 0;
         }
-        System.out.println(count);
-        return signFunc(count);
-    }
-
-    // Helper function for the above - required for Tests
-    public int signFunc(int num){
-        return Integer.compare(num, 0);
+        return x;
     }
 
     @Test
     public void arraySignTest() {
         Assert.assertEquals(-1, arraySign(new int[]{-1, 1, 2}));
         Assert.assertEquals(1, arraySign(new int[]{-1,-2,-3,-4,3,2,1}));
+        Assert.assertEquals(-1, arraySign(new int[]{41,65,14,80,20,10,55,58,24,56,28,86,96,10,3,84,4,41,13,32,42,43,83,78,82,70,15,-41}));
     }
 }
 

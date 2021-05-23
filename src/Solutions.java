@@ -4065,5 +4065,25 @@ public class Solutions {
     public void hammingDistanceTest() {
         Assert.assertEquals(2, hammingDistance(1, 4));
     }
+
+    public int arraySign(int[] nums) {
+        int count = nums[0];
+        for(int i = 1; i < nums.length; i++){
+            count *= nums[i];
+        }
+        System.out.println(count);
+        return signFunc(count);
+    }
+
+    // Helper function for the above - required for Tests
+    public int signFunc(int num){
+        return Integer.compare(num, 0);
+    }
+
+    @Test
+    public void arraySignTest() {
+        Assert.assertEquals(-1, arraySign(new int[]{-1, 1, 2}));
+        Assert.assertEquals(1, arraySign(new int[]{-1,-2,-3,-4,3,2,1}));
+    }
 }
 

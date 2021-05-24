@@ -4083,5 +4083,31 @@ public class Solutions {
         Assert.assertEquals(1, arraySign(new int[]{-1,-2,-3,-4,3,2,1}));
         Assert.assertEquals(-1, arraySign(new int[]{41,65,14,80,20,10,55,58,24,56,28,86,96,10,3,84,4,41,13,32,42,43,83,78,82,70,15,-41}));
     }
+
+
+    // https://leetcode.com/problems/distribute-candies-to-people/
+    public int[] distributeCandies2(int candies, int num_people) {
+        int[] candyArray = new int[num_people];
+        int index = 0;
+        int count = 1;
+        while(candies > 0){
+            if(index == num_people) index = 0;
+            if(candies - count < 0){
+                candyArray[index] += candies;
+                return candyArray;
+            }
+            candyArray[index] += count;
+            candies -= count;
+            count += 1;
+            index++;
+        }
+        return candyArray;
+    }
+
+    @Test
+    public void distributeCandies2Test(){
+        Assert.assertArrayEquals(new int[]{1,2,3,1}, distributeCandies2(7, 4));
+        Assert.assertArrayEquals(new int[]{5, 2, 3}, distributeCandies2(10, 3));
+    }
 }
 

@@ -4109,5 +4109,32 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{1,2,3,1}, distributeCandies2(7, 4));
         Assert.assertArrayEquals(new int[]{5, 2, 3}, distributeCandies2(10, 3));
     }
+
+    // https://leetcode.com/problems/check-if-all-1s-are-at-least-length-k-places-away/submissions/
+    public boolean kLengthApart(int[] nums, int k) {
+        int start = 0;
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] == 1) {
+                start = i;
+                break;
+            }
+        }
+        int count = 0;
+        for(int j = start + 1; j < nums.length ; j++){
+            if(nums[j] == 1 && count < k) return false;
+            if(nums[j] == 1) count = 0;
+            else count ++;
+        }
+        return true;
+    }
+
+    @Test
+    public void kLengthApartTest(){
+        Assert.assertTrue(kLengthApart(new int[]{1,0,0,0,1,0,0,1}, 2));
+        Assert.assertFalse(kLengthApart(new int[]{1,0,0,1,0,1}, 2));
+        Assert.assertTrue(kLengthApart(new int[]{0,1,0,1}, 1));
+        Assert.assertFalse(kLengthApart(new int[]{1,0,1}, 2));
+
+    }
 }
 

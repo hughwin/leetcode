@@ -4134,7 +4134,23 @@ public class Solutions {
         Assert.assertFalse(kLengthApart(new int[]{1,0,0,1,0,1}, 2));
         Assert.assertTrue(kLengthApart(new int[]{0,1,0,1}, 1));
         Assert.assertFalse(kLengthApart(new int[]{1,0,1}, 2));
+    }
 
+    public int maxAscendingSum(int[] nums) {
+        int count = nums[0], max = nums[0];
+        for(int i = 1; i < nums.length; i++){
+            if(nums[i] > nums[i - 1]) count += nums[i];
+            else count = nums[i];
+            if(count > max) max = count;
+        }
+        return max;
+    }
+
+    @Test
+    public void maxAscendingSumTest() {
+        Assert.assertEquals(65, maxAscendingSum(new int[]{10,20,30,5,10,50}));
+        Assert.assertEquals(150, maxAscendingSum(new int[]{10,20,30,40,50}));
+        Assert.assertEquals(33, maxAscendingSum(new int[]{12,17,15,13,10,11,12}));
     }
 }
 

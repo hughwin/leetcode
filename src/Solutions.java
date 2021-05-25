@@ -4184,5 +4184,25 @@ public class Solutions {
         Assert.assertFalse(checkZeroOnes("111000"));
         Assert.assertFalse(checkZeroOnes("110100010"));
     }
+
+    public int[] dailyTemperatures(int[] temperatures) {
+        int[] days = new int[temperatures.length];
+        for(int i = 0; i < days.length; i++){
+            int daysCount = 1;
+            for(int k = i + 1; k < temperatures.length; k++){
+                if(temperatures[i] < temperatures[k]){
+                    days[i] = daysCount;
+                    break;
+                }
+                daysCount++;
+            }
+        }
+        return days;
+    }
+
+    @Test
+    public void dailyTemperaturesVoid(){
+        Assert.assertArrayEquals(new int[]{1, 1, 4, 2, 1, 1, 0, 0}, dailyTemperatures(new int[]{73, 74, 75, 71, 69, 72, 76, 73}));
+    }
 }
 

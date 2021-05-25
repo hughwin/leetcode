@@ -3516,14 +3516,14 @@ public class Solutions {
 
     public int maximumProduct(int[] nums) {
         Arrays.sort(nums);
-        return Math.max(nums[nums.length -1] * nums[nums.length - 2] * nums[nums.length - 3], nums[nums.length - 1] * nums[0] * nums[1]);
+        return Math.max(nums[nums.length - 1] * nums[nums.length - 2] * nums[nums.length - 3], nums[nums.length - 1] * nums[0] * nums[1]);
     }
 
     @Test
-    public void maximumProductTest(){
-        Assert.assertEquals(6, maximumProduct(new int[]{1,2,3}));
-        Assert.assertEquals(24, maximumProduct(new int[]{1,2,3,4}));
-        Assert.assertEquals(39200, maximumProduct(new int[]{-100, -98, -1,2,3,4}));
+    public void maximumProductTest() {
+        Assert.assertEquals(6, maximumProduct(new int[]{1, 2, 3}));
+        Assert.assertEquals(24, maximumProduct(new int[]{1, 2, 3, 4}));
+        Assert.assertEquals(39200, maximumProduct(new int[]{-100, -98, -1, 2, 3, 4}));
     }
 
     public int findKthPositive(int[] arr, int k) {
@@ -3531,35 +3531,35 @@ public class Solutions {
         int index = 0;
         int missingCount = 0;
         int i = 1;
-        while(true){
-            if(i != nextNumber) missingCount++;
-            if(i == nextNumber && index + 1 < arr.length) nextNumber = arr[++index];
-            if(missingCount == k) return i;
+        while (true) {
+            if (i != nextNumber) missingCount++;
+            if (i == nextNumber && index + 1 < arr.length) nextNumber = arr[++index];
+            if (missingCount == k) return i;
             i++;
         }
     }
 
     @Test
-    public void findKthPositiveTest(){
-        Assert.assertEquals(9, findKthPositive(new int[]{2,3,4,7,11}, 5));
-        Assert.assertEquals(6, findKthPositive(new int[]{1,2,3,4}, 2));
+    public void findKthPositiveTest() {
+        Assert.assertEquals(9, findKthPositive(new int[]{2, 3, 4, 7, 11}, 5));
+        Assert.assertEquals(6, findKthPositive(new int[]{1, 2, 3, 4}, 2));
     }
 
     public boolean areAlmostEqual(String s1, String s2) {
-        if(s1.length() != s2.length()) return false;
-        if(s1.equals(s2)) return true;
+        if (s1.length() != s2.length()) return false;
+        if (s1.equals(s2)) return true;
         char[] s1CharArray = s1.toCharArray();
         char[] s2CharArray = s2.toCharArray();
         boolean swapped = false;
         char tempChar = '0';
         int index = 0;
-        for(int i = 0; i < s1CharArray.length; i++){
-            if(s1CharArray[i] != s2CharArray[i] && swapped){
+        for (int i = 0; i < s1CharArray.length; i++) {
+            if (s1CharArray[i] != s2CharArray[i] && swapped) {
                 s2CharArray[index] = s2CharArray[i];
                 s2CharArray[i] = tempChar;
                 break;
             }
-            if(s1CharArray[i] != s2CharArray[i] && !swapped){
+            if (s1CharArray[i] != s2CharArray[i] && !swapped) {
                 swapped = true;
                 tempChar = s2CharArray[i];
                 index = i;
@@ -3569,30 +3569,30 @@ public class Solutions {
     }
 
     @Test
-    public void areAlmostEqualTest(){
+    public void areAlmostEqualTest() {
         Assert.assertTrue(areAlmostEqual("bank", "kanb"));
         Assert.assertFalse(areAlmostEqual("attack", "defend"));
     }
 
     public boolean checkOnesSegment(String s) {
         boolean ones = true;
-        for(int i = 0; i < s.length() ; i++){
-            if(s.charAt(i) == '0' && ones) ones = false;
-            if(s.charAt(i) == '1' && !ones) return false;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '0' && ones) ones = false;
+            if (s.charAt(i) == '1' && !ones) return false;
         }
         return true;
     }
 
     @Test
-    public void checkOnesSegmentTest(){
+    public void checkOnesSegmentTest() {
         Assert.assertTrue(checkOnesSegment("11110000"));
         Assert.assertFalse(checkOnesSegment("111100001111"));
     }
 
     public int bitwiseComplement(int n) {
         char[] nAsArray = Integer.toBinaryString(n).toCharArray();
-        for(int i = 0; i < nAsArray.length ; i++){
-            if(nAsArray[i] == '0') nAsArray[i] = '1';
+        for (int i = 0; i < nAsArray.length; i++) {
+            if (nAsArray[i] == '0') nAsArray[i] = '1';
             else nAsArray[i] = '0';
         }
         return Integer.parseInt(String.valueOf(nAsArray), 2);
@@ -3607,15 +3607,15 @@ public class Solutions {
     public String truncateSentence(String s, int k) {
         String[] stringArray = s.split(" ");
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < k; i++){
-            if(i == k - 1) sb.append(stringArray[i]);
+        for (int i = 0; i < k; i++) {
+            if (i == k - 1) sb.append(stringArray[i]);
             else sb.append(stringArray[i]).append(" ");
         }
         return sb.toString();
     }
 
     @Test
-    public void truncateSentence(){
+    public void truncateSentence() {
         Assert.assertEquals("Hello how are you", truncateSentence("Hello how are you Contestant", 4));
         Assert.assertEquals("What is the solution", truncateSentence("What is the solution to this problem", 4));
 
@@ -3756,11 +3756,11 @@ public class Solutions {
 //    }
 
     public int findLucky(int[] arr) {
-        if(arr.length == 1 && arr[0] != 1) return -1;
+        if (arr.length == 1 && arr[0] != 1) return -1;
         Arrays.sort(arr);
         int count = 0;
         int num = arr.length - 1;
-        for(int i = arr.length - 1 ; i >= 0; i--){
+        for (int i = arr.length - 1; i >= 0; i--) {
             if (num == arr[i]) count++;
             if (i != 0) {
                 if (count == num && arr[i - 1] != count) return num;
@@ -3777,35 +3777,35 @@ public class Solutions {
     }
 
     @Test
-    public void findLuckyTest(){
-        Assert.assertEquals(-1, findLucky(new int[]{13,16,7,3,14,4,12,19,6,6,7,16,17,17}));
+    public void findLuckyTest() {
+        Assert.assertEquals(-1, findLucky(new int[]{13, 16, 7, 3, 14, 4, 12, 19, 6, 6, 7, 16, 17, 17}));
         Assert.assertEquals(-1, findLucky(new int[]{5}));
-        Assert.assertEquals(2, findLucky(new int[]{1,2,2,3,4,5}));
-        Assert.assertEquals(4, findLucky(new int[]{1,2,2,3,4,4,4,4,5}));
-        Assert.assertEquals(2, findLucky(new int[]{2,2,3,3,4,5}));
+        Assert.assertEquals(2, findLucky(new int[]{1, 2, 2, 3, 4, 5}));
+        Assert.assertEquals(4, findLucky(new int[]{1, 2, 2, 3, 4, 4, 4, 4, 5}));
+        Assert.assertEquals(2, findLucky(new int[]{2, 2, 3, 3, 4, 5}));
     }
 
     public int distributeCandies(int[] candyType) {
         HashSet<Integer> uniques = new HashSet<>();
-        for(int candy : candyType) {
+        for (int candy : candyType) {
             uniques.add(candy);
-            if(uniques.size() >= candyType.length / 2) return candyType.length / 2;
+            if (uniques.size() >= candyType.length / 2) return candyType.length / 2;
         }
         return uniques.size();
     }
 
     @Test
     public void distributeCandiesTest() {
-        Assert.assertEquals(3, distributeCandies(new int[]{1,1,2,2,3,3}));
-        Assert.assertEquals(2, distributeCandies(new int[]{1,1,2,3}));
-        Assert.assertEquals(1, distributeCandies(new int[]{1,1,1,1}));
+        Assert.assertEquals(3, distributeCandies(new int[]{1, 1, 2, 2, 3, 3}));
+        Assert.assertEquals(2, distributeCandies(new int[]{1, 1, 2, 3}));
+        Assert.assertEquals(1, distributeCandies(new int[]{1, 1, 1, 1}));
     }
 
     public void moveZeroes(int[] nums) {
-        for(int i = 0 ; i < nums.length ; i++){
-            if(nums[i] == 0){
-                for(int k = i ; k < nums.length ; k++){
-                    if(nums[k] != 0){
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0) {
+                for (int k = i; k < nums.length; k++) {
+                    if (nums[k] != 0) {
                         nums[i] = nums[k];
                         nums[k] = 0;
                         break;
@@ -4080,8 +4080,8 @@ public class Solutions {
     @Test
     public void arraySignTest() {
         Assert.assertEquals(-1, arraySign(new int[]{-1, 1, 2}));
-        Assert.assertEquals(1, arraySign(new int[]{-1,-2,-3,-4,3,2,1}));
-        Assert.assertEquals(-1, arraySign(new int[]{41,65,14,80,20,10,55,58,24,56,28,86,96,10,3,84,4,41,13,32,42,43,83,78,82,70,15,-41}));
+        Assert.assertEquals(1, arraySign(new int[]{-1, -2, -3, -4, 3, 2, 1}));
+        Assert.assertEquals(-1, arraySign(new int[]{41, 65, 14, 80, 20, 10, 55, 58, 24, 56, 28, 86, 96, 10, 3, 84, 4, 41, 13, 32, 42, 43, 83, 78, 82, 70, 15, -41}));
     }
 
 
@@ -4090,9 +4090,9 @@ public class Solutions {
         int[] candyArray = new int[num_people];
         int index = 0;
         int count = 1;
-        while(candies > 0){
-            if(index == num_people) index = 0;
-            if(candies - count < 0){
+        while (candies > 0) {
+            if (index == num_people) index = 0;
+            if (candies - count < 0) {
                 candyArray[index] += candies;
                 return candyArray;
             }
@@ -4105,52 +4105,84 @@ public class Solutions {
     }
 
     @Test
-    public void distributeCandies2Test(){
-        Assert.assertArrayEquals(new int[]{1,2,3,1}, distributeCandies2(7, 4));
+    public void distributeCandies2Test() {
+        Assert.assertArrayEquals(new int[]{1, 2, 3, 1}, distributeCandies2(7, 4));
         Assert.assertArrayEquals(new int[]{5, 2, 3}, distributeCandies2(10, 3));
     }
 
     // https://leetcode.com/problems/check-if-all-1s-are-at-least-length-k-places-away/submissions/
     public boolean kLengthApart(int[] nums, int k) {
         int start = 0;
-        for(int i = 0; i < nums.length; i++){
-            if(nums[i] == 1) {
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 1) {
                 start = i;
                 break;
             }
         }
         int count = 0;
-        for(int j = start + 1; j < nums.length ; j++){
-            if(nums[j] == 1 && count < k) return false;
-            if(nums[j] == 1) count = 0;
-            else count ++;
+        for (int j = start + 1; j < nums.length; j++) {
+            if (nums[j] == 1 && count < k) return false;
+            if (nums[j] == 1) count = 0;
+            else count++;
         }
         return true;
     }
 
     @Test
-    public void kLengthApartTest(){
-        Assert.assertTrue(kLengthApart(new int[]{1,0,0,0,1,0,0,1}, 2));
-        Assert.assertFalse(kLengthApart(new int[]{1,0,0,1,0,1}, 2));
-        Assert.assertTrue(kLengthApart(new int[]{0,1,0,1}, 1));
-        Assert.assertFalse(kLengthApart(new int[]{1,0,1}, 2));
+    public void kLengthApartTest() {
+        Assert.assertTrue(kLengthApart(new int[]{1, 0, 0, 0, 1, 0, 0, 1}, 2));
+        Assert.assertFalse(kLengthApart(new int[]{1, 0, 0, 1, 0, 1}, 2));
+        Assert.assertTrue(kLengthApart(new int[]{0, 1, 0, 1}, 1));
+        Assert.assertFalse(kLengthApart(new int[]{1, 0, 1}, 2));
     }
 
     public int maxAscendingSum(int[] nums) {
         int count = nums[0], max = nums[0];
-        for(int i = 1; i < nums.length; i++){
-            if(nums[i] > nums[i - 1]) count += nums[i];
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > nums[i - 1]) count += nums[i];
             else count = nums[i];
-            if(count > max) max = count;
+            if (count > max) max = count;
         }
         return max;
     }
 
     @Test
     public void maxAscendingSumTest() {
-        Assert.assertEquals(65, maxAscendingSum(new int[]{10,20,30,5,10,50}));
-        Assert.assertEquals(150, maxAscendingSum(new int[]{10,20,30,40,50}));
-        Assert.assertEquals(33, maxAscendingSum(new int[]{12,17,15,13,10,11,12}));
+        Assert.assertEquals(65, maxAscendingSum(new int[]{10, 20, 30, 5, 10, 50}));
+        Assert.assertEquals(150, maxAscendingSum(new int[]{10, 20, 30, 40, 50}));
+        Assert.assertEquals(33, maxAscendingSum(new int[]{12, 17, 15, 13, 10, 11, 12}));
+    }
+
+    public boolean checkZeroOnes(String s) {
+        char[] stringCharArray = s.toCharArray();
+        if(stringCharArray.length == 1){
+            return stringCharArray[0] == '1';
+        }
+        int ones = 0, zeroes = 0, currentCount = 1;
+        for (int i = 1; i < stringCharArray.length; i++) {
+            if (stringCharArray[i] != stringCharArray[i - 1] && stringCharArray[i - 1] == '1') {
+                ones = Math.max(currentCount, ones);
+                currentCount = 0;
+            }
+            if (stringCharArray[i] != stringCharArray[i - 1] && stringCharArray[i - 1] == '0') {
+                zeroes = Math.max(currentCount, zeroes);
+                currentCount = 0;
+            }
+            currentCount++;
+            if(i == stringCharArray.length - 1){
+                if(stringCharArray[i] == '1' && currentCount > ones) ones = currentCount;
+                else if(currentCount > zeroes) zeroes = currentCount;
+            }
+        }
+        return ones > zeroes;
+    }
+
+    @Test
+    public void checkZeroOnesTest(){
+        Assert.assertTrue(checkZeroOnes("1"));
+        Assert.assertTrue(checkZeroOnes("1101"));
+        Assert.assertFalse(checkZeroOnes("111000"));
+        Assert.assertFalse(checkZeroOnes("110100010"));
     }
 }
 

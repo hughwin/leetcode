@@ -4204,5 +4204,34 @@ public class Solutions {
     public void dailyTemperaturesVoid(){
         Assert.assertArrayEquals(new int[]{1, 1, 4, 2, 1, 1, 0, 0}, dailyTemperatures(new int[]{73, 74, 75, 71, 69, 72, 76, 73}));
     }
+
+    //TODO: Finish this.
+    public String sortString(String s) {
+        return s;
+    }
+
+    @Test
+    public void sortStringTest() {
+        Assert.assertEquals("abccbaabccba", sortString("aaaabbbbcccc"));
+        Assert.assertEquals("art", sortString("rat"));
+    }
+
+    public String sortSentence(String s) {
+        String[] unsortedStringArray = s.split(" ");
+        String[] sortedStringArray = new String[unsortedStringArray.length];
+        for(String unsortedStr : unsortedStringArray){
+            sortedStringArray[Character.getNumericValue(unsortedStr.charAt(unsortedStr.length() -1)) - 1]
+                    = unsortedStr.substring(0, unsortedStr.length() -1);
+        }
+
+        return String.join(" ", sortedStringArray);
+    }
+
+    @Test
+    public void sortSentenceTest(){
+        Assert.assertEquals("This is a sentence", sortSentence("is2 sentence4 This1 a3"));
+    }
+
+
 }
 

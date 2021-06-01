@@ -4221,13 +4221,13 @@ public class Solutions {
         String[] sortedStringArray = new String[unsortedStringArray.length];
         for(String unsortedStr : unsortedStringArray){
             sortedStringArray[Character.getNumericValue(unsortedStr.charAt(unsortedStr.length() -1)) - 1]
-                    = unsortedStr.substring(0, unsortedStr.length() -1);
+                    = unsortedStr.substring(0, unsortedStr.length() - 1);
         }
         return String.join(" ", sortedStringArray);
     }
 
     @Test
-    public void sortSentenceTest(){
+    public void sortSentenceTest() {
         Assert.assertEquals("This is a sentence", sortSentence("is2 sentence4 This1 a3"));
     }
 
@@ -4246,6 +4246,26 @@ public class Solutions {
         Assert.assertEquals("abcdef", replaceDigits("a1c1e1"));
         Assert.assertEquals("abbdcfdhe", replaceDigits("a1b2c3d4e"));
     }
+    public int[] shortestToChar(String S, char C) {
+        int n = S.length();
+        int pos = -n;
+        int[] res = new int[n];
+        for (int i = 0; i < n; ++i) {
+            if (S.charAt(i) == C) pos = i;
+            res[i] = i - pos;
+        }
+        for (int i = pos - 1; i >= 0; --i) {
+            if (S.charAt(i) == C) pos = i;
+            res[i] = Math.min(res[i], pos - i);
+        }
+        return res;
+    }
+
+    @Test
+    public void shortestToCharTest() {
+        Assert.assertArrayEquals(new int[]{3, 2, 1, 0, 1, 0, 0, 1, 2, 2, 1, 0}, shortestToChar("loveleetcode", 'e'));
+    }
+
 
 }
 

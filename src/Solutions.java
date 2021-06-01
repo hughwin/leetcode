@@ -4223,7 +4223,6 @@ public class Solutions {
             sortedStringArray[Character.getNumericValue(unsortedStr.charAt(unsortedStr.length() -1)) - 1]
                     = unsortedStr.substring(0, unsortedStr.length() -1);
         }
-
         return String.join(" ", sortedStringArray);
     }
 
@@ -4232,6 +4231,21 @@ public class Solutions {
         Assert.assertEquals("This is a sentence", sortSentence("is2 sentence4 This1 a3"));
     }
 
+    public String replaceDigits(String s) {
+        char[] sCharArray = s.toCharArray();
+        for(int i = 1; i < s.length(); i++){
+            if(i % 2 != 0){
+                sCharArray[i] = (char) ((sCharArray[i - 1]) + (Character.getNumericValue(sCharArray[i])));
+            }
+        }
+        return new String(sCharArray);
+    }
+
+    @Test
+    public void replaceDigitsTest(){
+        Assert.assertEquals("abcdef", replaceDigits("a1c1e1"));
+        Assert.assertEquals("abbdcfdhe", replaceDigits("a1b2c3d4e"));
+    }
 
 }
 

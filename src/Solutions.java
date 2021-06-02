@@ -4287,9 +4287,9 @@ public class Solutions {
     }
 
     @Test
-    public void ruleKeyTest(){
+    public void countMatchesTest() {
         ArrayList<List<String>> input = new ArrayList<>();
-        input.add(Arrays.asList("computer","silver","lenovo"));
+        input.add(Arrays.asList("computer", "silver", "lenovo"));
         Assert.assertEquals(1, countMatches(input, "color", "silver"));
     }
 

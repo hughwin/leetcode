@@ -4266,6 +4266,33 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{3, 2, 1, 0, 1, 0, 0, 1, 2, 2, 1, 0}, shortestToChar("loveleetcode", 'e'));
     }
 
+    public int countMatches(List<List<String>> items, String ruleKey, String ruleValue) {
+        int count = 0;
+        if(ruleKey.equals("color")){
+            for(List<String> item: items){
+                if(item.get(1).equals(ruleValue)) count++;
+            }
+        }
+        if(ruleKey.equals("type")){
+            for(List<String> item: items){
+                if(item.get(0).equals(ruleValue)) count++;
+            }
+        }
+        if(ruleKey.equals("name")){
+            for(List<String> item: items){
+                if(item.get(2).equals(ruleValue)) count++;
+            }
+        }
+        return count;
+    }
+
+    @Test
+    public void ruleKeyTest(){
+        ArrayList<List<String>> input = new ArrayList<>();
+        input.add(Arrays.asList("computer","silver","lenovo"));
+        Assert.assertEquals(1, countMatches(input, "color", "silver"));
+    }
+
 
 }
 

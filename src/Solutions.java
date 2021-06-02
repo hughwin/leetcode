@@ -4293,6 +4293,40 @@ public class Solutions {
         Assert.assertEquals(1, countMatches(input, "color", "silver"));
     }
 
+    public String mostCommonWord(String paragraph, String[] banned) {
+        // Necessary to pass the stupid leetcode tests
+        paragraph = paragraph.replace(',', ' ');
+
+        HashSet<String> bannedWords = new HashSet<>();
+        bannedWords.addAll(Arrays.asList(banned));
+
+        String[] words = paragraph.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
+        HashMap<String, Integer> wordCount = new HashMap();
+        for (String s : words) {
+            if (wordCount.containsKey(s)) {
+                wordCount.put(s, wordCount.get(s) + 1);
+            } else {
+                wordCount.put(s, 1);
+            }
+        }
+        String largest = null;
+        int count = 0;
+        for (String key : wordCount.keySet()) {
+            if (wordCount.get(key) > count && !bannedWords.contains(key)) {
+                count = wordCount.get(key);
+                largest = key;
+            }
+        }
+        return largest;
+    }
+
+    @Test
+    public void mostCommonWordTest() {
+        Assert.assertEquals("ball", mostCommonWord("Bob hit a ball, the hit BALL flew far after it was hit.", new String[]{"hit"}));
+        Assert.assertEquals("b", mostCommonWord("a, a, a, a, b, b, b, c, c", new String[]{"a"}));
+
+    }
+
 
 }
 

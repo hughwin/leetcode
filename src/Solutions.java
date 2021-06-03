@@ -4327,6 +4327,28 @@ public class Solutions {
 
     }
 
+    public int removePalindromeSub(String s) {
+        if (s.length() == 0) return 0;
+        if (removePalindromeSubHelper(s)) {
+            return 1;
+        }
+        return 2;
+    }
+
+    public boolean removePalindromeSubHelper(String str) {
+        StringBuilder sb = new StringBuilder(str);
+        return sb.reverse().toString().equals(str);
+    }
+
+    @Test
+    public void removePalindromeSubTest() {
+        Assert.assertEquals(1, removePalindromeSub("ababa"));
+        Assert.assertEquals(2, removePalindromeSub("abb"));
+        Assert.assertEquals(2, removePalindromeSub("baabb"));
+        Assert.assertEquals(2, removePalindromeSub("bbaabaaa"));
+
+    }
+
 
 }
 

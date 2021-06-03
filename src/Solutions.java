@@ -4297,11 +4297,10 @@ public class Solutions {
         // Necessary to pass the stupid leetcode tests
         paragraph = paragraph.replace(',', ' ');
 
-        HashSet<String> bannedWords = new HashSet<>();
-        bannedWords.addAll(Arrays.asList(banned));
+        HashSet<String> bannedWords = new HashSet<>(Arrays.asList(banned));
 
         String[] words = paragraph.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
-        HashMap<String, Integer> wordCount = new HashMap();
+        HashMap<String, Integer> wordCount = new HashMap<>();
         for (String s : words) {
             if (wordCount.containsKey(s)) {
                 wordCount.put(s, wordCount.get(s) + 1);
@@ -4346,7 +4345,34 @@ public class Solutions {
         Assert.assertEquals(2, removePalindromeSub("abb"));
         Assert.assertEquals(2, removePalindromeSub("baabb"));
         Assert.assertEquals(2, removePalindromeSub("bbaabaaa"));
+    }
 
+    public int[] relativeSortArray(int[] arr1, int[] arr2) {
+        Arrays.sort(arr1);
+        int[] returnArray = new int[arr1.length];
+        int index = 0;
+        for (int num : arr2) {
+            for (int j : arr1) {
+                if (j > num) break;
+                if (j == num) returnArray[index++] = num;
+            }
+        }
+        HashSet<Integer> uniques = new HashSet<>();
+        for (int k : returnArray) {
+            uniques.add(k);
+        }
+        for (int i : arr1) {
+            if (!uniques.contains(i)) {
+                returnArray[index++] = i;
+            }
+        }
+        return returnArray;
+    }
+
+    @Test
+    public void relativeSortArrayTest() {
+        Assert.assertArrayEquals(new int[]{2, 2, 2, 1, 4, 3, 3, 9, 6, 7, 19},
+                relativeSortArray(new int[]{2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19}, new int[]{2, 1, 4, 3, 9, 6}));
     }
 
 

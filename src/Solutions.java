@@ -4375,6 +4375,36 @@ public class Solutions {
                 relativeSortArray(new int[]{2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19}, new int[]{2, 1, 4, 3, 9, 6}));
     }
 
+    public int[] diStringMatch(String S) {
+        int[] returnArray = new int[S.length() + 1];
+        int max = returnArray.length - 1, min = 0, index = 0;
+        for (int i = 0; i < S.length(); i++) {
+            if (index == S.length() - 1 && S.charAt(i) == 'I') {
+                returnArray[i] = min;
+                returnArray[i + 1] = max;
+                break;
+            }
+            if (index == S.length() - 1 && S.charAt(i) == 'D') {
+                returnArray[i] = max;
+                returnArray[i + 1] = min;
+                break;
+            }
+            if (S.charAt(i) == 'I') {
+                returnArray[index++] = min++;
+            } else {
+                returnArray[index++] = max--;
+            }
+        }
+        return returnArray;
+    }
+
+    @Test
+    public void diStringMatchTest() {
+        Assert.assertArrayEquals(new int[]{0, 4, 1, 3, 2}, diStringMatch("IDID"));
+        Assert.assertArrayEquals(new int[]{0, 1, 2, 3}, diStringMatch("III"));
+        Assert.assertArrayEquals(new int[]{3, 2, 0, 1}, diStringMatch("DDI"));
+    }
+
 
 }
 

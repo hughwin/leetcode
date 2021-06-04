@@ -4399,8 +4399,7 @@ public class Solutions {
     public int isSumEqualHelper(String word) {
         int wordSum = 0;
         for (int i = 0; i < word.length(); i++) {
-            wordSum += word.charAt(i) - 97;
-            wordSum *= 10;
+            wordSum = wordSum * 10 + (word.charAt(i) - 97);
         }
         return wordSum;
     }

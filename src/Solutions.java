@@ -4392,6 +4392,24 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{3, 2, 0, 1}, diStringMatch("DDI"));
     }
 
+    public boolean isSumEqual(String firstWord, String secondWord, String targetWord) {
+        return isSumEqualHelper(firstWord) + isSumEqualHelper(secondWord) == isSumEqualHelper(targetWord);
+    }
+
+    public int isSumEqualHelper(String word) {
+        int wordSum = 0;
+        for (int i = 0; i < word.length(); i++) {
+            wordSum += word.charAt(i) - 97;
+            wordSum *= 10;
+        }
+        return wordSum;
+    }
+
+    @Test
+    public void isSumEqualTest() {
+        Assert.assertTrue(isSumEqual("acb", "cba", "cdb"));
+    }
+
 
 }
 

@@ -4376,26 +4376,13 @@ public class Solutions {
     }
 
     public int[] diStringMatch(String S) {
-        int[] returnArray = new int[S.length() + 1];
-        int max = returnArray.length - 1, min = 0, index = 0;
+        int[] res = new int[S.length() + 1];
+        int l = 0, r = S.length();
         for (int i = 0; i < S.length(); i++) {
-            if (index == S.length() - 1 && S.charAt(i) == 'I') {
-                returnArray[i] = min;
-                returnArray[i + 1] = max;
-                break;
-            }
-            if (index == S.length() - 1 && S.charAt(i) == 'D') {
-                returnArray[i] = max;
-                returnArray[i + 1] = min;
-                break;
-            }
-            if (S.charAt(i) == 'I') {
-                returnArray[index++] = min++;
-            } else {
-                returnArray[index++] = max--;
-            }
+            res[i] = S.charAt(i) == 'I' ? l++ : r--;
         }
-        return returnArray;
+        res[S.length()] = l;
+        return res;
     }
 
     @Test

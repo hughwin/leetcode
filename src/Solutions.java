@@ -4410,5 +4410,23 @@ public class Solutions {
     }
 
 
+    public int xorOperation(int n, int start) {
+        int count = 0, sum = 0, current;
+        while (count < n) {
+            current = start + 2 * count;
+            sum = sum ^ current;
+            count++;
+        }
+        return sum;
+    }
+
+    @Test
+    public void xorOperationTest() {
+        Assert.assertEquals(8, xorOperation(5, 0));
+        Assert.assertEquals(8, xorOperation(4, 3));
+
+    }
+
+
 }
 

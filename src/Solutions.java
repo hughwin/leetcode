@@ -4427,15 +4427,19 @@ public class Solutions {
     }
 
     public int[] intersection(int[] nums1, int[] nums2) {
-        HashSet<Integer> hashSet1 = new HashSet<>();
-        for (int i : nums1) hashSet1.add(i);
 
-        HashSet<Integer> hashSet2 = new HashSet<>();
-        for (int i : nums2) hashSet2.add(i);
-        hashSet1.retainAll(hashSet2);
-        int[] res = new int[hashSet1.size()];
+        int[] shortest = nums1.length < nums2.length ? nums1 : nums2;
+        int[] longest = shortest == nums1 ? nums2 : nums1;
+        Arrays.sort(longest);
+        // Sort the longest array as this will be the one being searched
+
+        HashSet<Integer> returnList = new HashSet<>();
+        for (int j : shortest) {
+            if (Arrays.binarySearch(longest, j) > -1) returnList.add(j);
+        }
+        int[] res = new int[returnList.size()];
         int index = 0;
-        for (Integer i : hashSet1) {
+        for (Integer i : returnList) {
             res[index++] = i;
         }
         return res;

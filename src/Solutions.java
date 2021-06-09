@@ -4469,6 +4469,21 @@ public class Solutions {
         Assert.assertEquals(4, countGoodTriplets(new int[]{3, 0, 1, 1, 9, 7}, 7, 2, 3));
     }
 
+    public int findPoisonedDuration(int[] timeSeries, int duration) {
+        if (timeSeries.length == 0) return 0;
+        int begin = timeSeries[0], total = 0;
+        for (int t : timeSeries) {
+            total = total + (t < begin + duration ? t - begin : duration);
+            begin = t;
+        }
+        return total + duration;
+    }
+
+    @Test
+    public void findPoisonedDurationTest() {
+        Assert.assertEquals(4, findPoisonedDuration(new int[]{1, 4}, 2));
+    }
+
 
 }
 

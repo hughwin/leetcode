@@ -4485,7 +4485,7 @@ public class Solutions {
     }
 
     public int countLargestGroup(int n) {
-        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        int[] arr = new int[n + 1];
         for (int i = 1; i <= n; i++) {
             int sum = 0;
             int k = i;
@@ -4493,15 +4493,13 @@ public class Solutions {
                 sum += k % 10;
                 k = k / 10;
             }
-            if (!hashMap.containsKey(sum)) hashMap.put(sum, 1);
-            else hashMap.put(sum, hashMap.get(sum) + 1);
+            arr[sum] = arr[sum] + 1;
         }
-        int max = 0, res = 0;
-        for (Integer key : hashMap.keySet()) {
-            if (hashMap.get(key) > max) max = hashMap.get(key);
-        }
-        for (Integer key : hashMap.keySet()) {
-            if (hashMap.get(key) == max) res++;
+        int res = 0;
+        Arrays.sort(arr);
+        int max = arr[arr.length - 1];
+        for (int i : arr) {
+            if (i == max) res++;
         }
         return res;
     }

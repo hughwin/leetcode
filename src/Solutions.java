@@ -4487,17 +4487,15 @@ public class Solutions {
     public int countLargestGroup(int n) {
         int[] arr = new int[n + 1];
         for (int i = 1; i <= n; i++) {
-            int sum = 0;
-            int k = i;
+            int sum = 0, k = i;
             while (k != 0) {
                 sum += k % 10;
                 k = k / 10;
             }
             arr[sum] = arr[sum] + 1;
         }
-        int res = 0;
         Arrays.sort(arr);
-        int max = arr[arr.length - 1];
+        int res = 0, max = arr[arr.length - 1];
         for (int i : arr) {
             if (i == max) res++;
         }

@@ -4507,6 +4507,32 @@ public class Solutions {
         Assert.assertEquals(4, countLargestGroup(13));
     }
 
+    public int binaryGap(int n) {
+        String binary = Integer.toBinaryString(n);
+        int largest = 0, currentGap = 0;
+        boolean counted = false;
+        for (int i = 0; i < binary.length(); i++) {
+            if (binary.charAt(i) == '1' && !counted) counted = true;
+            if (binary.charAt(i) == '1' && counted) {
+                largest = Math.max(currentGap, largest);
+                counted = false;
+                currentGap = 0;
+            }
+            currentGap++;
+        }
+        return largest;
+    }
+
+    @Test
+    public void binaryGapTest() {
+        Assert.assertEquals(2, binaryGap(22));
+        Assert.assertEquals(1, binaryGap(6));
+        Assert.assertEquals(0, binaryGap(8));
+        Assert.assertEquals(0, binaryGap(1));
+
+
+    }
+
 
 }
 

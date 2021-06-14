@@ -4484,6 +4484,33 @@ public class Solutions {
         Assert.assertEquals(4, findPoisonedDuration(new int[]{1, 4}, 2));
     }
 
+    public int countLargestGroup(int n) {
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        for (int i = 1; i <= n; i++) {
+            int sum = 0;
+            int k = i;
+            while (k != 0) {
+                sum += k % 10;
+                k = k / 10;
+            }
+            if (!hashMap.containsKey(sum)) hashMap.put(sum, 1);
+            else hashMap.put(sum, hashMap.get(sum) + 1);
+        }
+        int max = 0, res = 0;
+        for (Integer key : hashMap.keySet()) {
+            if (hashMap.get(key) > max) max = hashMap.get(key);
+        }
+        for (Integer key : hashMap.keySet()) {
+            if (hashMap.get(key) == max) res++;
+        }
+        return res;
+    }
+
+    @Test
+    public void countLargestGroupTest() {
+        Assert.assertEquals(4, countLargestGroup(13));
+    }
+
 
 }
 

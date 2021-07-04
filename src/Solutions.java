@@ -4532,6 +4532,7 @@ public class Solutions {
         Assert.assertEquals(0, binaryGap(1));
     }
 
+    // Not the best solution, but it works. 
     public boolean isPalindromeNumber(int x) {
         if (x < 0) return false;
         StringBuilder sb = new StringBuilder(String.valueOf(x));
@@ -4543,5 +4544,7 @@ public class Solutions {
         Assert.assertTrue(isPalindromeNumber(121));
         Assert.assertFalse(isPalindromeNumber(123));
     }
+
+
 }
 

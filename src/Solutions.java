@@ -4532,7 +4532,7 @@ public class Solutions {
         Assert.assertEquals(0, binaryGap(1));
     }
 
-    // Not the best solution, but it works. 
+    // Not the best solution, but it works.
     public boolean isPalindromeNumber(int x) {
         if (x < 0) return false;
         StringBuilder sb = new StringBuilder(String.valueOf(x));
@@ -4545,6 +4545,30 @@ public class Solutions {
         Assert.assertFalse(isPalindromeNumber(123));
     }
 
+    public String intToRoman(int num) {
+        int[] numbersKey = new int[]{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] romanKey = new String[]{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        StringBuilder res = new StringBuilder();
+        while (num != 0) {
+            for (int i = 0; i < numbersKey.length; i++) {
+                if (numbersKey[i] <= num) {
+                    num -= numbersKey[i];
+                    res.append(romanKey[i]);
+                    break;
+                }
+            }
+        }
+        return res.toString();
+    }
+
+    @Test
+    public void intToRomanTest() {
+        Assert.assertEquals("XX", intToRoman(20));
+        Assert.assertEquals("III", intToRoman(3));
+        Assert.assertEquals("IV", intToRoman(4));
+        Assert.assertEquals("LVIII", intToRoman(58));
+        Assert.assertEquals("MCMXCIV", intToRoman(1994));
+    }
 
 }
 

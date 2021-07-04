@@ -4520,6 +4520,7 @@ public class Solutions {
             }
             currentGap++;
         }
+
         return largest;
     }
 
@@ -4529,10 +4530,18 @@ public class Solutions {
         Assert.assertEquals(1, binaryGap(6));
         Assert.assertEquals(0, binaryGap(8));
         Assert.assertEquals(0, binaryGap(1));
-
-
     }
 
+    public boolean isPalindromeNumber(int x) {
+        if (x < 0) return false;
+        StringBuilder sb = new StringBuilder(String.valueOf(x));
+        return sb.toString().equals(sb.reverse().toString());
+    }
 
+    @Test
+    public void isPalindromeNumberTest() {
+        Assert.assertTrue(isPalindromeNumber(121));
+        Assert.assertFalse(isPalindromeNumber(123));
+    }
 }
 

@@ -4588,8 +4588,20 @@ public class Solutions {
     public void removeDuplicatesSortedTest() {
         Assert.assertEquals(5, removeDuplicatesSorted(new int[]{0, 0, 1, 1, 1, 2, 2, 3, 3, 4}));
         Assert.assertEquals(2, removeDuplicatesSorted(new int[]{1, 1, 2}));
-
     }
+
+    // https://leetcode.com/problems/implement-strstr/submissions/
+    public int strStr(String haystack, String needle) {
+        if (haystack.length() == 0) return 0;
+        return haystack.indexOf(needle);
+    }
+
+    @Test
+    public void strStrTest() {
+        Assert.assertEquals(2, strStr("hello", "ll"));
+        Assert.assertEquals(-1, strStr("aaaaa", "bba"));
+    }
+
 
 }
 

@@ -4570,5 +4570,26 @@ public class Solutions {
         Assert.assertEquals("MCMXCIV", intToRoman(1994));
     }
 
+    // https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+    public int removeDuplicatesSorted(int[] nums) {
+        if (nums.length < 1) return 0;
+        int current = nums[0], index = 0, count = 1;
+        for (int i = index + 1; i < nums.length; i++) {
+            if (nums[i] != current) {
+                current = nums[i];
+                nums[++index] = current;
+                count++;
+            }
+        }
+        return count;
+    }
+
+    @Test
+    public void removeDuplicatesSortedTest() {
+        Assert.assertEquals(5, removeDuplicatesSorted(new int[]{0, 0, 1, 1, 1, 2, 2, 3, 3, 4}));
+        Assert.assertEquals(2, removeDuplicatesSorted(new int[]{1, 1, 2}));
+
+    }
+
 }
 

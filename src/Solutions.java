@@ -4603,14 +4603,9 @@ public class Solutions {
     }
 
     public boolean isPowerOfTwo(int n) {
-        if (n == 1) return true;
-        if (n % 2 != 0) return false;
-        double power = 1;
-        while (true) {
-            int res = (int) Math.pow(2, power++);
-            if (res > n) return false;
-            if (res == n) return true;
-        }
+        if (n <= 0) return false;
+        while (n % 2 == 0) n /= 2;
+        return n == 1;
     }
 
     @Test

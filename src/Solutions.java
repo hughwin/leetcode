@@ -4602,6 +4602,24 @@ public class Solutions {
         Assert.assertEquals(-1, strStr("aaaaa", "bba"));
     }
 
+    public boolean isPowerOfTwo(int n) {
+        if (n == 1) return true;
+        if (n % 2 != 0) return false;
+        double power = 1;
+        while (true) {
+            int res = (int) Math.pow(2, power++);
+            if (res > n) return false;
+            if (res == n) return true;
+        }
+    }
+
+    @Test
+    public void isPowerOfTwoTest() {
+        Assert.assertTrue(isPowerOfTwo(1));
+        Assert.assertTrue(isPowerOfTwo(16));
+        Assert.assertFalse(isPowerOfTwo(3));
+    }
+
 
 }
 

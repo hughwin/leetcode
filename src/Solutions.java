@@ -4615,6 +4615,45 @@ public class Solutions {
         Assert.assertFalse(isPowerOfTwo(3));
     }
 
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null) return null;
+
+        HashSet<Integer> unique = new HashSet<>();
+        unique.add(head.val);
+        ListNode current = head;
+        current = current.next;
+
+        ListNode endUnique = head;
+
+        while (current != null) {
+            if (!unique.contains(current.val)) {
+                endUnique.next = current;
+                endUnique = endUnique.next;
+                unique.add(current.val);
+            }
+            current = current.next;
+        }
+        endUnique.next = null;
+        return head;
+    }
+
+    @Test
+    public void deleteDuplicatesTest() {
+        ListNode head = new ListNode(1);
+        ListNode second = new ListNode(1);
+        ListNode third = new ListNode(2);
+        ListNode fourth = new ListNode(3);
+        ListNode fifth = new ListNode(3);
+
+        head.next = second;
+        second.next = third;
+        third.next = fourth;
+        fourth.next = fifth;
+
+        deleteDuplicates(head);
+    }
 
 }
+
+
 

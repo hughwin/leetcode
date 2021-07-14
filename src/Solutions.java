@@ -4653,6 +4653,36 @@ public class Solutions {
         deleteDuplicates(head);
     }
 
+    public boolean lemonadeChange(int[] bills) {
+        int fives = 0;
+        int tens = 0;
+
+        for (int bill : bills) {
+            if (bill == 5) fives++;
+            if (bill == 10) {
+                tens++;
+                fives--;
+            }
+            if (bill == 20) {
+                if (tens > 0) {
+                    fives--;
+                    tens--;
+                } else {
+                    fives -= 3;
+                }
+            }
+            if (fives < 0) return false;
+        }
+        return true;
+    }
+
+    @Test
+    public void lemonadeChangeTest() {
+        Assert.assertTrue(lemonadeChange(new int[]{5, 5, 10}));
+        Assert.assertFalse(lemonadeChange(new int[]{5, 5, 10, 10, 20}));
+        Assert.assertTrue(lemonadeChange(new int[]{5, 5, 10, 20, 5, 5, 5, 5, 5, 5, 5, 5, 5, 10, 5, 5, 20, 5, 20, 5}));
+    }
+
 }
 
 

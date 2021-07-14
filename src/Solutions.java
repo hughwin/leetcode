@@ -4684,13 +4684,11 @@ public class Solutions {
     }
 
 
-    // Does not return anything... No test. 
+    // Does not return anything... No test.
     public void merge(int[] nums1, int m, int[] nums2, int n) {
         int nums2Pointer = 0;
-        for (int i = m + 1; i < nums1.length; i++) {
-            if (nums1[i] == 0) {
-                nums1[i] = nums2[nums2Pointer++];
-            }
+        for (int i = m; i < nums1.length; i++) {
+            nums1[i] = nums2[nums2Pointer++];
         }
         Arrays.sort(nums1);
     }

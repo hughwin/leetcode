@@ -4693,6 +4693,33 @@ public class Solutions {
         Arrays.sort(nums1);
     }
 
+    public String reverseStr2(String s, int k) {
+        int counter = 0;
+        StringBuilder sb = new StringBuilder();
+
+        boolean reverseCheck = true;
+        while (counter < s.length()) {
+            try {
+                if (reverseCheck) {
+                    sb.append(new StringBuilder(s.substring(counter, counter + k)).reverse());
+                } else {
+                    sb.append(s, counter, counter + k);
+                }
+                counter += k;
+                reverseCheck = !reverseCheck;
+            } catch (IndexOutOfBoundsException e) {
+                sb.append(new StringBuilder(s.substring(counter)).reverse());
+                counter += k;
+            }
+        }
+        return sb.toString();
+    }
+
+    @Test
+    public void reverseStr2Test() {
+        Assert.assertEquals("bacdfeg", reverseStr2("abcdefg", 2));
+    }
+
 }
 
 

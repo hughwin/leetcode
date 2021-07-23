@@ -4694,30 +4694,22 @@ public class Solutions {
     }
 
     public String reverseStr2(String s, int k) {
-        int counter = 0;
-        StringBuilder sb = new StringBuilder();
-
-        boolean reverseCheck = true;
-        while (counter < s.length()) {
-            try {
-                if (reverseCheck) {
-                    sb.append(new StringBuilder(s.substring(counter, counter + k)).reverse());
-                } else {
-                    sb.append(s, counter, counter + k);
-                }
-                counter += k;
-                reverseCheck = !reverseCheck;
-            } catch (IndexOutOfBoundsException e) {
-                sb.append(new StringBuilder(s.substring(counter)).reverse());
-                counter += k;
+        char[] ca = s.toCharArray();
+        for (int left = 0; left < ca.length; left += 2 * k) {
+            for (int i = left, j = Math.min(left + k - 1, ca.length - 1); i < j; i++, j--) {
+                char tmp = ca[i];
+                ca[i] = ca[j];
+                ca[j] = tmp;
             }
         }
-        return sb.toString();
+        return new String(ca);
     }
 
     @Test
     public void reverseStr2Test() {
         Assert.assertEquals("bacdfeg", reverseStr2("abcdefg", 2));
+        Assert.assertEquals("cbaed", reverseStr2("abcde", 3));
+
     }
 
 }

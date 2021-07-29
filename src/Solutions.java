@@ -4712,6 +4712,16 @@ public class Solutions {
 
     }
 
+    public boolean stoneGame(int[] piles) {
+        return true;
+    }
+
+    @Test
+    public void stoneGameTest() {
+        Assert.assertTrue(stoneGame(new int[]{5, 3, 4, 5}));
+        Assert.assertTrue(stoneGame(new int[]{3, 2, 10, 4}));
+    }
+
 }
 
 

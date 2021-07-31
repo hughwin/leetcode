@@ -4727,16 +4727,14 @@ public class Solutions {
         for(int i = 0; i < nums.length; i++){
             if(nums[i] == 0){
                 int distance = 1;
-                boolean broken = false;
                 for(int k = i - 1; k >= 0; k--){
                     if(k + nums[k] >= nums.length - 1) return true;
                     if(nums[k] > distance){
-                        broken = true;
                         break;
                     }
                     else distance++;
                 }
-                if(!broken) return false;
+                return false;
             }
         }
         return true;

@@ -4722,6 +4722,35 @@ public class Solutions {
         Assert.assertTrue(stoneGame(new int[]{3, 2, 10, 4}));
     }
 
+    public static boolean canJump(int[] nums) {
+        if (nums.length == 1) return true;
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] == 0){
+                int distance = 1;
+                boolean broken = false;
+                for(int k = i - 1; k >= 0; k--){
+                    if(k + nums[k] >= nums.length - 1) return true;
+                    if(nums[k] > distance){
+                        broken = true;
+                        break;
+                    }
+                    else distance++;
+                }
+                if(!broken) return false;
+            }
+        }
+        return true;
+    }
+
+    @Test
+    public void canJumpTest(){
+        Assert.assertTrue(canJump(new int[]{2, 0 }));
+        Assert.assertTrue(canJump(new int[]{2,3,1,1,4}));
+        Assert.assertFalse(canJump(new int[]{3,2,1,0,4}));
+        Assert.assertTrue(canJump(new int[]{0}));
+        Assert.assertTrue(canJump(new int[]{2, 0, 0}));
+    }
+
 }
 
 

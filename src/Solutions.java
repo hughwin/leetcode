@@ -1708,36 +1708,6 @@ public class Solutions {
         Assert.assertTrue(threeConsecutiveOdds(new int[]{1, 2, 34, 3, 4, 5, 7, 23, 12}));
     }
 
-    public static int numSplits(String s) {
-        //TODO Make this work
-        int count = 0;
-
-        HashSet<Character> aHashSet = new HashSet<>();
-        HashSet<Character> bHashSet = new HashSet<>();
-
-        for (int i = 1; i < s.length(); i++) {
-            for (int j = i; j < s.length(); j++) {
-                bHashSet.add(s.charAt(j));
-            }
-            for (int k = i - 1; k >= 0; k--) {
-                aHashSet.add(s.charAt(k));
-            }
-            if (aHashSet.size() == bHashSet.size()) {
-                count++;
-            }
-            aHashSet.clear();
-            bHashSet.clear();
-        }
-        return count;
-    }
-
-    @Test
-    public void numSplitsTest() {
-        Assert.assertEquals(2, numSplits("aacaba"));
-        Assert.assertEquals(1, numSplits("abcd"));
-        Assert.assertEquals(4, numSplits("aaaaa"));
-    }
-
     public int maxPower(String s) {
         char currentCharacter = s.charAt(0);
         int count = 1;
@@ -4756,6 +4726,64 @@ public class Solutions {
     public void countBitsTest() {
         Assert.assertArrayEquals(new int[]{0, 1, 1}, countBits(2));
         Assert.assertArrayEquals(new int[]{0, 1, 1, 2, 1, 2}, countBits(5));
+    }
+
+    public int numSplits(String s){
+        int res = 0;
+        for(int i = 1; i < s.length(); i++){
+            HashSet<Character> uniquesA = new HashSet<>();
+            HashSet<Character> uniquesB = new HashSet<>();
+            for(int j = 0; j < i; j++){
+                uniquesA.add(s.charAt(j));
+            }
+            for(int k = i; k < s.length() ; k++){
+                uniquesB.add(s.charAt(k));
+            }
+            if(uniquesA.size() == 26 && uniquesB.size() == 26) return res;
+            if(uniquesA.size() == uniquesB.size()) res++;
+        }
+        return res;
+    }
+
+    @Test
+    public void numSplitTest(){
+        Assert.assertEquals(3, numSplits("aaaa"));
+        Assert.assertEquals(0, numSplits("bac"));
+        Assert.assertEquals(2, numSplits("ababa"));
+        Assert.assertEquals(1, numSplits("abcd"));
+        Assert.assertEquals(2, numSplits("acbadbaada"));
+    }
+
+    class MyHashSet {
+        boolean[] arr = new boolean[100];// start with 100 elements for fast initialization
+        /** Initialize your data structure here. */
+        public MyHashSet() {
+
+        }
+
+        public void add(int key) {
+            if(key>=arr.length) // if array is too small to accomodate key, extend it.
+                extend(key);
+            arr[key]=true;
+        }
+
+        public void remove(int key) {
+            if(key>=arr.length) // if array is too small to accomodate key, extend it.
+                extend(key);
+            arr[key]=false;
+        }
+
+        /** Returns true if this set contains the specified element */
+        public boolean contains(int key) {
+            if(key>=arr.length) // key cannot be in array if array's length < key
+                return false;
+            return arr[key];
+        }
+
+        public void extend(int key){
+            arr= Arrays.copyOf(arr, key+2);  // extend array to one more item than necessary, we need "key" items.
+            // we give "key+1" items to reduce collisions.
+        }
     }
 
 }

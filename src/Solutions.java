@@ -452,9 +452,6 @@ public class Solutions {
         int actual = heightChecker(new int[]{5, 1, 2, 3, 4});
         Assert.assertSame(expected, actual);
     }
-//    public List<Integer> inorderTraversal(TreeNode root) {
-//        // TODO: Finish this
-//    }
 
     public static TreeNode inorderTraversalHelp(TreeNode root) {
         if (root.right == null && root.left == null) {

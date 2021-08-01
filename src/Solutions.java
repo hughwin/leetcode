@@ -4747,8 +4747,8 @@ public class Solutions {
 
     public int[] countBits(int n) {
         int[] res = new int[n + 1];
-        int index = 0;
-        for(int i = 0; i <= n; i++){
+        int index = 1;
+        for (int i = 1; i <= n; i++) {
             res[index] = Integer.bitCount(i);
             index++;
         }
@@ -4757,8 +4757,8 @@ public class Solutions {
 
     @Test
     public void countBitsTest() {
-        Assert.assertArrayEquals(new int[]{0,1, 1}, countBits(2));
-        Assert.assertArrayEquals(new int[]{0,1, 1, 2,1, 2}, countBits(5));
+        Assert.assertArrayEquals(new int[]{0, 1, 1}, countBits(2));
+        Assert.assertArrayEquals(new int[]{0, 1, 1, 2, 1, 2}, countBits(5));
     }
 
 }

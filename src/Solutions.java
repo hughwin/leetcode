@@ -4155,7 +4155,7 @@ public class Solutions {
 
     public boolean checkZeroOnes(String s) {
         char[] stringCharArray = s.toCharArray();
-        if(stringCharArray.length == 1){
+        if (stringCharArray.length == 1) {
             return stringCharArray[0] == '1';
         }
         int ones = 0, zeroes = 0, currentCount = 1;
@@ -4169,16 +4169,16 @@ public class Solutions {
                 currentCount = 0;
             }
             currentCount++;
-            if(i == stringCharArray.length - 1){
-                if(stringCharArray[i] == '1' && currentCount > ones) ones = currentCount;
-                else if(currentCount > zeroes) zeroes = currentCount;
+            if (i == stringCharArray.length - 1) {
+                if (stringCharArray[i] == '1' && currentCount > ones) ones = currentCount;
+                else if (currentCount > zeroes) zeroes = currentCount;
             }
         }
         return ones > zeroes;
     }
 
     @Test
-    public void checkZeroOnesTest(){
+    public void checkZeroOnesTest() {
         Assert.assertTrue(checkZeroOnes("1"));
         Assert.assertTrue(checkZeroOnes("1101"));
         Assert.assertFalse(checkZeroOnes("111000"));
@@ -4187,10 +4187,10 @@ public class Solutions {
 
     public int[] dailyTemperatures(int[] temperatures) {
         int[] days = new int[temperatures.length];
-        for(int i = 0; i < days.length; i++){
+        for (int i = 0; i < days.length; i++) {
             int daysCount = 1;
-            for(int k = i + 1; k < temperatures.length; k++){
-                if(temperatures[i] < temperatures[k]){
+            for (int k = i + 1; k < temperatures.length; k++) {
+                if (temperatures[i] < temperatures[k]) {
                     days[i] = daysCount;
                     break;
                 }
@@ -4201,7 +4201,7 @@ public class Solutions {
     }
 
     @Test
-    public void dailyTemperaturesVoid(){
+    public void dailyTemperaturesVoid() {
         Assert.assertArrayEquals(new int[]{1, 1, 4, 2, 1, 1, 0, 0}, dailyTemperatures(new int[]{73, 74, 75, 71, 69, 72, 76, 73}));
     }
 
@@ -4219,8 +4219,8 @@ public class Solutions {
     public String sortSentence(String s) {
         String[] unsortedStringArray = s.split(" ");
         String[] sortedStringArray = new String[unsortedStringArray.length];
-        for(String unsortedStr : unsortedStringArray){
-            sortedStringArray[Character.getNumericValue(unsortedStr.charAt(unsortedStr.length() -1)) - 1]
+        for (String unsortedStr : unsortedStringArray) {
+            sortedStringArray[Character.getNumericValue(unsortedStr.charAt(unsortedStr.length() - 1)) - 1]
                     = unsortedStr.substring(0, unsortedStr.length() - 1);
         }
         return String.join(" ", sortedStringArray);
@@ -4233,8 +4233,8 @@ public class Solutions {
 
     public String replaceDigits(String s) {
         char[] sCharArray = s.toCharArray();
-        for(int i = 1; i < s.length(); i++){
-            if(i % 2 != 0){
+        for (int i = 1; i < s.length(); i++) {
+            if (i % 2 != 0) {
                 sCharArray[i] = (char) ((sCharArray[i - 1]) + (Character.getNumericValue(sCharArray[i])));
             }
         }
@@ -4242,10 +4242,11 @@ public class Solutions {
     }
 
     @Test
-    public void replaceDigitsTest(){
+    public void replaceDigitsTest() {
         Assert.assertEquals("abcdef", replaceDigits("a1c1e1"));
         Assert.assertEquals("abbdcfdhe", replaceDigits("a1b2c3d4e"));
     }
+
     public int[] shortestToChar(String S, char C) {
         int n = S.length();
         int pos = -n;
@@ -4268,19 +4269,19 @@ public class Solutions {
 
     public int countMatches(List<List<String>> items, String ruleKey, String ruleValue) {
         int count = 0;
-        if(ruleKey.equals("color")){
-            for(List<String> item: items){
-                if(item.get(1).equals(ruleValue)) count++;
+        if (ruleKey.equals("color")) {
+            for (List<String> item : items) {
+                if (item.get(1).equals(ruleValue)) count++;
             }
         }
-        if(ruleKey.equals("type")){
-            for(List<String> item: items){
-                if(item.get(0).equals(ruleValue)) count++;
+        if (ruleKey.equals("type")) {
+            for (List<String> item : items) {
+                if (item.get(0).equals(ruleValue)) count++;
             }
         }
-        if(ruleKey.equals("name")){
-            for(List<String> item: items){
-                if(item.get(2).equals(ruleValue)) count++;
+        if (ruleKey.equals("name")) {
+            for (List<String> item : items) {
+                if (item.get(2).equals(ruleValue)) count++;
             }
         }
         return count;
@@ -4724,29 +4725,44 @@ public class Solutions {
 
     public static boolean canJump(int[] nums) {
         if (nums.length == 1) return true;
-        for(int i = 0; i < nums.length; i++){
-            if(nums[i] == 0){
-                int distance = 1;
-                for(int k = i - 1; k >= 0; k--){
-                    if(k + nums[k] >= nums.length - 1) return true;
-                    if(nums[k] > distance){
-                        break;
-                    }
-                    else distance++;
-                }
-                return false;
-            }
+        if (nums[0] == 0) return false;
+        int max = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            max--;
+            if (nums[i] > max) max = nums[i];
+            if (max == 0) return false;
+            if (i + max >= nums.length - 1) return true;
         }
         return true;
     }
 
     @Test
-    public void canJumpTest(){
-        Assert.assertTrue(canJump(new int[]{2, 0 }));
-        Assert.assertTrue(canJump(new int[]{2,3,1,1,4}));
-        Assert.assertFalse(canJump(new int[]{3,2,1,0,4}));
+    public void canJumpTest() {
+        Assert.assertTrue(canJump(new int[]{2, 0}));
+        Assert.assertTrue(canJump(new int[]{2, 3, 1, 1, 4}));
+        Assert.assertFalse(canJump(new int[]{3, 2, 1, 0, 4}));
         Assert.assertTrue(canJump(new int[]{0}));
         Assert.assertTrue(canJump(new int[]{2, 0, 0}));
+    }
+
+    public int[] countBits(int n) {
+        int[] res = new int[n + 1];
+        int index = 0;
+        for(int i = 0; i <= n; i++){
+            int bits = 0;
+            String binary = Integer.toBinaryString(i);
+            for(int k = 0; k < binary.length(); k++){
+                if(binary.charAt(k) == '1') bits++;
+            }
+            res[index] = bits;
+            index++;
+        }
+        return res;
+    }
+
+    @Test
+    public void countBitsTest() {
+        Assert.assertArrayEquals(new int[]{0,1, 1}, countBits(2));
     }
 
 }

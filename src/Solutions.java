@@ -4749,12 +4749,7 @@ public class Solutions {
         int[] res = new int[n + 1];
         int index = 0;
         for(int i = 0; i <= n; i++){
-            int bits = 0;
-            String binary = Integer.toBinaryString(i);
-            for(int k = 0; k < binary.length(); k++){
-                if(binary.charAt(k) == '1') bits++;
-            }
-            res[index] = bits;
+            res[index] = Integer.bitCount(i);
             index++;
         }
         return res;
@@ -4763,6 +4758,7 @@ public class Solutions {
     @Test
     public void countBitsTest() {
         Assert.assertArrayEquals(new int[]{0,1, 1}, countBits(2));
+        Assert.assertArrayEquals(new int[]{0,1, 1, 2,1, 2}, countBits(5));
     }
 
 }

@@ -3005,7 +3005,6 @@ public class Solutions {
     }
 
     public static void main(String[] args) {
-
     }
 
     public int countBallsSum(int ballNumber) {
@@ -4784,6 +4783,41 @@ public class Solutions {
             arr= Arrays.copyOf(arr, key+2);  // extend array to one more item than necessary, we need "key" items.
             // we give "key+1" items to reduce collisions.
         }
+    }
+
+//    public boolean isIsomorphic(String s, String t) {
+//        //TODO finish
+//    }
+//
+//    @Test
+//    public void isIsomorphic(){
+//        Assert.assertTrue(isIsomorphic("egg", "add"));
+//    }
+
+    public int maxScore(String s) {
+        if(s.length() == 2) return 1;
+        int res = 0;
+        for(int i = 1; i < s.length(); i++){
+            int count = 0;
+            for(int j = 0; j < i; j++){
+                if(s.charAt(j) == '0') count++;
+            }
+            for(int k = i; k < s.length(); k++){
+                if(s.charAt(k) == '1') count++;
+            }
+            if(res < count) res = count;
+        }
+        return res;
+    }
+
+    @Test
+    public void maxScoreTest(){
+        Assert.assertEquals(4, maxScore("01001"));
+        Assert.assertEquals(1, maxScore("00"));
+        Assert.assertEquals(5, maxScore( "011101"));
+        Assert.assertEquals(5, maxScore("00111"));
+        Assert.assertEquals(3, maxScore("1111"));
+
     }
 
 }

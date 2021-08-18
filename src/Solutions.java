@@ -1,6 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -4779,30 +4780,33 @@ public class Solutions {
             return arr[key];
         }
 
-        public void extend(int key){
-            arr= Arrays.copyOf(arr, key+2);  // extend array to one more item than necessary, we need "key" items.
+        public void extend(int key) {
+            arr = Arrays.copyOf(arr, key + 2);  // extend array to one more item than necessary, we need "key" items.
             // we give "key+1" items to reduce collisions.
         }
     }
 
-//    public boolean isIsomorphic(String s, String t) {
-//        //TODO finish
-//    }
-//
-//    @Test
-//    public void isIsomorphic(){
-//        Assert.assertTrue(isIsomorphic("egg", "add"));
-//    }
+    public boolean isIsomorphic(String s, String t) {
+        // TODO: Finish
+        return false;
+    }
+
+    @Test
+    public void isIsomorphic() {
+        Assert.assertTrue(isIsomorphic("egg", "add"));
+        Assert.assertFalse(isIsomorphic("foo", "bar"));
+        Assert.assertTrue(isIsomorphic("paper", "title"));
+    }
 
     public int maxScore(String s) {
-        if(s.length() == 2) return 1;
+        if (s.length() == 2) return 1;
         int res = 0;
-        for(int i = 1; i < s.length(); i++){
+        for (int i = 1; i < s.length(); i++) {
             int count = 0;
-            for(int j = 0; j < i; j++){
-                if(s.charAt(j) == '0') count++;
+            for (int j = 0; j < i; j++) {
+                if (s.charAt(j) == '0') count++;
             }
-            for(int k = i; k < s.length(); k++){
+            for (int k = i; k < s.length(); k++) {
                 if(s.charAt(k) == '1') count++;
             }
             if(res < count) res = count;
@@ -4811,13 +4815,23 @@ public class Solutions {
     }
 
     @Test
-    public void maxScoreTest(){
+    public void maxScoreTest() {
         Assert.assertEquals(4, maxScore("01001"));
         Assert.assertEquals(1, maxScore("00"));
-        Assert.assertEquals(5, maxScore( "011101"));
+        Assert.assertEquals(5, maxScore("011101"));
         Assert.assertEquals(5, maxScore("00111"));
         Assert.assertEquals(3, maxScore("1111"));
+    }
 
+    public String addBinary(String a, String b) {
+        BigInteger s1Big = new BigInteger(a, 2);
+        BigInteger s2Big = new BigInteger(b, 2);
+        return s1Big.add(s2Big).toString(2);
+    }
+
+    @Test
+    public void addBinaryTest() {
+        Assert.assertEquals("100", addBinary("11", "1"));
     }
 
 }

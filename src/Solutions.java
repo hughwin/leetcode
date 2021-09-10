@@ -4834,6 +4834,30 @@ public class Solutions {
         Assert.assertEquals("100", addBinary("11", "1"));
     }
 
+    public boolean backspaceCompare(String s, String t) {
+        return backspaceCompareHelper(s).equals(backspaceCompareHelper(t));
+    }
+
+    public String backspaceCompareHelper(String string){
+        StringBuilder sb = new StringBuilder();
+        for(char c : string.toCharArray()){
+            if(c == '#' && sb.length() != 0){
+                sb.deleteCharAt(sb.length() - 1);
+            }
+            else if(c != '#'){
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+    @Test
+    public void backspaceCompareTest(){
+//        Assert.assertTrue(backspaceCompare("ab#c", "ad#c"));
+//        Assert.assertFalse(backspaceCompare("ab##", "abc#"));
+        Assert.assertTrue(backspaceCompare("y#fo##f", "y#f#o##f"));
+    }
+
 }
 
 

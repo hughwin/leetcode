@@ -4728,25 +4728,25 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{0, 1, 1, 2, 1, 2}, countBits(5));
     }
 
-    public int numSplits(String s){
+    public int numSplits(String s) {
         int res = 0;
-        for(int i = 1; i < s.length(); i++){
+        for (int i = 1; i < s.length(); i++) {
             HashSet<Character> uniquesA = new HashSet<>();
             HashSet<Character> uniquesB = new HashSet<>();
-            for(int j = 0; j < i; j++){
+            for (int j = 0; j < i; j++) {
                 uniquesA.add(s.charAt(j));
             }
-            for(int k = i; k < s.length() ; k++){
+            for (int k = i; k < s.length(); k++) {
                 uniquesB.add(s.charAt(k));
             }
-            if(uniquesA.size() == 26 && uniquesB.size() == 26) return res;
-            if(uniquesA.size() == uniquesB.size()) res++;
+            if (uniquesA.size() == 26 && uniquesB.size() == 26) return res;
+            if (uniquesA.size() == uniquesB.size()) res++;
         }
         return res;
     }
 
     @Test
-    public void numSplitTest(){
+    public void numSplitTest() {
         Assert.assertEquals(3, numSplits("aaaa"));
         Assert.assertEquals(0, numSplits("bac"));
         Assert.assertEquals(2, numSplits("ababa"));
@@ -4756,26 +4756,31 @@ public class Solutions {
 
     class MyHashSet {
         boolean[] arr = new boolean[100];// start with 100 elements for fast initialization
-        /** Initialize your data structure here. */
+
+        /**
+         * Initialize your data structure here.
+         */
         public MyHashSet() {
 
         }
 
         public void add(int key) {
-            if(key>=arr.length) // if array is too small to accomodate key, extend it.
+            if (key >= arr.length) // if array is too small to accomodate key, extend it.
                 extend(key);
-            arr[key]=true;
+            arr[key] = true;
         }
 
         public void remove(int key) {
-            if(key>=arr.length) // if array is too small to accomodate key, extend it.
+            if (key >= arr.length) // if array is too small to accomodate key, extend it.
                 extend(key);
-            arr[key]=false;
+            arr[key] = false;
         }
 
-        /** Returns true if this set contains the specified element */
+        /**
+         * Returns true if this set contains the specified element
+         */
         public boolean contains(int key) {
-            if(key>=arr.length) // key cannot be in array if array's length < key
+            if (key >= arr.length) // key cannot be in array if array's length < key
                 return false;
             return arr[key];
         }
@@ -4807,9 +4812,9 @@ public class Solutions {
                 if (s.charAt(j) == '0') count++;
             }
             for (int k = i; k < s.length(); k++) {
-                if(s.charAt(k) == '1') count++;
+                if (s.charAt(k) == '1') count++;
             }
-            if(res < count) res = count;
+            if (res < count) res = count;
         }
         return res;
     }
@@ -4838,13 +4843,12 @@ public class Solutions {
         return backspaceCompareHelper(s).equals(backspaceCompareHelper(t));
     }
 
-    public String backspaceCompareHelper(String string){
+    public String backspaceCompareHelper(String string) {
         StringBuilder sb = new StringBuilder();
-        for(char c : string.toCharArray()){
-            if(c == '#' && sb.length() != 0){
+        for (char c : string.toCharArray()) {
+            if (c == '#' && sb.length() != 0) {
                 sb.deleteCharAt(sb.length() - 1);
-            }
-            else if(c != '#'){
+            } else if (c != '#') {
                 sb.append(c);
             }
         }
@@ -4852,7 +4856,7 @@ public class Solutions {
     }
 
     @Test
-    public void backspaceCompareTest(){
+    public void backspaceCompareTest() {
         Assert.assertTrue(backspaceCompare("ab#c", "ad#c"));
         Assert.assertFalse(backspaceCompare("ab##", "abc#"));
         Assert.assertTrue(backspaceCompare("y#fo##f", "y#f#o##f"));
@@ -4861,17 +4865,16 @@ public class Solutions {
     public int[] getConcatenation(int[] nums) {
         int[] returnArray = new int[nums.length * 2];
         int index = 0;
-        for(int i = 0 ; i < 2; i++){
-            for(int k = 0; k < nums.length; k++){
-                returnArray[index++] = nums[k];
-            }
+        for (int num : nums) {
+            returnArray[index] = num;
+            returnArray[index++ + nums.length] = num;
         }
         return returnArray;
     }
 
     @Test
-    public void getConcatenationTest(){
-        Assert.assertArrayEquals(new int[]{1,2,1,1,2,1}, getConcatenation(new int[]{1,2,1}));
+    public void getConcatenationTest() {
+        Assert.assertArrayEquals(new int[]{1, 2, 1, 1, 2, 1}, getConcatenation(new int[]{1, 2, 1}));
     }
 
 }

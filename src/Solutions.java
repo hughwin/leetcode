@@ -4853,8 +4853,8 @@ public class Solutions {
 
     @Test
     public void backspaceCompareTest(){
-//        Assert.assertTrue(backspaceCompare("ab#c", "ad#c"));
-//        Assert.assertFalse(backspaceCompare("ab##", "abc#"));
+        Assert.assertTrue(backspaceCompare("ab#c", "ad#c"));
+        Assert.assertFalse(backspaceCompare("ab##", "abc#"));
         Assert.assertTrue(backspaceCompare("y#fo##f", "y#f#o##f"));
     }
 

@@ -4858,6 +4858,22 @@ public class Solutions {
         Assert.assertTrue(backspaceCompare("y#fo##f", "y#f#o##f"));
     }
 
+    public int[] getConcatenation(int[] nums) {
+        int[] returnArray = new int[nums.length * 2];
+        int index = 0;
+        for(int i = 0 ; i < 2; i++){
+            for(int k = 0; k < nums.length; k++){
+                returnArray[index++] = nums[k];
+            }
+        }
+        return returnArray;
+    }
+
+    @Test
+    public void getConcatenationTest(){
+        Assert.assertArrayEquals(new int[]{1,2,1,1,2,1}, getConcatenation(new int[]{1,2,1}));
+    }
+
 }
 
 

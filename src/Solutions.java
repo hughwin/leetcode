@@ -4888,7 +4888,46 @@ public class Solutions {
         Assert.assertTrue(isPowerOfFour(1));
         Assert.assertFalse(isPowerOfFour(8));
         Assert.assertTrue(isPowerOfFour(64));
+    }
 
+    public String shortestCompletingWord(String licensePlate, String[] words) {
+        String res = "";
+        licensePlate = licensePlate.trim().toLowerCase().replaceAll(" ", "");
+        HashMap<Character, Integer> letterCount = new HashMap<>();
+        for (char c : licensePlate.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                if (letterCount.containsKey(c)) letterCount.put(c, letterCount.get(c) + 1);
+                else letterCount.put(c, 1);
+            }
+        }
+        for (String s : words) {
+            HashMap<Character, Integer> sCount = new HashMap<>();
+            for (char c : s.toCharArray()) {
+                if (sCount.containsKey(c)) sCount.put(c, sCount.get(c) + 1);
+                else sCount.put(c, 1);
+            }
+            if (charCounter(letterCount, sCount) && s.length() < res.length() ||
+                    charCounter(letterCount, sCount) && res.length() == 0) res = s;
+        }
+        return res;
+    }
+
+    public boolean charCounter(HashMap<Character, Integer> a, HashMap<Character, Integer> b) {
+        for (Character c : a.keySet()) {
+            if (!b.containsKey(c)) return false;
+            if (a.get(c) > b.get(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Test
+    public void shortestCompletingWordTest() {
+        Assert.assertEquals("steps", shortestCompletingWord("1s3 PSt",
+                new String[]{"step", "steps", "stripe", "stepple"}));
+        Assert.assertEquals("according", shortestCompletingWord("GrC8950",
+                new String[]{"measure", "other", "every", "base", "according", "level", "meeting", "none", "marriage", "rest"}));
     }
 
 }

@@ -4877,6 +4877,20 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{1, 2, 1, 1, 2, 1}, getConcatenation(new int[]{1, 2, 1}));
     }
 
+    public boolean isPowerOfFour(int n) {
+        return Math.log(n) / Math.log(4) % 1 == 0;
+    }
+
+    @Test
+    public void isPowerOfFourTest() {
+        Assert.assertTrue(isPowerOfFour(16));
+        Assert.assertFalse(isPowerOfFour(5));
+        Assert.assertTrue(isPowerOfFour(1));
+        Assert.assertFalse(isPowerOfFour(8));
+        Assert.assertTrue(isPowerOfFour(64));
+
+    }
+
 }
 
 

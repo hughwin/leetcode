@@ -4892,34 +4892,26 @@ public class Solutions {
 
     public String shortestCompletingWord(String licensePlate, String[] words) {
         String res = "";
-        licensePlate = licensePlate.trim().toLowerCase().replaceAll(" ", "");
-        HashMap<Character, Integer> letterCount = new HashMap<>();
+        licensePlate = licensePlate.toLowerCase();
+        int[] counts = new int[26];
+        int total = 0;
+
         for (char c : licensePlate.toCharArray()) {
-            if (!Character.isDigit(c)) {
-                if (letterCount.containsKey(c)) letterCount.put(c, letterCount.get(c) + 1);
-                else letterCount.put(c, 1);
+            if ('a' <= c && c <= 'z') {
+                counts[c - 'a']++;
+                total++;
             }
         }
+
         for (String s : words) {
-            HashMap<Character, Integer> sCount = new HashMap<>();
+            int n = total;
+            int[] sCount = counts.clone();
             for (char c : s.toCharArray()) {
-                if (sCount.containsKey(c)) sCount.put(c, sCount.get(c) + 1);
-                else sCount.put(c, 1);
+                if (sCount[c - 'a']-- > 0) n--;
+                if (n == 0 && (res.length() == 0 || s.length() < res.length())) res = s;
             }
-            if (charCounter(letterCount, sCount) && s.length() < res.length() ||
-                    charCounter(letterCount, sCount) && res.length() == 0) res = s;
         }
         return res;
-    }
-
-    public boolean charCounter(HashMap<Character, Integer> a, HashMap<Character, Integer> b) {
-        for (Character c : a.keySet()) {
-            if (!b.containsKey(c)) return false;
-            if (a.get(c) > b.get(c)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     @Test

@@ -4922,6 +4922,36 @@ public class Solutions {
                 new String[]{"measure", "other", "every", "base", "according", "level", "meeting", "none", "marriage", "rest"}));
     }
 
+    public int searchInsert(int[] nums, int target) {
+
+        if (target > nums[nums.length - 1]) return nums.length;
+        if (target < nums[0]) return 0;
+
+        int leftBound = 0;
+        int rightBound = nums.length - 1;
+        int midPoint = (leftBound + rightBound) / 2;
+
+
+        while (true) {
+            if (nums[midPoint] < target) {
+                leftBound = midPoint + 1;
+            } else {
+                rightBound = midPoint - 1;
+            }
+            if (nums[leftBound] == target) return leftBound;
+            if (nums[rightBound] == target) return rightBound;
+            if (nums[rightBound] < target && nums[leftBound] > target) return leftBound;
+            midPoint = (leftBound + rightBound) / 2;
+        }
+    }
+
+    @Test
+    public void searchInsertTest() {
+        Assert.assertEquals(2, searchInsert(new int[]{1, 3, 5, 6}, 5));
+        Assert.assertEquals(1, searchInsert(new int[]{1, 3, 5, 6}, 2));
+        Assert.assertEquals(4, searchInsert(new int[]{1, 3, 5, 6}, 7));
+    }
+
 }
 
 

@@ -4960,7 +4960,7 @@ public class Solutions {
         int low = 0, high = n, midPoint = (high + low) / 2;
 
         while (true) {
-            if (low - high == 1) {
+            if (low > high) {
                 if (isBadVersion(low)) return low;
                 if (isBadVersion(high)) return high;
             }

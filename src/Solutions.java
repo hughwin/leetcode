@@ -4952,6 +4952,32 @@ public class Solutions {
         Assert.assertEquals(4, searchInsert(new int[]{1, 3, 5, 6}, 7));
     }
 
+    public boolean isBadVersion(int n) {
+        return n == 4;
+    }
+
+    public int firstBadVersion(int n) {
+        int low = 0, high = n, midPoint = (high + low) / 2;
+
+        while (true) {
+            if (low - high == 1) {
+                if (isBadVersion(low)) return low;
+                if (isBadVersion(high)) return high;
+            }
+            if (isBadVersion(midPoint)) {
+                high = midPoint - 1;
+            } else {
+                low = midPoint + 1;
+            }
+            midPoint = low + (high - low) / 2;
+        }
+    }
+
+    @Test
+    public void firstBadVersionTest() {
+        Assert.assertEquals(4, firstBadVersion(5));
+    }
+
 }
 
 

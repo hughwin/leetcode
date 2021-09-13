@@ -4978,6 +4978,25 @@ public class Solutions {
         Assert.assertEquals(4, firstBadVersion(5));
     }
 
+    public int[] rotate(int[] nums, int k) {
+        int pivot = k % nums.length;
+        int[] clone = nums.clone();
+        for (int i = 0; i < nums.length; i++) {
+            if (i + pivot < nums.length) {
+                nums[i] = clone[(i + pivot)];
+            } else nums[i] = clone[(i + pivot) - nums.length];
+        }
+        return nums;
+    }
+
+    @Test
+    public void rotateTest() {
+        Assert.assertArrayEquals(new int[]{5, 6, 7, 1, 2, 3, 4}, rotate(new int[]{1, 2, 3, 4, 5, 6, 7}, 3));
+        Assert.assertArrayEquals(new int[]{3, 99, -1, -100}, rotate(new int[]{-1, -100, 3, 99}, 2));
+        Assert.assertArrayEquals(new int[]{2, 1}, rotate(new int[]{1, 2}, 1));
+        Assert.assertArrayEquals(new int[]{2, 1}, rotate(new int[]{1, 2}, 3));
+    }
+
 }
 
 

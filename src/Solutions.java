@@ -31,6 +31,30 @@ public class Solutions {
         Assert.assertArrayEquals(expected, result);
     }
 
+    // Two pointer solution
+    public int[] twoSumTwoPointer(int[] nums, int target) {
+        int l = 0, r = nums.length - 1;
+        while (l < r) {
+            if (nums[l] + nums[r] == target) {
+                return new int[]{l + 1, r + 1};
+            }
+            if (nums[l] + nums[r] < target) {
+                l++;
+            } else {
+                r--;
+            }
+        }
+        return null;
+    }
+
+
+    @Test
+    public void twoSumTwoPointerTest() {
+        int[] result = twoSumTwoPointer(new int[]{2, 7, 11, 15}, 9);
+        int[] expected = new int[]{0, 1};
+        Assert.assertArrayEquals(expected, result);
+    }
+
     // https://leetcode.com/problems/kids-with-the-greatest-number-of-candies/
     public static List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
         List<Boolean> returnedValues = new ArrayList<>();

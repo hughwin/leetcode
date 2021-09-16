@@ -3806,6 +3806,20 @@ public class Solutions {
         }
     }
 
+    // Two pointer solution to the above problem.
+    public void moveZeroesTwoPointer(int[] nums) {
+        int slow = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[slow] == 0 && nums[i] != 0) {
+                nums[slow] = nums[i];
+                nums[i] = 0;
+            }
+            if (nums[slow] != 0) {
+                slow++;
+            }
+        }
+    }
+
     // Test not appropriate
 
     public int countOdds(int low, int high) {

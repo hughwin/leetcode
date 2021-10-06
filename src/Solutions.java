@@ -5035,6 +5035,17 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{2, 1}, rotate(new int[]{1, 2}, 3));
     }
 
+    public boolean canWinNim(int n) {
+        return n % 4 != 0;
+    }
+
+    @Test
+    public void canWinNimTest(){
+        Assert.assertTrue(canWinNim(1));
+        Assert.assertTrue(canWinNim(2));
+        Assert.assertFalse(canWinNim(4));
+    }
+
 }
 
 

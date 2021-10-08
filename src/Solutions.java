@@ -5047,11 +5047,9 @@ public class Solutions {
     }
 
     public boolean rotateString(String s, String goal) {
-        for(int i = 1; i < s.length(); i++){
-            String perm = s.substring(i).concat(s.substring(0, i));
-            if(perm.equals(goal)) return true;
-        }
-        return false;
+        if(s.length() != goal.length()) return false;
+        s = s + s;
+        return s.contains(goal);
     }
 
     @Test

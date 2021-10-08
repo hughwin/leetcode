@@ -5046,6 +5046,20 @@ public class Solutions {
         Assert.assertFalse(canWinNim(4));
     }
 
+    public boolean rotateString(String s, String goal) {
+        for(int i = 1; i < s.length(); i++){
+            String perm = s.substring(i).concat(s.substring(0, i));
+            if(perm.equals(goal)) return true;
+        }
+        return false;
+    }
+
+    @Test
+    public void rotateStringTest(){
+        Assert.assertTrue( rotateString("cdeab", "abcde"));
+        Assert.assertFalse( rotateString("abcde", "abced"));
+    }
+
 }
 
 

@@ -5058,6 +5058,30 @@ public class Solutions {
         Assert.assertFalse( rotateString("abcde", "abced"));
     }
 
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        int n = nums.length;
+
+        // build the sliding window before using it
+        Set<Integer> seen = new HashSet<>();
+        for (int i = 0; i <= k && i < n; i++) {
+            if (!seen.add(nums[i])) return true;
+        }
+
+        // go through the nums array and check for duplicates in the window
+        for (int i = k+1; i < n; i++) {
+            seen.remove(nums[i-k-1]);
+            if (!seen.add(nums[i])) return true;
+        }
+
+        return false;
+    }
+
+    @Test
+    public void containsNearbyDuplicatesTest(){
+        Assert.assertTrue(containsNearbyDuplicate(new int[]{1,2,3,1}, 3));
+        Assert.assertFalse(containsNearbyDuplicate(new int[]{1,2,3,1,2,3}, 2));
+    }
+
 }
 
 

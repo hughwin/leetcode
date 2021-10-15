@@ -5086,7 +5086,9 @@ public class Solutions {
         int maxSoFar=A[0], maxEndingHere=A[0];
         for (int i=1;i<A.length;++i){
             maxEndingHere= Math.max(maxEndingHere+A[i],A[i]);
+            // MaxEndingHere is either A[i] plus the previous MaxEndingHere, or just A[i], whichever is larger.
             maxSoFar=Math.max(maxSoFar, maxEndingHere);
+            // maxSoFar is the biggest out of the maxEndingHere and maxSoFar
         }
         return maxSoFar;
     }

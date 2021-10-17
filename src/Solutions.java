@@ -5099,6 +5099,37 @@ public class Solutions {
         Assert.assertEquals(-1, maxSubArray(new int[]{-1}));
         Assert.assertEquals(-1, maxSubArray(new int[]{-2,-1}));
     }
+
+    public boolean makeEqual(String[] words) {
+        if(words.length == 1) return true;
+        HashMap<Character, Integer> counter = new HashMap<>();
+        for(String word: words){
+            for(char c : word.toCharArray()){
+                if(counter.containsKey(c)){
+                    counter.put(c, counter.get(c) + 1);
+                }
+                else {
+                    counter.put(c, 1);
+                }
+            }
+        }
+        for(Character c : counter.keySet()){
+            if(counter.get(c) % words.length != 0) return false;
+        }
+        return true;
+    }
+
+    @Test
+    public void makeEqualTest(){
+        Assert.assertTrue(makeEqual(new String[]{"abc", "aabc", "bc"}));
+        Assert.assertFalse(makeEqual(new String[]{"ab", "a"}));
+        Assert.assertFalse(makeEqual(new String[]{"a", "b"}));
+        Assert.assertTrue(makeEqual(new String[]{"a", "a"}));
+        Assert.assertTrue(makeEqual(new String[]{"abc", "cba"}));
+        Assert.assertFalse(makeEqual(new String[]{"bc", "de"}));
+
+
+    }
 }
 
 

@@ -5127,9 +5127,24 @@ public class Solutions {
         Assert.assertTrue(makeEqual(new String[]{"a", "a"}));
         Assert.assertTrue(makeEqual(new String[]{"abc", "cba"}));
         Assert.assertFalse(makeEqual(new String[]{"bc", "de"}));
-
-
     }
+    
+    int[] dp = new int[46];
+    public int climbStairs(int n) {
+        if(dp[n]!=0) return dp[n];
+
+        if(n==1 || n==2) return n;
+        dp[n]=climbStairs(n-1)+climbStairs(n-2);
+        return dp[n];
+    }
+
+    @Test
+    public void climbStairs() {
+        Assert.assertEquals(1, climbStairs(2));
+        Assert.assertEquals(3, climbStairs(3));
+    }
+
+
 }
 
 

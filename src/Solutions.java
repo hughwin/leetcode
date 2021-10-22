@@ -5040,22 +5040,22 @@ public class Solutions {
     }
 
     @Test
-    public void canWinNimTest(){
+    public void canWinNimTest() {
         Assert.assertTrue(canWinNim(1));
         Assert.assertTrue(canWinNim(2));
         Assert.assertFalse(canWinNim(4));
     }
 
     public boolean rotateString(String s, String goal) {
-        if(s.length() != goal.length()) return false;
+        if (s.length() != goal.length()) return false;
         s = s + s;
         return s.contains(goal);
     }
 
     @Test
-    public void rotateStringTest(){
-        Assert.assertTrue( rotateString("cdeab", "abcde"));
-        Assert.assertFalse( rotateString("abcde", "abced"));
+    public void rotateStringTest() {
+        Assert.assertTrue(rotateString("cdeab", "abcde"));
+        Assert.assertFalse(rotateString("abcde", "abced"));
     }
 
     public boolean containsNearbyDuplicate(int[] nums, int k) {
@@ -5068,8 +5068,8 @@ public class Solutions {
         }
 
         // go through the nums array and check for duplicates in the window
-        for (int i = k+1; i < n; i++) {
-            seen.remove(nums[i-k-1]);
+        for (int i = k + 1; i < n; i++) {
+            seen.remove(nums[i - k - 1]);
             if (!seen.add(nums[i])) return true;
         }
 
@@ -5077,50 +5077,49 @@ public class Solutions {
     }
 
     @Test
-    public void containsNearbyDuplicatesTest(){
-        Assert.assertTrue(containsNearbyDuplicate(new int[]{1,2,3,1}, 3));
-        Assert.assertFalse(containsNearbyDuplicate(new int[]{1,2,3,1,2,3}, 2));
+    public void containsNearbyDuplicatesTest() {
+        Assert.assertTrue(containsNearbyDuplicate(new int[]{1, 2, 3, 1}, 3));
+        Assert.assertFalse(containsNearbyDuplicate(new int[]{1, 2, 3, 1, 2, 3}, 2));
     }
 
     public static int maxSubArray(int[] A) {
-        int maxSoFar=A[0], maxEndingHere=A[0];
-        for (int i=1;i<A.length;++i){
-            maxEndingHere= Math.max(maxEndingHere+A[i],A[i]);
+        int maxSoFar = A[0], maxEndingHere = A[0];
+        for (int i = 1; i < A.length; ++i) {
+            maxEndingHere = Math.max(maxEndingHere + A[i], A[i]);
             // MaxEndingHere is either A[i] plus the previous MaxEndingHere, or just A[i], whichever is larger.
-            maxSoFar=Math.max(maxSoFar, maxEndingHere);
+            maxSoFar = Math.max(maxSoFar, maxEndingHere);
             // maxSoFar is the biggest out of the maxEndingHere and maxSoFar
         }
         return maxSoFar;
     }
 
     @Test
-    public void maxSubArray(){
-        Assert.assertEquals(6, maxSubArray(new int[]{-2,1,-3,4,-1,2,1,-5,4}));
+    public void maxSubArray() {
+        Assert.assertEquals(6, maxSubArray(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
         Assert.assertEquals(-1, maxSubArray(new int[]{-1}));
-        Assert.assertEquals(-1, maxSubArray(new int[]{-2,-1}));
+        Assert.assertEquals(-1, maxSubArray(new int[]{-2, -1}));
     }
 
     public boolean makeEqual(String[] words) {
-        if(words.length == 1) return true;
+        if (words.length == 1) return true;
         HashMap<Character, Integer> counter = new HashMap<>();
-        for(String word: words){
-            for(char c : word.toCharArray()){
-                if(counter.containsKey(c)){
+        for (String word : words) {
+            for (char c : word.toCharArray()) {
+                if (counter.containsKey(c)) {
                     counter.put(c, counter.get(c) + 1);
-                }
-                else {
+                } else {
                     counter.put(c, 1);
                 }
             }
         }
-        for(Character c : counter.keySet()){
-            if(counter.get(c) % words.length != 0) return false;
+        for (Character c : counter.keySet()) {
+            if (counter.get(c) % words.length != 0) return false;
         }
         return true;
     }
 
     @Test
-    public void makeEqualTest(){
+    public void makeEqualTest() {
         Assert.assertTrue(makeEqual(new String[]{"abc", "aabc", "bc"}));
         Assert.assertFalse(makeEqual(new String[]{"ab", "a"}));
         Assert.assertFalse(makeEqual(new String[]{"a", "b"}));
@@ -5128,13 +5127,14 @@ public class Solutions {
         Assert.assertTrue(makeEqual(new String[]{"abc", "cba"}));
         Assert.assertFalse(makeEqual(new String[]{"bc", "de"}));
     }
-    
-    int[] dp = new int[46];
-    public int climbStairs(int n) {
-        if(dp[n]!=0) return dp[n];
 
-        if(n==1 || n==2) return n;
-        dp[n]=climbStairs(n-1)+climbStairs(n-2);
+    int[] dp = new int[46];
+
+    public int climbStairs(int n) {
+        if (dp[n] != 0) return dp[n];
+
+        if (n == 1 || n == 2) return n;
+        dp[n] = climbStairs(n - 1) + climbStairs(n - 2);
         return dp[n];
     }
 
@@ -5142,6 +5142,47 @@ public class Solutions {
     public void climbStairs() {
         Assert.assertEquals(1, climbStairs(2));
         Assert.assertEquals(3, climbStairs(3));
+    }
+
+    public String reverseVowels(String s) {
+        char[] charArray = s.toCharArray();
+        int frontPointer = 0;
+        int endPointer = charArray.length - 1;
+        while (frontPointer < endPointer) {
+
+            var frontPointerBol = charArray[frontPointer] == 'a' || charArray[frontPointer] == 'e' || charArray[frontPointer] == 'i'
+                    || charArray[frontPointer] == 'o' || charArray[frontPointer] == 'u' || charArray[frontPointer] == 'A' || charArray[frontPointer] == 'E' || charArray[frontPointer] == 'I'
+                    || charArray[frontPointer] == 'O' || charArray[frontPointer] == 'U';
+
+            var endPointerBol = charArray[endPointer] == 'a' || charArray[endPointer] == 'e' || charArray[endPointer] == 'i'
+                    || charArray[endPointer] == 'o' || charArray[endPointer] == 'u' || charArray[endPointer] == 'A' || charArray[endPointer] == 'E' || charArray[endPointer] == 'I'
+                    || charArray[endPointer] == 'O' || charArray[endPointer] == 'U';
+
+            if (frontPointerBol && endPointerBol){
+                char temp = charArray[frontPointer];
+                charArray[frontPointer] = charArray[endPointer];
+                charArray[endPointer] = temp;
+                frontPointer++;
+                endPointer--;
+            }
+            else if(frontPointerBol) {
+                endPointer--;
+            }
+            else if (endPointerBol) {
+                frontPointer++;
+            }
+            else{
+                frontPointer++;
+                endPointer--;
+            }
+        }
+        return String.valueOf(charArray);
+    }
+
+    @Test
+    public void reverseVoweslTest() {
+        Assert.assertEquals("holle", reverseVowels("hello"));
+        Assert.assertEquals("leotcede", reverseVowels("leetcode"));
     }
 
 

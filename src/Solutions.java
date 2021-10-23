@@ -5185,6 +5185,24 @@ public class Solutions {
         Assert.assertEquals("leotcede", reverseVowels("leetcode"));
     }
 
+    public int findGCD(int[] nums) {
+        Arrays.sort(nums);
+        int divisor = nums[nums.length - 1];
+
+        while(divisor > 1){
+            if(nums[0] % divisor == 0 && nums[nums.length - 1] % divisor == 0){
+                return divisor;
+            }
+            divisor--;
+        }
+        return 1;
+    }
+
+    @Test
+    public void findGCDTest(){
+        Assert.assertEquals(2, findGCD(new int[]{2,5,6,9,10}));
+    }
+
 
 }
 

@@ -5208,6 +5208,25 @@ public class Solutions {
         Assert.assertEquals(5, removeElement(new int[]{0, 1, 2, 2, 3, 0, 4, 2}, 2));
     }
 
+    public int countGoodSubstrings(String s) {
+        int count = 0;
+        char[] chars = s.toCharArray();
+        for(int i = 0; i < s.length() - 2; i++){
+            if(chars[i] != chars[i + 1] && chars[i + 1] != chars[i + 2]
+                    && chars[i] != chars[i + 2]){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    @Test
+    public void countGoodSubstringsTest() {
+        Assert.assertEquals(1, countGoodSubstrings("xyzzaz"));
+        Assert.assertEquals(4, countGoodSubstrings("aababcabc"));
+
+    }
+
 
 }
 

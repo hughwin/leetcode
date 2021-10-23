@@ -769,10 +769,6 @@ public class Solutions {
         Assert.assertTrue(validMountainArray(new int[]{0, 3, 2, 1}));
     }
 
-    public static int removeElement(int[] nums, int val) {
-        return 0;
-    }
-
     public static int findMaxConsecutiveOnes(int[] nums) {
         int maxConsecutiveNumbers = 0;
         int count = 0;
@@ -895,12 +891,6 @@ public class Solutions {
             count++;
         }
         return newArray;
-    }
-
-    @Test
-    public void removeElementTest() {
-        Assert.assertEquals(2, removeElement(new int[]{3, 2, 2, 3}, 3));
-        Assert.assertEquals(5, removeElement(new int[]{0, 1, 2, 2, 3, 0, 4, 2}, 2));
     }
 
     public static int compareVersion(String version1, String version2) {
@@ -5201,6 +5191,26 @@ public class Solutions {
     @Test
     public void findGCDTest(){
         Assert.assertEquals(2, findGCD(new int[]{2,5,6,9,10}));
+    }
+
+    public int removeElement(int[] nums, int val) {
+        int copyPointer = 0, counter = 0;
+        for(int i = 0 ; i < nums.length ; i++){
+            if(nums[i] == val){
+                continue;
+            }
+            else{
+                nums[copyPointer++] = nums[i];
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    @Test
+    public void removeElementTest(){
+//        Assert.assertEquals(2, removeElement(new int[]{3,2,2,3}, 3));
+        Assert.assertEquals(5, removeElement(new int[]{0,1,2,2,3,0,4,2}, 2));
     }
 
 

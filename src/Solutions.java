@@ -5148,20 +5148,17 @@ public class Solutions {
                     || charArray[endPointer] == 'o' || charArray[endPointer] == 'u' || charArray[endPointer] == 'A' || charArray[endPointer] == 'E' || charArray[endPointer] == 'I'
                     || charArray[endPointer] == 'O' || charArray[endPointer] == 'U';
 
-            if (frontPointerBol && endPointerBol){
+            if (frontPointerBol && endPointerBol) {
                 char temp = charArray[frontPointer];
                 charArray[frontPointer] = charArray[endPointer];
                 charArray[endPointer] = temp;
                 frontPointer++;
                 endPointer--;
-            }
-            else if(frontPointerBol) {
+            } else if (frontPointerBol) {
                 endPointer--;
-            }
-            else if (endPointerBol) {
+            } else if (endPointerBol) {
                 frontPointer++;
-            }
-            else{
+            } else {
                 frontPointer++;
                 endPointer--;
             }
@@ -5179,8 +5176,8 @@ public class Solutions {
         Arrays.sort(nums);
         int divisor = nums[nums.length - 1];
 
-        while(divisor > 1){
-            if(nums[0] % divisor == 0 && nums[nums.length - 1] % divisor == 0){
+        while (divisor > 1) {
+            if (nums[0] % divisor == 0 && nums[nums.length - 1] % divisor == 0) {
                 return divisor;
             }
             divisor--;
@@ -5189,17 +5186,15 @@ public class Solutions {
     }
 
     @Test
-    public void findGCDTest(){
-        Assert.assertEquals(2, findGCD(new int[]{2,5,6,9,10}));
+    public void findGCDTest() {
+        Assert.assertEquals(2, findGCD(new int[]{2, 5, 6, 9, 10}));
     }
 
+    // https://leetcode.com/problems/remove-element/submissions/
     public int removeElement(int[] nums, int val) {
         int copyPointer = 0, counter = 0;
-        for(int i = 0 ; i < nums.length ; i++){
-            if(nums[i] == val){
-                continue;
-            }
-            else{
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != val) {
                 nums[copyPointer++] = nums[i];
                 counter++;
             }
@@ -5208,9 +5203,9 @@ public class Solutions {
     }
 
     @Test
-    public void removeElementTest(){
-//        Assert.assertEquals(2, removeElement(new int[]{3,2,2,3}, 3));
-        Assert.assertEquals(5, removeElement(new int[]{0,1,2,2,3,0,4,2}, 2));
+    public void removeElementTest() {
+        Assert.assertEquals(2, removeElement(new int[]{3,2,2,3}, 3));
+        Assert.assertEquals(5, removeElement(new int[]{0, 1, 2, 2, 3, 0, 4, 2}, 2));
     }
 
 

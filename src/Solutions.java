@@ -5229,7 +5229,7 @@ public class Solutions {
     public boolean canPlaceFlowers(int[] flowerbed, int n) {
 
         int count = 0;
-        if(n == 0 ) return true;
+        if (n == 0) return true;
         if (flowerbed.length == 1) {
             if (flowerbed[0] == 0) return n <= 1;
             else {
@@ -5250,23 +5250,57 @@ public class Solutions {
             }
         }
 
-        if(flowerbed[flowerbed.length - 1] == 0 & flowerbed[flowerbed.length - 2] == 0){
+        if (flowerbed[flowerbed.length - 1] == 0 & flowerbed[flowerbed.length - 2] == 0) {
             count++;
         }
 
         return n <= count;
     }
 
-        @Test
-        public void canPlaceFlowersTest () {
-            Assert.assertTrue(canPlaceFlowers(new int[]{1, 0, 0, 0, 1}, 1));
-            Assert.assertFalse(canPlaceFlowers(new int[]{1, 0, 0, 0, 1}, 2));
-            Assert.assertFalse(canPlaceFlowers(new int[]{1, 0, 1}, 1));
-            Assert.assertFalse(canPlaceFlowers(new int[]{0, 1, 0}, 1));
-        }
+    @Test
+    public void canPlaceFlowersTest() {
+        Assert.assertTrue(canPlaceFlowers(new int[]{1, 0, 0, 0, 1}, 1));
+        Assert.assertFalse(canPlaceFlowers(new int[]{1, 0, 0, 0, 1}, 2));
+        Assert.assertFalse(canPlaceFlowers(new int[]{1, 0, 1}, 1));
+        Assert.assertFalse(canPlaceFlowers(new int[]{0, 1, 0}, 1));
+    }
 
+
+    public boolean testZeroes(int n){
+        while(n != 0){
+            int d = n % 10;
+            if(d == 0){ return false;}
+            n /= 10;
+        }
+        return true;
+    }
+
+    @Test
+    public void testZeroesTest() {
+//        Assert.assertTrue(testZeroes(111));
+//        Assert.assertFalse(testZeroes(101));
+        Assert.assertFalse(testZeroes(1010));
 
     }
+
+
+    public int[] getNoZeroIntegers(int n){
+        int x = 1, y = n - 1;
+        while(true){
+            if((testZeroes(y)) && (testZeroes(x))) return new int[]{x, y};
+            y--;
+            x++;
+        }
+    }
+
+    @Test
+    public void getNoZeroIntegersTest() {
+        Assert.assertArrayEquals(new int[]{1, 68}, getNoZeroIntegers(69));
+        Assert.assertArrayEquals(new int[]{11, 999}, getNoZeroIntegers(1010));
+    }
+
+
+}
 
 
 

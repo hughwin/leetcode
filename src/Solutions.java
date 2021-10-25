@@ -5277,8 +5277,8 @@ public class Solutions {
 
     @Test
     public void testZeroesTest() {
-//        Assert.assertTrue(testZeroes(111));
-//        Assert.assertFalse(testZeroes(101));
+        Assert.assertTrue(testZeroes(111));
+        Assert.assertFalse(testZeroes(101));
         Assert.assertFalse(testZeroes(1010));
 
     }

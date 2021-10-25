@@ -5224,7 +5224,47 @@ public class Solutions {
     public void countGoodSubstringsTest() {
         Assert.assertEquals(1, countGoodSubstrings("xyzzaz"));
         Assert.assertEquals(4, countGoodSubstrings("aababcabc"));
+    }
 
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+
+        if(flowerbed.length == 1) {
+            if(flowerbed[0] == 0) return n <= 1;
+            else{
+                return n <= 0;
+            }
+        }
+
+        int count = 0;
+
+            for (int i = 0; i < flowerbed.length; i++) {
+                if(i == 0 || i == flowerbed.length - 1) {
+                    if (i == 0 && flowerbed[0] == 0 && flowerbed[1] == 0) {
+                        flowerbed[0] = 1;
+                        count++;
+                        continue;
+                    }
+                    if (i == flowerbed.length - 1 && flowerbed[i] == 0 && flowerbed[i - 1] == 0) {
+                        flowerbed[i] = 1;
+                        count++;
+                    }
+                }
+                else {
+                    if(flowerbed[i] == 0 && flowerbed[i - 1] == 0 && flowerbed[i + 1] == 0){
+                        flowerbed[i] = 1;
+                        count++;
+                    }
+                }
+        }
+        return n <= count;
+    }
+
+    @Test
+    public void canPlaceFlowersTest () {
+        Assert.assertTrue(canPlaceFlowers(new int[]{1,0,0,0,1}, 1));
+        Assert.assertFalse(canPlaceFlowers(new int[]{1,0,0,0,1}, 2));
+        Assert.assertFalse(canPlaceFlowers(new int[]{1,0,1}, 1));
+        Assert.assertFalse(canPlaceFlowers(new int[]{0,1,0}, 1));
     }
 
 

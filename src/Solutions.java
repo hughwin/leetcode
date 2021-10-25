@@ -5204,16 +5204,16 @@ public class Solutions {
 
     @Test
     public void removeElementTest() {
-        Assert.assertEquals(2, removeElement(new int[]{3,2,2,3}, 3));
+        Assert.assertEquals(2, removeElement(new int[]{3, 2, 2, 3}, 3));
         Assert.assertEquals(5, removeElement(new int[]{0, 1, 2, 2, 3, 0, 4, 2}, 2));
     }
 
     public int countGoodSubstrings(String s) {
         int count = 0;
         char[] chars = s.toCharArray();
-        for(int i = 0; i < s.length() - 2; i++){
-            if(chars[i] != chars[i + 1] && chars[i + 1] != chars[i + 2]
-                    && chars[i] != chars[i + 2]){
+        for (int i = 0; i < s.length() - 2; i++) {
+            if (chars[i] != chars[i + 1] && chars[i + 1] != chars[i + 2]
+                    && chars[i] != chars[i + 2]) {
                 count++;
             }
         }
@@ -5228,47 +5228,45 @@ public class Solutions {
 
     public boolean canPlaceFlowers(int[] flowerbed, int n) {
 
-        if(flowerbed.length == 1) {
-            if(flowerbed[0] == 0) return n <= 1;
-            else{
+        int count = 0;
+        if(n == 0 ) return true;
+        if (flowerbed.length == 1) {
+            if (flowerbed[0] == 0) return n <= 1;
+            else {
                 return n <= 0;
             }
         }
 
-        int count = 0;
-
-            for (int i = 0; i < flowerbed.length; i++) {
-                if(i == 0 || i == flowerbed.length - 1) {
-                    if (i == 0 && flowerbed[0] == 0 && flowerbed[1] == 0) {
-                        flowerbed[0] = 1;
-                        count++;
-                        continue;
-                    }
-                    if (i == flowerbed.length - 1 && flowerbed[i] == 0 && flowerbed[i - 1] == 0) {
-                        flowerbed[i] = 1;
-                        count++;
-                    }
-                }
-                else {
-                    if(flowerbed[i] == 0 && flowerbed[i - 1] == 0 && flowerbed[i + 1] == 0){
-                        flowerbed[i] = 1;
-                        count++;
-                    }
-                }
+        if (flowerbed[0] == 0 && flowerbed[1] == 0) {
+            count++;
+            flowerbed[0] = 1;
         }
+
+
+        for (int i = 1; i < flowerbed.length - 1; i++) {
+            if (flowerbed[i] == 0 && flowerbed[i - 1] == 0 && flowerbed[i + 1] == 0) {
+                flowerbed[i] = 1;
+                count++;
+            }
+        }
+
+        if(flowerbed[flowerbed.length - 1] == 0 & flowerbed[flowerbed.length - 2] == 0){
+            count++;
+        }
+
         return n <= count;
     }
 
-    @Test
-    public void canPlaceFlowersTest () {
-        Assert.assertTrue(canPlaceFlowers(new int[]{1,0,0,0,1}, 1));
-        Assert.assertFalse(canPlaceFlowers(new int[]{1,0,0,0,1}, 2));
-        Assert.assertFalse(canPlaceFlowers(new int[]{1,0,1}, 1));
-        Assert.assertFalse(canPlaceFlowers(new int[]{0,1,0}, 1));
+        @Test
+        public void canPlaceFlowersTest () {
+            Assert.assertTrue(canPlaceFlowers(new int[]{1, 0, 0, 0, 1}, 1));
+            Assert.assertFalse(canPlaceFlowers(new int[]{1, 0, 0, 0, 1}, 2));
+            Assert.assertFalse(canPlaceFlowers(new int[]{1, 0, 1}, 1));
+            Assert.assertFalse(canPlaceFlowers(new int[]{0, 1, 0}, 1));
+        }
+
+
     }
-
-
-}
 
 
 

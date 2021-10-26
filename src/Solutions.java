@@ -5299,6 +5299,28 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{11, 999}, getNoZeroIntegers(1010));
     }
 
+    public String thousandSeparator(int n) {
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+        while (n != 0) {
+            if (count == 3) {
+                count = 0;
+                sb.append('.');
+            } else {
+                count++;
+                int d = n % 10;
+                sb.append(d);
+                n /= 10;
+            }
+        }
+        return sb.reverse().toString();
+    }
+
+    @Test
+    public void thousandSeparatorTest(){
+        Assert.assertEquals("1.234", thousandSeparator(1234));
+    }
+
 
 }
 

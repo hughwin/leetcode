@@ -5286,11 +5286,11 @@ public class Solutions {
 
     public int[] getNoZeroIntegers(int n){
         int x = 1, y = n - 1;
-        while(true){
-            if((testZeroes(y)) && (testZeroes(x))) return new int[]{x, y};
+        while(!(testZeroes(y)) || !(testZeroes(x))){
             y--;
             x++;
         }
+        return new int[]{x, y};
     }
 
     @Test

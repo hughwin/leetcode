@@ -5321,6 +5321,25 @@ public class Solutions {
         Assert.assertEquals("1.234", thousandSeparator(1234));
     }
 
+    public int secondHighest(String s) {
+        Set<Integer> uniques = new TreeSet();
+        for(int i = 0 ; i < s.length() ; i++){
+            if(Character.isDigit(s.charAt(i))){
+                uniques.add(Character.getNumericValue(s.charAt(i)));
+            }
+        }
+        if(uniques.size() == 1) return -1;
+        if(uniques.isEmpty()) return -1;
+        Object[] arr = uniques.toArray();
+        return (int) arr[uniques.size() - 2];
+    }
+
+    @Test
+    public void secondHighestTest() {
+        Assert.assertEquals(2, secondHighest("dfa12321afd"));
+        Assert.assertEquals(-1, secondHighest("dfa11111afd"));
+    }
+
 
 }
 

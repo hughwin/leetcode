@@ -68,12 +68,12 @@ public class Solutions {
 
     }
 
-//    @Test
-//    public void kidsWithCandiesTest() {
-//        List<Boolean> result = kidsWithCandies(new int[]{4, 2, 1, 1, 2}, 1);
-//        List<Boolean> expected = Lists.newArrayList(true, false, false, false, false);
-//        Assert.assertSame(expected, result);
-//    }
+    @Test
+    public void kidsWithCandiesTest() {
+        List<Boolean> result = kidsWithCandies(new int[]{4, 2, 1, 1, 2}, 1);
+        List<Boolean> expected = Lists.newArrayList(true, false, false, false, false);
+        Assert.assertSame(expected, result);
+    }
 
     // https://leetcode.com/problems/reverse-string/
     // Changed return value to test

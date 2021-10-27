@@ -5266,10 +5266,12 @@ public class Solutions {
     }
 
 
-    public boolean testZeroes(int n){
-        while(n != 0){
+    public boolean testZeroes(int n) {
+        while (n != 0) {
             int d = n % 10;
-            if(d == 0){ return false;}
+            if (d == 0) {
+                return false;
+            }
             n /= 10;
         }
         return true;
@@ -5284,9 +5286,9 @@ public class Solutions {
     }
 
 
-    public int[] getNoZeroIntegers(int n){
+    public int[] getNoZeroIntegers(int n) {
         int x = 1, y = n - 1;
-        while(!(testZeroes(y)) || !(testZeroes(x))){
+        while (!(testZeroes(y)) || !(testZeroes(x))) {
             y--;
             x++;
         }
@@ -5317,19 +5319,19 @@ public class Solutions {
     }
 
     @Test
-    public void thousandSeparatorTest(){
+    public void thousandSeparatorTest() {
         Assert.assertEquals("1.234", thousandSeparator(1234));
     }
 
     public int secondHighest(String s) {
         Set<Integer> uniques = new TreeSet();
-        for(int i = 0 ; i < s.length() ; i++){
-            if(Character.isDigit(s.charAt(i))){
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isDigit(s.charAt(i))) {
                 uniques.add(Character.getNumericValue(s.charAt(i)));
             }
         }
-        if(uniques.size() == 1) return -1;
-        if(uniques.isEmpty()) return -1;
+        if (uniques.size() == 1) return -1;
+        if (uniques.isEmpty()) return -1;
         Object[] arr = uniques.toArray();
         return (int) arr[uniques.size() - 2];
     }
@@ -5341,14 +5343,33 @@ public class Solutions {
     }
 
     public String convertToTitle(int n) {
-        return n == 0 ? "" : convertToTitle(--n / 26) + (char)('A' + (n % 26));
+        return n == 0 ? "" : convertToTitle(--n / 26) + (char) ('A' + (n % 26));
     }
 
     @Test
-    public void convertToTitleTest(){
+    public void convertToTitleTest() {
         Assert.assertEquals("AA", convertToTitle(27));
     }
 
+    public String makeGood(String s) {
+        int n = s.length();
+
+        for (int i = 0; i < n - 1; i++) {
+            if (Math.abs(s.charAt(i) - s.charAt(i + 1)) == 32) {
+                return makeGood(s.substring(0, i) + s.substring(i + 2));
+            }
+        }
+
+        return s;
+    }
+
+
+    @Test
+    public void makeGoodTest() {
+        Assert.assertEquals("leetcode", makeGood("leEeetcode"));
+        Assert.assertEquals("", makeGood("abBAcC"));
+
+    }
 
 
 }

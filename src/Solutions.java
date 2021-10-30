@@ -5363,12 +5363,35 @@ public class Solutions {
         return s;
     }
 
-
     @Test
     public void makeGoodTest() {
         Assert.assertEquals("leetcode", makeGood("leEeetcode"));
         Assert.assertEquals("", makeGood("abBAcC"));
+    }
 
+    public char slowestKey(int[] releaseTimes, String keysPressed) {
+        if (releaseTimes.length == 0) return 0;
+
+        char charPress = keysPressed.charAt(0);
+        int longestPress = releaseTimes[0];
+
+        for (int i = 1; i < releaseTimes.length; i++) {
+            int releaseTime = releaseTimes[i] - releaseTimes[i - 1];
+            if (releaseTime > longestPress) {
+                longestPress = releaseTime;
+                charPress = keysPressed.charAt(i);
+            }
+            if (releaseTime == longestPress) {
+                charPress = keysPressed.charAt(i) > charPress ? keysPressed.charAt(i) : charPress;
+            }
+        }
+        return charPress;
+    }
+
+    @Test
+    public void slowestKey(){
+        Assert.assertEquals('c', slowestKey(new int[]{9,29,49,50}, "cbcd"));
+        Assert.assertEquals('a', slowestKey(new int[]{12,23,36,46,62}, "spuda"));
     }
 
 

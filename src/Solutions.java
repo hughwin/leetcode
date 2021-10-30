@@ -5394,6 +5394,21 @@ public class Solutions {
         Assert.assertEquals('a', slowestKey(new int[]{12,23,36,46,62}, "spuda"));
     }
 
+    public String reversePrefix(String word, char ch) {
+        String prefix = word.substring(0, word.indexOf(ch) + 1);
+        String suffix = word.substring(word.indexOf(ch) + 1);
+
+        StringBuilder sb = new StringBuilder(prefix);
+        sb.reverse();
+        sb.append(suffix);
+        return sb.toString();
+    }
+
+    @Test
+    public void reversePrefixTest(){
+        Assert.assertEquals("dcbaefd", reversePrefix("abcdefd", 'd'));
+    }
+
 
 }
 

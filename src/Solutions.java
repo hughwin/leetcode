@@ -5409,6 +5409,35 @@ public class Solutions {
         Assert.assertEquals("dcbaefd", reversePrefix("abcdefd", 'd'));
     }
 
+    public boolean isLongPressedName(String name, String typed) {
+        int namePointer = 0;
+        for (int i = 0; i < typed.length(); i++) {
+            if (namePointer < name.length() - 1 &&
+                    (typed.charAt(i) != name.charAt(namePointer)
+            || typed.charAt(i) != name.charAt(namePointer + 1))) return false;
+            if(namePointer == name.length()){
+                if(typed.charAt(i) != name.charAt(name.length() - 1)){
+                    return false;
+                }
+            }
+            else if (typed.charAt(i) == name.charAt(namePointer)) {
+                namePointer++;
+            }
+        }
+        return namePointer == name.length();
+    }
+
+    @Test
+    public void isLongPressedName() {
+        Assert.assertTrue(isLongPressedName("alex", "aaleex"));
+        Assert.assertTrue(isLongPressedName("alex", "alex"));
+        Assert.assertFalse(isLongPressedName("alex", "aaleelx"));
+        Assert.assertTrue(isLongPressedName("vtkgn", "vttkgnn"));
+        Assert.assertFalse(isLongPressedName("alex", "aleexa"));
+        Assert.assertFalse(isLongPressedName("saeed", "ssaaedd"));
+    }
+
+    
 
 }
 

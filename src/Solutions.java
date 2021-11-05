@@ -5389,9 +5389,9 @@ public class Solutions {
     }
 
     @Test
-    public void slowestKey(){
-        Assert.assertEquals('c', slowestKey(new int[]{9,29,49,50}, "cbcd"));
-        Assert.assertEquals('a', slowestKey(new int[]{12,23,36,46,62}, "spuda"));
+    public void slowestKey() {
+        Assert.assertEquals('c', slowestKey(new int[]{9, 29, 49, 50}, "cbcd"));
+        Assert.assertEquals('a', slowestKey(new int[]{12, 23, 36, 46, 62}, "spuda"));
     }
 
     public String reversePrefix(String word, char ch) {
@@ -5405,7 +5405,7 @@ public class Solutions {
     }
 
     @Test
-    public void reversePrefixTest(){
+    public void reversePrefixTest() {
         Assert.assertEquals("dcbaefd", reversePrefix("abcdefd", 'd'));
     }
 
@@ -5414,13 +5414,12 @@ public class Solutions {
         for (int i = 0; i < typed.length(); i++) {
             if (namePointer < name.length() - 1 &&
                     (typed.charAt(i) != name.charAt(namePointer)
-            || typed.charAt(i) != name.charAt(namePointer + 1))) return false;
-            if(namePointer == name.length()){
-                if(typed.charAt(i) != name.charAt(name.length() - 1)){
+                            || typed.charAt(i) != name.charAt(namePointer + 1))) return false;
+            if (namePointer == name.length()) {
+                if (typed.charAt(i) != name.charAt(name.length() - 1)) {
                     return false;
                 }
-            }
-            else if (typed.charAt(i) == name.charAt(namePointer)) {
+            } else if (typed.charAt(i) == name.charAt(namePointer)) {
                 namePointer++;
             }
         }
@@ -5437,7 +5436,39 @@ public class Solutions {
         Assert.assertFalse(isLongPressedName("saeed", "ssaaedd"));
     }
 
-    
+    public int numDifferentIntegers(String word) {
+        for (char c : word.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                word = word.replace(c, ' ');
+            }
+        }
+        String[] numbers = word.split(" ");
+        HashSet<String> uniques = new HashSet<>();
+        for (String s : numbers) {
+            if (!s.isBlank()) {
+                uniques.add(trimLeadingZeros(s));
+            }
+        }
+        return uniques.size();
+    }
+
+    public static String trimLeadingZeros(String source) {
+        for (int i = 0; i < source.length(); ++i) {
+            char c = source.charAt(i);
+            if (c != '0') {
+                return source.substring(i);
+            }
+        }
+        return ""; // or return "0";
+    }
+
+
+    @Test
+    public void numDifferentIntegersTest() {
+        Assert.assertEquals(3, numDifferentIntegers("a123bc34d8ef34"));
+        Assert.assertEquals(1, numDifferentIntegers("a1b01c001"));
+        Assert.assertEquals(1, numDifferentIntegers("167278959591294"));
+    }
 
 }
 

@@ -5470,6 +5470,22 @@ public class Solutions {
         Assert.assertEquals(1, numDifferentIntegers("167278959591294"));
     }
 
+    public boolean isPrefixString(String s, String[] words) {
+        StringBuilder sb = new StringBuilder();
+        for (String word : words){
+            sb.append(word);
+            if(sb.toString().equals(s)) return true;
+        }
+        return false;
+    }
+
+    @Test
+    public void isPrefixStringTest() {
+        Assert.assertTrue(isPrefixString("iloveleetcode", new String[]{"i","love","leetcode","apples"}));
+        Assert.assertFalse(isPrefixString("iloveleetcode", new String[]{"apples", "i","love","leetcode"}));
+        Assert.assertFalse(isPrefixString("a", new String[]{"aa", "aaaa","banana"}));
+    }
+
 }
 
 

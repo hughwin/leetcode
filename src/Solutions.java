@@ -5558,6 +5558,32 @@ public class Solutions {
         Assert.assertFalse(areNumbersAscending("sunset is at 7 51 pm overnight lows will be in the low 50 and 60 s"));
     }
 
+    public int largestSumAfterKNegations(int[] nums, int k) {
+        Arrays.sort(nums);
+        int count = 0;
+
+        int index = 0;
+        while(count < k){
+            nums[index] = -nums[index++];
+            count++;
+            if(index == nums.length - 1 || nums[index] > 0){
+                Arrays.sort(nums);
+                index = 0;
+            }
+        }
+        count = 0;
+        for(int i : nums) count += i;
+        return count;
+    }
+
+    @Test
+    public void largestSumAfterKNegationsTest(){
+        Assert.assertEquals(5, largestSumAfterKNegations(new int[]{4, 2, 3}, 1));
+        Assert.assertEquals(6, largestSumAfterKNegations(new int[]{3, -1, 0, 2}, 3));
+        Assert.assertEquals(53, largestSumAfterKNegations(new int[]{8, -7, -3, -9, 1, 9, -6, -9, 3}, 8));
+        Assert.assertEquals(5, largestSumAfterKNegations(new int[]{-4, -2, -3}, 4));
+    }
+
 }
 
 

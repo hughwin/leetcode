@@ -5519,14 +5519,14 @@ public class Solutions {
 
     public String makeFancyString(String s) {
         char[] sChar = s.toCharArray();
-        for(int i = 0 ; i < sChar.length - 2 ; i++){
-            if(sChar[i] == sChar[i + 1] && sChar[i + 1] == sChar[i + 2]){
+        for (int i = 0; i < sChar.length - 2; i++) {
+            if (sChar[i] == sChar[i + 1] && sChar[i + 1] == sChar[i + 2]) {
                 sChar[i] = 0;
             }
         }
         StringBuilder sb = new StringBuilder();
-        for(char c : sChar){
-            if(c != 0){
+        for (char c : sChar) {
+            if (c != 0) {
                 sb.append(c);
             }
         }
@@ -5534,9 +5534,28 @@ public class Solutions {
     }
 
     @Test
-    public void makeFancyStringTest(){
+    public void makeFancyStringTest() {
         Assert.assertEquals("leetcode", makeFancyString("leeetcode"));
         Assert.assertEquals("aabaa", makeFancyString("aaabaaaa"));
+    }
+
+
+    public boolean areNumbersAscending(String s) {
+        int currentNumber = 0;
+        String[] words = s.split(" ");
+        for (String word : words) {
+            if(Character.isDigit(word.charAt(0))){
+                if(Integer.parseInt(word) <= currentNumber) return false;
+                else currentNumber = Integer.parseInt(word);
+            }
+        }
+        return true;
+    }
+
+    @Test
+    public void areNumbersAscendingTest() {
+        Assert.assertTrue(areNumbersAscending("a puppy has 2 eyes 4 legs"));
+        Assert.assertFalse(areNumbersAscending("sunset is at 7 51 pm overnight lows will be in the low 50 and 60 s"));
     }
 
 }

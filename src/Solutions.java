@@ -5472,18 +5472,50 @@ public class Solutions {
 
     public boolean isPrefixString(String s, String[] words) {
         StringBuilder sb = new StringBuilder();
-        for (String word : words){
+        for (String word : words) {
             sb.append(word);
-            if(sb.toString().equals(s)) return true;
+            if (sb.toString().equals(s)) return true;
         }
         return false;
     }
 
     @Test
     public void isPrefixStringTest() {
-        Assert.assertTrue(isPrefixString("iloveleetcode", new String[]{"i","love","leetcode","apples"}));
-        Assert.assertFalse(isPrefixString("iloveleetcode", new String[]{"apples", "i","love","leetcode"}));
-        Assert.assertFalse(isPrefixString("a", new String[]{"aa", "aaaa","banana"}));
+        Assert.assertTrue(isPrefixString("iloveleetcode", new String[]{"i", "love", "leetcode", "apples"}));
+        Assert.assertFalse(isPrefixString("iloveleetcode", new String[]{"apples", "i", "love", "leetcode"}));
+        Assert.assertFalse(isPrefixString("a", new String[]{"aa", "aaaa", "banana"}));
+    }
+
+    public String maximumTime(String time) {
+        char[] times = time.toCharArray();
+        if (times[0] == '?') {
+            times[0] = times[1] <= '3' || times[1] == '?' ? '2' : '1';
+        }
+
+        if (times[1] == '?') {
+            times[1] = times[0] == '2' ? '3' : '9';
+        }
+
+        if (times[3] == '?') {
+            times[3] = '5';
+        }
+
+        if (times[4] == '?') {
+            times[4] = '9';
+        }
+
+        return new String(times);
+    }
+
+}
+
+    @Test
+    public void maximumTimeTest() {
+        Assert.assertEquals("23:50", maximumTime("2?:?0"));
+        Assert.assertEquals("09:39", maximumTime("0?:3?"));
+        Assert.assertEquals("14:03", maximumTime("?4:03"));
+        Assert.assertEquals("15:13", maximumTime("?5:13"));
+        Assert.assertEquals("20:15", maximumTime("?0:15"));
     }
 
 }

@@ -5506,8 +5506,7 @@ public class Solutions {
 
         return new String(times);
     }
-
-}
+    
 
     @Test
     public void maximumTimeTest() {

@@ -5506,7 +5506,7 @@ public class Solutions {
 
         return new String(times);
     }
-    
+
 
     @Test
     public void maximumTimeTest() {
@@ -5515,6 +5515,28 @@ public class Solutions {
         Assert.assertEquals("14:03", maximumTime("?4:03"));
         Assert.assertEquals("15:13", maximumTime("?5:13"));
         Assert.assertEquals("20:15", maximumTime("?0:15"));
+    }
+
+    public String makeFancyString(String s) {
+        char[] sChar = s.toCharArray();
+        for(int i = 0 ; i < sChar.length - 2 ; i++){
+            if(sChar[i] == sChar[i + 1] && sChar[i + 1] == sChar[i + 2]){
+                sChar[i] = 0;
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for(char c : sChar){
+            if(c != 0){
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+    @Test
+    public void makeFancyStringTest(){
+        Assert.assertEquals("leetcode", makeFancyString("leeetcode"));
+        Assert.assertEquals("aabaa", makeFancyString("aaabaaaa"));
     }
 
 }

@@ -5584,6 +5584,22 @@ public class Solutions {
         Assert.assertEquals(5, largestSumAfterKNegations(new int[]{-4, -2, -3}, 4));
     }
 
+    public int countKDifference(int[] nums, int k) {
+        int res = 0;
+        for(int i = 0; i < nums.length; i++){
+            for(int j = i; j < nums.length; j++){
+                if(j == i) continue;
+                if(Math.abs(nums[i] - nums[j]) == k) res++;
+            }
+        }
+        return res;
+    }
+
+    @Test
+    public void CountKDifferenceTest() {
+        Assert.assertEquals(4, countKDifference(new int[]{1,2,2,1}, 1));
+    }
+
 }
 
 

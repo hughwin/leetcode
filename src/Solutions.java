@@ -5600,6 +5600,21 @@ public class Solutions {
         Assert.assertEquals(4, countKDifference(new int[]{1,2,2,1}, 1));
     }
 
+
+    public boolean isSubsequence(String s, String t) {
+        if(s.isBlank()) return true;
+        int pointer = 0;
+        for(char c : t.toCharArray()){
+            if(c == s.charAt(pointer)) pointer++;
+            if(pointer == s.length()) return true;
+        }
+        return false;
+    }
+
+    @Test
+    public void isSubsequenceTest(){
+        Assert.assertTrue(isSubsequence("abc", "ahbgdc"));
+    }
 }
 
 

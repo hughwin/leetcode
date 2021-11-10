@@ -5665,6 +5665,19 @@ public class Solutions {
         Assert.assertEquals("aaa", kthDistinct(new String[]{"aaa","aa","a"}, 1));
     }
 
+    public int smallestEqual(int[] nums) {
+        for(int i = 0; i < nums.length ; i++){
+            if(nums[i] == i % 10) return i;
+        }
+        return -1;
+    }
+
+    @Test
+    public void smallestEqualTest(){
+        Assert.assertEquals(0, smallestEqual(new int[]{0, 1, 2}));
+        Assert.assertEquals(2, smallestEqual(new int[]{4, 3, 2, 1}));
+    }
+
 
 }
 

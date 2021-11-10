@@ -5544,8 +5544,8 @@ public class Solutions {
         int currentNumber = 0;
         String[] words = s.split(" ");
         for (String word : words) {
-            if(Character.isDigit(word.charAt(0))){
-                if(Integer.parseInt(word) <= currentNumber) return false;
+            if (Character.isDigit(word.charAt(0))) {
+                if (Integer.parseInt(word) <= currentNumber) return false;
                 else currentNumber = Integer.parseInt(word);
             }
         }
@@ -5563,21 +5563,21 @@ public class Solutions {
         int count = 0;
 
         int index = 0;
-        while(count < k){
+        while (count < k) {
             nums[index] = -nums[index++];
             count++;
-            if(index == nums.length - 1 || nums[index] > 0){
+            if (index == nums.length - 1 || nums[index] > 0) {
                 Arrays.sort(nums);
                 index = 0;
             }
         }
         count = 0;
-        for(int i : nums) count += i;
+        for (int i : nums) count += i;
         return count;
     }
 
     @Test
-    public void largestSumAfterKNegationsTest(){
+    public void largestSumAfterKNegationsTest() {
         Assert.assertEquals(5, largestSumAfterKNegations(new int[]{4, 2, 3}, 1));
         Assert.assertEquals(6, largestSumAfterKNegations(new int[]{3, -1, 0, 2}, 3));
         Assert.assertEquals(53, largestSumAfterKNegations(new int[]{8, -7, -3, -9, 1, 9, -6, -9, 3}, 8));
@@ -5586,10 +5586,10 @@ public class Solutions {
 
     public int countKDifference(int[] nums, int k) {
         int res = 0;
-        for(int i = 0; i < nums.length; i++){
-            for(int j = i; j < nums.length; j++){
-                if(j == i) continue;
-                if(Math.abs(nums[i] - nums[j]) == k) res++;
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i; j < nums.length; j++) {
+                if (j == i) continue;
+                if (Math.abs(nums[i] - nums[j]) == k) res++;
             }
         }
         return res;
@@ -5597,36 +5597,75 @@ public class Solutions {
 
     @Test
     public void CountKDifferenceTest() {
-        Assert.assertEquals(4, countKDifference(new int[]{1,2,2,1}, 1));
+        Assert.assertEquals(4, countKDifference(new int[]{1, 2, 2, 1}, 1));
     }
 
 
     public boolean isSubsequence(String s, String t) {
-        if(s.isBlank()) return true;
+        if (s.isBlank()) return true;
         int pointer = 0;
-        for(char c : t.toCharArray()){
-            if(c == s.charAt(pointer)) pointer++;
-            if(pointer == s.length()) return true;
+        for (char c : t.toCharArray()) {
+            if (c == s.charAt(pointer)) pointer++;
+            if (pointer == s.length()) return true;
         }
         return false;
     }
 
     @Test
-    public void isSubsequenceTest(){
+    public void isSubsequenceTest() {
         Assert.assertTrue(isSubsequence("abc", "ahbgdc"));
     }
 
     public List<Integer> twoOutOfThree(int[] nums1, int[] nums2, int[] nums3) {
         Set<Integer> set1 = new HashSet<>(), set2 = new HashSet<>(), set3 = new HashSet<>(), set = new HashSet<>();
-        for(int i: nums1) { set1.add(i); set.add(i); }
-        for(int i: nums2) { set2.add(i); set.add(i); }
-        for(int i: nums3) { set3.add(i); set.add(i); }
+        for (int i : nums1) {
+            set1.add(i);
+            set.add(i);
+        }
+        for (int i : nums2) {
+            set2.add(i);
+            set.add(i);
+        }
+        for (int i : nums3) {
+            set3.add(i);
+            set.add(i);
+        }
         List<Integer> result = new ArrayList<>();
-        for(int i: set)
-            if(set1.contains(i) && set2.contains(i) || set2.contains(i) && set3.contains(i) || set1.contains(i) && set3.contains(i)) result.add(i);
+        for (int i : set)
+            if (set1.contains(i) && set2.contains(i) || set2.contains(i) && set3.contains(i) || set1.contains(i) && set3.contains(i))
+                result.add(i);
         return result;
     }
-    
+
+
+    public String kthDistinct(String[] arr, int k) {
+        LinkedHashSet<String> linkedHashSet = new LinkedHashSet<>();
+        HashSet<String> duplicates = new HashSet<>();
+        for (String s : arr) {
+            if (!duplicates.contains(s)) {
+                if (linkedHashSet.contains(s)) {
+                    linkedHashSet.remove(s);
+                    duplicates.add(s);
+                } else linkedHashSet.add(s);
+            }
+        }
+        int count = 1;
+        for (String s : linkedHashSet) {
+            if (count == k) {
+                return s;
+            }
+            count++;
+        }
+    return "";
+    }
+
+    @Test
+    public void kthDistinctTest(){
+        Assert.assertEquals("a", kthDistinct(new String[]{"d","b","c","b","c","a"}, 2));
+        Assert.assertEquals("aaa", kthDistinct(new String[]{"aaa","aa","a"}, 1));
+    }
+
+
 }
 
 

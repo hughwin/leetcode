@@ -5678,6 +5678,20 @@ public class Solutions {
         Assert.assertEquals(2, smallestEqual(new int[]{4, 3, 2, 1}));
     }
 
+    public int finalValueAfterOperations(String[] operations) {
+        int res = 0;
+        for(String s : operations){
+            if(s.charAt(1) == '+') res++;
+            else res--;
+        }
+        return res;
+    }
+
+    @Test
+    public void finalValueAfterOperationsTest () {
+        Assert.assertEquals(1, finalValueAfterOperations(new String[]{"--X","X++","X++"}));
+    }
+
 
 }
 

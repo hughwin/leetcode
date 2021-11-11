@@ -5692,6 +5692,21 @@ public class Solutions {
         Assert.assertEquals(1, finalValueAfterOperations(new String[]{"--X","X++","X++"}));
     }
 
+    public int numOfStrings(String[] patterns, String word) {
+        int count = 0;
+        for(String s : patterns){
+            if(word.contains(s)){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    @Test
+    public void numOfStringsTest() {
+        Assert.assertEquals(3, numOfStrings(new String[]{"a", "abc", "bc", "d"}, "abc"));
+    }
+
 
 }
 

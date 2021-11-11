@@ -5707,6 +5707,35 @@ public class Solutions {
         Assert.assertEquals(3, numOfStrings(new String[]{"a", "abc", "bc", "d"}, "abc"));
     }
 
+    public boolean areOccurrencesEqual(String s) {
+        if(s.length() == 1) return true;
+        HashMap<Character, Integer> hashMap = new HashMap<>();
+        for(Character c : s.toCharArray()){
+            if(!hashMap.containsKey(c)){
+                hashMap.put(c, 1);
+            }
+            else{
+                hashMap.put(c, hashMap.get(c) + 1);
+            }
+        }
+        int constantCount = 0;
+        for(Character c: hashMap.keySet()){
+            if(constantCount == 0){
+                constantCount = hashMap.get(c);
+            }
+            else{
+                if(hashMap.get(c) != constantCount) return false;
+            }
+        }
+        return true;
+    }
+
+    @Test
+    public void areOccurrencesEqualTest() {
+        Assert.assertTrue(areOccurrencesEqual("abacbc"));
+        Assert.assertFalse(areOccurrencesEqual("aaabb"));
+    }
+
 
 }
 

@@ -5737,6 +5737,41 @@ public class Solutions {
     }
 
 
+    public boolean checkAlmostEquivalent(String word1, String word2) {
+        char[] word1Array = word1.toCharArray();
+        char[] word2Array = word2.toCharArray();
+
+
+        LinkedHashMap<Character, Integer> word1HashMap = new LinkedHashMap<>();
+        LinkedHashMap<Character, Integer> word2HashMap = new LinkedHashMap<>();
+
+        for(char c :word1Array){
+            if(!word1HashMap.containsKey(c)) word1HashMap.put(c, 1);
+            if(!word2HashMap.containsKey(c)) word2HashMap.put(c, 0);
+            else if(word1HashMap.containsKey(c)) word1HashMap.put(c, word1HashMap.get(c) + 1);
+        }
+
+        for(char c :word2Array){
+            if(!word2HashMap.containsKey(c)) word2HashMap.put(c, 1);
+            if(!word1HashMap.containsKey(c)) word1HashMap.put(c, 0);
+            else if(word2HashMap.containsKey(c)) word2HashMap.put(c, word2HashMap.get(c) + 1);
+        }
+
+        for(char c : word1HashMap.keySet()){
+            if(Math.abs(word1HashMap.get(c) - word2HashMap.get(c)) > 3) return false;
+        }
+    return true;
+    }
+
+
+    @Test
+    public void checkAlmostEquivalentTest() {
+//        Assert.assertTrue(checkAlmostEquivalent("abcdeef", "abaaacc"));
+        Assert.assertTrue(checkAlmostEquivalent("cccddabba", "babababab"));
+
+    }
+
+
 }
 
 

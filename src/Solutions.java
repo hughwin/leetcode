@@ -5768,7 +5768,21 @@ public class Solutions {
     public void checkAlmostEquivalentTest() {
 //        Assert.assertTrue(checkAlmostEquivalent("abcdeef", "abaaacc"));
         Assert.assertTrue(checkAlmostEquivalent("cccddabba", "babababab"));
+    }
 
+    public boolean checkIfExist(int[] arr) {
+        HashSet<Integer> set = new HashSet<>();
+        for(int i: arr){
+            if(set.contains(i * 2) || (i % 2 == 0 && set.contains((i / 2)))) return true;
+            set.add(i);
+        }
+        return false;
+    }
+
+    @Test
+    public void checkIfExistTest() {
+        Assert.assertTrue(checkIfExist(new int[]{10,2,5,3}));
+        Assert.assertFalse(checkIfExist(new int[]{3,1,7,11}));
     }
 
 

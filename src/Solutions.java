@@ -5656,46 +5656,46 @@ public class Solutions {
             }
             count++;
         }
-    return "";
+        return "";
     }
 
     @Test
-    public void kthDistinctTest(){
-        Assert.assertEquals("a", kthDistinct(new String[]{"d","b","c","b","c","a"}, 2));
-        Assert.assertEquals("aaa", kthDistinct(new String[]{"aaa","aa","a"}, 1));
+    public void kthDistinctTest() {
+        Assert.assertEquals("a", kthDistinct(new String[]{"d", "b", "c", "b", "c", "a"}, 2));
+        Assert.assertEquals("aaa", kthDistinct(new String[]{"aaa", "aa", "a"}, 1));
     }
 
     public int smallestEqual(int[] nums) {
-        for(int i = 0; i < nums.length ; i++){
-            if(nums[i] == i % 10) return i;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == i % 10) return i;
         }
         return -1;
     }
 
     @Test
-    public void smallestEqualTest(){
+    public void smallestEqualTest() {
         Assert.assertEquals(0, smallestEqual(new int[]{0, 1, 2}));
         Assert.assertEquals(2, smallestEqual(new int[]{4, 3, 2, 1}));
     }
 
     public int finalValueAfterOperations(String[] operations) {
         int res = 0;
-        for(String s : operations){
-            if(s.charAt(1) == '+') res++;
+        for (String s : operations) {
+            if (s.charAt(1) == '+') res++;
             else res--;
         }
         return res;
     }
 
     @Test
-    public void finalValueAfterOperationsTest () {
-        Assert.assertEquals(1, finalValueAfterOperations(new String[]{"--X","X++","X++"}));
+    public void finalValueAfterOperationsTest() {
+        Assert.assertEquals(1, finalValueAfterOperations(new String[]{"--X", "X++", "X++"}));
     }
 
     public int numOfStrings(String[] patterns, String word) {
         int count = 0;
-        for(String s : patterns){
-            if(word.contains(s)){
+        for (String s : patterns) {
+            if (word.contains(s)) {
                 count++;
             }
         }
@@ -5708,23 +5708,21 @@ public class Solutions {
     }
 
     public boolean areOccurrencesEqual(String s) {
-        if(s.length() == 1) return true;
+        if (s.length() == 1) return true;
         HashMap<Character, Integer> hashMap = new HashMap<>();
-        for(Character c : s.toCharArray()){
-            if(!hashMap.containsKey(c)){
+        for (Character c : s.toCharArray()) {
+            if (!hashMap.containsKey(c)) {
                 hashMap.put(c, 1);
-            }
-            else{
+            } else {
                 hashMap.put(c, hashMap.get(c) + 1);
             }
         }
         int constantCount = 0;
-        for(Character c: hashMap.keySet()){
-            if(constantCount == 0){
+        for (Character c : hashMap.keySet()) {
+            if (constantCount == 0) {
                 constantCount = hashMap.get(c);
-            }
-            else{
-                if(hashMap.get(c) != constantCount) return false;
+            } else {
+                if (hashMap.get(c) != constantCount) return false;
             }
         }
         return true;
@@ -5745,22 +5743,22 @@ public class Solutions {
         LinkedHashMap<Character, Integer> word1HashMap = new LinkedHashMap<>();
         LinkedHashMap<Character, Integer> word2HashMap = new LinkedHashMap<>();
 
-        for(char c :word1Array){
-            if(!word1HashMap.containsKey(c)) word1HashMap.put(c, 1);
-            if(!word2HashMap.containsKey(c)) word2HashMap.put(c, 0);
-            else if(word1HashMap.containsKey(c)) word1HashMap.put(c, word1HashMap.get(c) + 1);
+        for (char c : word1Array) {
+            if (!word1HashMap.containsKey(c)) word1HashMap.put(c, 1);
+            if (!word2HashMap.containsKey(c)) word2HashMap.put(c, 0);
+            else if (word1HashMap.containsKey(c)) word1HashMap.put(c, word1HashMap.get(c) + 1);
         }
 
-        for(char c :word2Array){
-            if(!word2HashMap.containsKey(c)) word2HashMap.put(c, 1);
-            if(!word1HashMap.containsKey(c)) word1HashMap.put(c, 0);
-            else if(word2HashMap.containsKey(c)) word2HashMap.put(c, word2HashMap.get(c) + 1);
+        for (char c : word2Array) {
+            if (!word2HashMap.containsKey(c)) word2HashMap.put(c, 1);
+            if (!word1HashMap.containsKey(c)) word1HashMap.put(c, 0);
+            else if (word2HashMap.containsKey(c)) word2HashMap.put(c, word2HashMap.get(c) + 1);
         }
 
-        for(char c : word1HashMap.keySet()){
-            if(Math.abs(word1HashMap.get(c) - word2HashMap.get(c)) > 3) return false;
+        for (char c : word1HashMap.keySet()) {
+            if (Math.abs(word1HashMap.get(c) - word2HashMap.get(c)) > 3) return false;
         }
-    return true;
+        return true;
     }
 
 
@@ -5772,8 +5770,8 @@ public class Solutions {
 
     public boolean checkIfExist(int[] arr) {
         HashSet<Integer> set = new HashSet<>();
-        for(int i: arr){
-            if(set.contains(i * 2) || (i % 2 == 0 && set.contains((i / 2)))) return true;
+        for (int i : arr) {
+            if (set.contains(i * 2) || (i % 2 == 0 && set.contains((i / 2)))) return true;
             set.add(i);
         }
         return false;
@@ -5781,8 +5779,31 @@ public class Solutions {
 
     @Test
     public void checkIfExistTest() {
-        Assert.assertTrue(checkIfExist(new int[]{10,2,5,3}));
-        Assert.assertFalse(checkIfExist(new int[]{3,1,7,11}));
+        Assert.assertTrue(checkIfExist(new int[]{10, 2, 5, 3}));
+        Assert.assertFalse(checkIfExist(new int[]{3, 1, 7, 11}));
+    }
+
+    public String reformatNumber(String number) {
+        StringBuilder sb = new StringBuilder();
+        for (char c : number.toCharArray()) {
+            if (Character.isDigit(c)) sb.append(c);
+        }
+        int i = 0;
+        while(i < sb.length()-4) {
+            sb.insert(i+3, '-');
+            i+=4;
+        }
+
+        if (sb.length() - i == 4) {
+            sb.insert(i+2, '-');
+        }
+        return sb.toString();
+    }
+
+    @Test
+    public void reformatNumberTest() {
+        Assert.assertEquals("123-456", reformatNumber("1-23-45 6"));
+        Assert.assertEquals("123-45-67", reformatNumber("123 4-567"));
     }
 
 

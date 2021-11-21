@@ -5828,6 +5828,19 @@ public class Solutions {
         generate(7);
     }
 
+    public int maxDistance(int[] colors) {
+        int n = colors.length, i = 0, j = n - 1;
+        while (colors[0] == colors[j]) j--;
+        while (colors[n - 1] == colors[i]) i++;
+        return Math.max(n - 1 - i, j);
+    }
+
+    @Test
+    public void maxDistanceTest() {
+        Assert.assertEquals(3, maxDistance(new int[]{1,1,1,6,1,1,1}));
+        Assert.assertEquals(4, maxDistance(new int[]{1,8,3,8,3}));
+    }
+
 
 }
 

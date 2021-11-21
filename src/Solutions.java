@@ -5806,6 +5806,28 @@ public class Solutions {
         Assert.assertEquals("123-45-67", reformatNumber("123 4-567"));
     }
 
+    // https://leetcode.com/problems/pascals-triangle/submissions/
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> res = new ArrayList<>();
+        if(numRows == 0) return res;
+        int rowCounter = 1;
+        for(int i = 0; i < numRows ; i++){
+            List<Integer> tempList = new ArrayList<>();
+            for(int k = 0; k < rowCounter; k++){
+                if(k == 0 || k == rowCounter - 1) tempList.add(1);
+                else tempList.add(res.get(i - 1).get(k) + res.get(i - 1).get(k - 1));
+            }
+            res.add(tempList);
+            rowCounter++;
+        }
+        return res;
+    }
+
+    @Test
+    public void generateTest() {
+        generate(7);
+    }
+
 
 }
 

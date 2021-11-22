@@ -5841,6 +5841,28 @@ public class Solutions {
         Assert.assertEquals(4, maxDistance(new int[]{1,8,3,8,3}));
     }
 
+    public String freqAlphabets(String s) {
+        int pointer = 0;
+        char[] alphabet = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+        StringBuilder res = new StringBuilder();
+        while(pointer < s.length()){
+            if(pointer < s.length() - 2 && s.charAt(pointer + 2) == '#'){
+                res.append(alphabet[Integer.parseInt(s.substring(pointer, pointer + 2)) - 1]);
+                pointer += 3;
+            }
+            else{
+                res.append(alphabet[Integer.parseInt(s.substring(pointer, pointer + 1)) - 1]);
+                pointer += 1;
+            }
+        }
+        return res.toString();
+    }
+
+    @Test
+    public void freqAlphabetsTest() {
+        Assert.assertEquals("jkab", freqAlphabets("10#11#12"));
+    }
+
 
 }
 

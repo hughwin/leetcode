@@ -5789,13 +5789,13 @@ public class Solutions {
             if (Character.isDigit(c)) sb.append(c);
         }
         int i = 0;
-        while(i < sb.length()-4) {
-            sb.insert(i+3, '-');
-            i+=4;
+        while (i < sb.length() - 4) {
+            sb.insert(i + 3, '-');
+            i += 4;
         }
 
         if (sb.length() - i == 4) {
-            sb.insert(i+2, '-');
+            sb.insert(i + 2, '-');
         }
         return sb.toString();
     }
@@ -5809,12 +5809,12 @@ public class Solutions {
     // https://leetcode.com/problems/pascals-triangle/submissions/
     public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> res = new ArrayList<>();
-        if(numRows == 0) return res;
+        if (numRows == 0) return res;
         int rowCounter = 1;
-        for(int i = 0; i < numRows ; i++){
+        for (int i = 0; i < numRows; i++) {
             List<Integer> tempList = new ArrayList<>();
-            for(int k = 0; k < rowCounter; k++){
-                if(k == 0 || k == rowCounter - 1) tempList.add(1);
+            for (int k = 0; k < rowCounter; k++) {
+                if (k == 0 || k == rowCounter - 1) tempList.add(1);
                 else tempList.add(res.get(i - 1).get(k) + res.get(i - 1).get(k - 1));
             }
             res.add(tempList);
@@ -5837,20 +5837,19 @@ public class Solutions {
 
     @Test
     public void maxDistanceTest() {
-        Assert.assertEquals(3, maxDistance(new int[]{1,1,1,6,1,1,1}));
-        Assert.assertEquals(4, maxDistance(new int[]{1,8,3,8,3}));
+        Assert.assertEquals(3, maxDistance(new int[]{1, 1, 1, 6, 1, 1, 1}));
+        Assert.assertEquals(4, maxDistance(new int[]{1, 8, 3, 8, 3}));
     }
 
     public String freqAlphabets(String s) {
         int pointer = 0;
         char[] alphabet = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
         StringBuilder res = new StringBuilder();
-        while(pointer < s.length()){
-            if(pointer < s.length() - 2 && s.charAt(pointer + 2) == '#'){
+        while (pointer < s.length()) {
+            if (pointer < s.length() - 2 && s.charAt(pointer + 2) == '#') {
                 res.append(alphabet[Integer.parseInt(s.substring(pointer, pointer + 2)) - 1]);
                 pointer += 3;
-            }
-            else{
+            } else {
                 res.append(alphabet[Integer.parseInt(s.substring(pointer, pointer + 1)) - 1]);
                 pointer += 1;
             }
@@ -5865,23 +5864,24 @@ public class Solutions {
 
     public int timeRequiredToBuy(int[] tickets, int k) {
         int count = 0;
-        while(tickets[k] > 0){
-            for(int i = 0; i < tickets.length; i++){
-                if(tickets[k] == 0) break;
-                else if (tickets[i] > 0){
-                    tickets[i] -= 1;
-                    count++;
-                }
+        int index = 0;
+        while (tickets[k] > 0) {
+            if (tickets[k] == 0) break;
+            else if (tickets[index] > 0) {
+                tickets[index] -= 1;
+                count++;
             }
+            index++;
+            if(index == tickets.length) index = 0;
         }
         return count;
     }
 
     @Test
-    public void timeRequiredToBuyTest () {
-        Assert.assertEquals(154, timeRequiredToBuy(new int[]{84,49,5,24,70,77,87,8}, 3));
-        Assert.assertEquals(6, timeRequiredToBuy(new int[]{2,3,2}, 2));
-        Assert.assertEquals(8, timeRequiredToBuy(new int[]{5,1,1,1}, 0));
+    public void timeRequiredToBuyTest() {
+        Assert.assertEquals(154, timeRequiredToBuy(new int[]{84, 49, 5, 24, 70, 77, 87, 8}, 3));
+        Assert.assertEquals(6, timeRequiredToBuy(new int[]{2, 3, 2}, 2));
+        Assert.assertEquals(8, timeRequiredToBuy(new int[]{5, 1, 1, 1}, 0));
     }
 
 }

@@ -5884,6 +5884,58 @@ public class Solutions {
         Assert.assertEquals(8, timeRequiredToBuy(new int[]{5, 1, 1, 1}, 0));
     }
 
+    public boolean checkStraightLine(int[][] coordinates) {
+        int[] a = coordinates[0];
+        int[] b = coordinates[1];
+        int x1 = a[0];
+        int x2 = b[0];
+        int y1 = a[1];
+        int y2 = b[1];
+
+        for (int i = 2; i < coordinates.length; i++) {
+            int[] curr = coordinates[i];
+            int x3 = curr[0];
+            int y3 = curr[1];
+            if((y2 - y1)*(x3 - x1) != (x2 - x1)*(y3 - y1)) return false;
+        }
+        return true;
+    }
+
+    @Test
+    public void checkStraightLineTestTrue(){
+        int[][] expected = new int[6][];
+        expected[0] = new int[]{1,2};
+        expected[1] = new int[]{2,3};
+        expected[2] = new int[]{3,4};
+        expected[3] = new int[]{4,5};
+        expected[4] = new int[]{5,6};
+        expected[5] = new int[]{6,7};
+        Assert.assertTrue(checkStraightLine(expected));
+    }
+
+    @Test
+    public void checkStraightLineTestTrueNegative(){
+        int[][] expected = new int[3][];
+        expected[0] = new int[]{0,0};
+        expected[1] = new int[]{0,1};
+        expected[2] = new int[]{0,-1};
+
+        Assert.assertTrue(checkStraightLine(expected));
+    }
+
+    @Test
+    public void checkStraightLineTestFalse(){
+        int[][] expected = new int[6][];
+        expected[0] = new int[]{1,2};
+        expected[1] = new int[]{2,2};
+        expected[2] = new int[]{3,4};
+        expected[3] = new int[]{4,5};
+        expected[4] = new int[]{5,6};
+        expected[5] = new int[]{7,4};
+        Assert.assertFalse(checkStraightLine(expected));
+    }
+
+
 }
 
 

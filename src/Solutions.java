@@ -5990,6 +5990,52 @@ public class Solutions {
         Assert.assertEquals(expected, targetIndices(new int[]{1, 2, 5, 2, 3}, 2));
     }
 
+    public int[] decrypt(int[] code, int k) {
+        int[] res = new int[code.length];
+        if (k == 0) {
+            for (int i = 0; i < code.length; i++) {
+                res[i] = 0;
+            }
+            return res;
+        }
+        if (k > 0) {
+            for (int i = 0; i < code.length; i++) {
+                int count = 0;
+                int index = i + 1;
+                int sum = 0;
+                while (count < k) {
+                    if (index > code.length - 1) {
+                        index = 0;
+                    }
+                    sum += code[index++];
+                    count++;
+                }
+                res[i] = sum;
+            }
+        } else {
+            for (int i = 0; i < code.length; i++) {
+                int count = k;
+                int index = i - 1;
+                int sum = 0;
+                while (count < 0) {
+                    if (index == -1) {
+                        index = code.length - 1;
+                    }
+                    sum += code[index--];
+                    count++;
+                }
+                res[i] = sum;
+            }
+        }
+        return res;
+    }
+
+    @Test
+    public void decryptTest() {
+        Assert.assertArrayEquals(new int[]{12, 10, 16, 13}, decrypt(new int[]{5, 7, 1, 4}, 3));
+        Assert.assertArrayEquals(new int[]{12, 5, 6, 13}, decrypt(new int[]{2, 4, 9, 3}, -2));
+    }
+
 
 }
 

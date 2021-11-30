@@ -5971,6 +5971,25 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{0, 1, 2, 4, 5, 3}, buildArray(new int[]{0, 2, 1, 5, 3, 4}));
     }
 
+    public List<Integer> targetIndices(int[] nums, int target) {
+        Arrays.sort(nums);
+        ArrayList<Integer> res = new ArrayList<>();
+        int index = 0;
+        for (int i : nums) {
+            if (i == target) res.add(index++);
+            else index++;
+        }
+        return res;
+    }
+
+    @Test
+    public void targetIndicesTest() {
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.add(1);
+        expected.add(2);
+        Assert.assertEquals(expected, targetIndices(new int[]{1, 2, 5, 2, 3}, 2));
+    }
+
 
 }
 

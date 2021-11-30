@@ -5947,15 +5947,28 @@ public class Solutions {
             uniques[index++] = i;
         }
         Arrays.sort(uniques);
-        if(uniques.length < 3) return uniques[uniques.length - 1];
+        if (uniques.length < 3) return uniques[uniques.length - 1];
         else return uniques[uniques.length - 3];
     }
 
     @Test
-    public void thirdMaxTest(){
-        Assert.assertEquals(1, thirdMax(new int[]{2,2,3,1}));
+    public void thirdMaxTest() {
+        Assert.assertEquals(1, thirdMax(new int[]{2, 2, 3, 1}));
         Assert.assertEquals(2, thirdMax(new int[]{1, 2}));
         Assert.assertEquals(1, thirdMax(new int[]{3, 2, 1}));
+    }
+
+    public int[] buildArray(int[] nums) {
+        int[] res = nums.clone();
+        for (int i = 0; i < nums.length; i++) {
+            res[i] = nums[nums[i]];
+        }
+        return res;
+    }
+
+    @Test
+    public void buildArrayTest() {
+        Assert.assertArrayEquals(new int[]{0, 1, 2, 4, 5, 3}, buildArray(new int[]{0, 2, 1, 5, 3, 4}));
     }
 
 

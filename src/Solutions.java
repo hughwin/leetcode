@@ -5935,6 +5935,29 @@ public class Solutions {
         Assert.assertFalse(checkStraightLine(expected));
     }
 
+    public int thirdMax(int[] nums) {
+        HashSet<Integer> hashSet = new HashSet<>();
+        for(int i : nums){
+            hashSet.add(i);
+        }
+        int[] uniques = new int[hashSet.size()];
+
+        int index = 0;
+        for(int i : hashSet){
+            uniques[index++] = i;
+        }
+        Arrays.sort(uniques);
+        if(uniques.length < 3) return uniques[uniques.length - 1];
+        else return uniques[uniques.length - 3];
+    }
+
+    @Test
+    public void thirdMaxTest(){
+        Assert.assertEquals(1, thirdMax(new int[]{2,2,3,1}));
+        Assert.assertEquals(2, thirdMax(new int[]{1, 2}));
+        Assert.assertEquals(1, thirdMax(new int[]{3, 2, 1}));
+    }
+
 
 }
 

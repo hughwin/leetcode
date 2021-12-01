@@ -6036,6 +6036,27 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{12, 5, 6, 13}, decrypt(new int[]{2, 4, 9, 3}, -2));
     }
 
+    public int minStartValue(int[] nums) {
+        int startValue = 1;
+        while (true) {
+            if (testValue(startValue, nums)) return startValue;
+            else startValue++;
+        }
+    }
+
+    public boolean testValue(int value, int[] nums) {
+        for (int num : nums) {
+            value += num;
+            if (value < 1) return false;
+        }
+        return true;
+    }
+
+    @Test
+    public void startValue() {
+        Assert.assertEquals(5, minStartValue(new int[]{-3, 2, -3, 4, 2}));
+    }
+
 
 }
 

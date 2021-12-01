@@ -6037,19 +6037,13 @@ public class Solutions {
     }
 
     public int minStartValue(int[] nums) {
-        int startValue = 1;
-        while (true) {
-            if (testValue(startValue, nums)) return startValue;
-            else startValue++;
+        int minVal = nums[0], sum = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            sum += nums[i];
+            if (sum < minVal) minVal = sum;
         }
-    }
-
-    public boolean testValue(int value, int[] nums) {
-        for (int num : nums) {
-            value += num;
-            if (value < 1) return false;
-        }
-        return true;
+        if (minVal < 0) return Math.abs(minVal) + 1;
+        else return 1;
     }
 
     @Test

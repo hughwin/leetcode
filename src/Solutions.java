@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -6049,6 +6050,15 @@ public class Solutions {
     @Test
     public void startValue() {
         Assert.assertEquals(5, minStartValue(new int[]{-3, 2, -3, 4, 2}));
+    }
+
+    public int daysBetweenDates(String date1, String date2) {
+        return Math.abs((int) ChronoUnit.DAYS.between(LocalDate.parse(date1), LocalDate.parse(date2)));
+    }
+
+    @Test
+    public void daysBetweenDatesTest() {
+        Assert.assertEquals(1, daysBetweenDates("2019-06-29", "2019-06-30"));
     }
 
 

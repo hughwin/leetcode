@@ -1,3 +1,4 @@
+import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -5991,7 +5992,7 @@ public class Solutions {
         Assert.assertEquals(expected, targetIndices(new int[]{1, 2, 5, 2, 3}, 2));
     }
 
-    public int[] decrypt(int[] code, int k) {
+    public int[] decrypt(int @NotNull [] code, int k) {
         int[] res = new int[code.length];
         if (k == 0) {
             for (int i = 0; i < code.length; i++) {
@@ -6037,7 +6038,7 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{12, 5, 6, 13}, decrypt(new int[]{2, 4, 9, 3}, -2));
     }
 
-    public int minStartValue(int[] nums) {
+    public int minStartValue(int @NotNull [] nums) {
         int minVal = nums[0], sum = nums[0];
         for (int i = 1; i < nums.length; i++) {
             sum += nums[i];

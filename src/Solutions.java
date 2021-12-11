@@ -6061,6 +6061,16 @@ public class Solutions {
         Assert.assertEquals(1, daysBetweenDates("2019-06-29", "2019-06-30"));
     }
 
+    public int smallestRangeI(int[] range, int k) {
+        Arrays.sort(range);
+        return (range[range.length - 1] - k) <= (range[0] + k) ? 0 : (range[range.length - 1] - k) - (range[0] + k);
+    }
+
+    @Test
+    public void smallestRangeTest() {
+        Assert.assertEquals(6, smallestRangeI(new int[]{0, 10}, 2));
+    }
+
 
 }
 

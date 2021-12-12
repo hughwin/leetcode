@@ -6072,6 +6072,26 @@ public class Solutions {
         Assert.assertEquals(6, smallestRangeI(new int[]{0, 10}, 2));
     }
 
+    public int countPoints(String rings) {
+        HashSet<Character>[] poles = new HashSet[10];
+        for (int i = 0; i <= 9; i++) {
+            poles[i] = new HashSet<>();
+        }
+        for (int i = 0; i < rings.length(); i += 2) {
+            poles[Character.getNumericValue(rings.charAt(i + 1))].add(rings.charAt(i));
+        }
+        int count = 0;
+        for (Set<Character> set : poles) {
+            if (set.size() == 3) count++;
+        }
+        return count;
+    }
+
+    @Test
+    public void countPointsTest() {
+        Assert.assertEquals(1, countPoints("B0B6G0R6R0R6G9"));
+    }
+
 
 }
 

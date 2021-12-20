@@ -4822,8 +4822,8 @@ public class Solutions {
     }
 
     public boolean isIsomorphic(String s, String t) {
-        // TODO: Finish
-        return false;
+        return true;
+        // TODO: Complete
     }
 
     @Test
@@ -6090,6 +6090,21 @@ public class Solutions {
     @Test
     public void countPointsTest() {
         Assert.assertEquals(1, countPoints("B0B6G0R6R0R6G9"));
+    }
+
+    public String largestOddNumber(String num) {
+        for (int i = num.length() - 1; i >= 0; i--) {
+            if (Character.getNumericValue(num.charAt(i)) % 2 != 0) return num.substring(0, i + 1);
+        }
+        return "";
+    }
+
+    @Test
+    public void largestOddNumberTest() {
+        Assert.assertEquals("5", largestOddNumber("52"));
+        Assert.assertEquals("", largestOddNumber("4206"));
+        Assert.assertEquals("3", largestOddNumber("3206"));
+
     }
 
 

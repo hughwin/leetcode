@@ -5874,7 +5874,7 @@ public class Solutions {
                 count++;
             }
             index++;
-            if(index == tickets.length) index = 0;
+            if (index == tickets.length) index = 0;
         }
         return count;
     }
@@ -5898,54 +5898,54 @@ public class Solutions {
             int[] curr = coordinates[i];
             int x3 = curr[0];
             int y3 = curr[1];
-            if((y2 - y1)*(x3 - x1) != (x2 - x1)*(y3 - y1)) return false;
+            if ((y2 - y1) * (x3 - x1) != (x2 - x1) * (y3 - y1)) return false;
         }
         return true;
     }
 
     @Test
-    public void checkStraightLineTestTrue(){
+    public void checkStraightLineTestTrue() {
         int[][] expected = new int[6][];
-        expected[0] = new int[]{1,2};
-        expected[1] = new int[]{2,3};
-        expected[2] = new int[]{3,4};
-        expected[3] = new int[]{4,5};
-        expected[4] = new int[]{5,6};
-        expected[5] = new int[]{6,7};
+        expected[0] = new int[]{1, 2};
+        expected[1] = new int[]{2, 3};
+        expected[2] = new int[]{3, 4};
+        expected[3] = new int[]{4, 5};
+        expected[4] = new int[]{5, 6};
+        expected[5] = new int[]{6, 7};
         Assert.assertTrue(checkStraightLine(expected));
     }
 
     @Test
-    public void checkStraightLineTestTrueNegative(){
+    public void checkStraightLineTestTrueNegative() {
         int[][] expected = new int[3][];
-        expected[0] = new int[]{0,0};
-        expected[1] = new int[]{0,1};
-        expected[2] = new int[]{0,-1};
+        expected[0] = new int[]{0, 0};
+        expected[1] = new int[]{0, 1};
+        expected[2] = new int[]{0, -1};
 
         Assert.assertTrue(checkStraightLine(expected));
     }
 
     @Test
-    public void checkStraightLineTestFalse(){
+    public void checkStraightLineTestFalse() {
         int[][] expected = new int[6][];
-        expected[0] = new int[]{1,2};
-        expected[1] = new int[]{2,2};
-        expected[2] = new int[]{3,4};
-        expected[3] = new int[]{4,5};
-        expected[4] = new int[]{5,6};
-        expected[5] = new int[]{7,4};
+        expected[0] = new int[]{1, 2};
+        expected[1] = new int[]{2, 2};
+        expected[2] = new int[]{3, 4};
+        expected[3] = new int[]{4, 5};
+        expected[4] = new int[]{5, 6};
+        expected[5] = new int[]{7, 4};
         Assert.assertFalse(checkStraightLine(expected));
     }
 
     public int thirdMax(int[] nums) {
         HashSet<Integer> hashSet = new HashSet<>();
-        for(int i : nums){
+        for (int i : nums) {
             hashSet.add(i);
         }
         int[] uniques = new int[hashSet.size()];
 
         int index = 0;
-        for(int i : hashSet){
+        for (int i : hashSet) {
             uniques[index++] = i;
         }
         Arrays.sort(uniques);
@@ -6104,7 +6104,21 @@ public class Solutions {
         Assert.assertEquals("5", largestOddNumber("52"));
         Assert.assertEquals("", largestOddNumber("4206"));
         Assert.assertEquals("3", largestOddNumber("3206"));
+    }
 
+    public int oddCells(int n, int m, int[][] indices) {
+        boolean[] r = new boolean[n];
+        boolean[] c = new boolean[m];
+        int row_odd = 0, col_odd = 0;
+
+        for (int[] index : indices) {
+            r[index[0]] = !r[index[0]];
+            c[index[1]] = !c[index[1]];
+            row_odd += r[index[0]] ? 1 : -1;
+            col_odd += c[index[1]] ? 1 : -1;
+        }
+
+        return (row_odd * m) + (col_odd * n) - (2 * row_odd * col_odd);
     }
 
 

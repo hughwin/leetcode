@@ -6121,6 +6121,31 @@ public class Solutions {
         return (row_odd * m) + (col_odd * n) - (2 * row_odd * col_odd);
     }
 
+    public String licenseKeyFormatting(String s, int k) {
+        StringBuilder sb = new StringBuilder();
+        int counter = 0;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (counter == k) {
+                sb.append('-');
+                counter = 0;
+            }
+            if (s.charAt(i) != '-') {
+                sb.append(s.charAt(i));
+                counter++;
+            }
+        }
+        if (sb.length() > 0 && sb.charAt(sb.length() - 1) == '-') sb.deleteCharAt(sb.length() - 1);
+        return sb.reverse().toString().toUpperCase();
+    }
+
+    @Test
+    public void licenseKeyFormattingTest() {
+        Assert.assertEquals("AA-AA", licenseKeyFormatting("--a-a-a-a--", 2));
+        Assert.assertEquals("5F3Z-2E9W", licenseKeyFormatting("5F3Z-2e-9-w", 4));
+        Assert.assertEquals("2-5G-3J", licenseKeyFormatting("2-5g-3-J", 2));
+
+    }
+
 
 }
 

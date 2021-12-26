@@ -6173,6 +6173,38 @@ public class Solutions {
         Assert.assertEquals(2, countWords(words1, words2));
     }
 
+    public int maximumUnits(int[][] boxTypes, int truckSize) {
+        TreeMap<Integer, Integer> treeMap = new TreeMap<>();
+        for (int[] i : boxTypes) {
+            if (!treeMap.containsKey(i[1])) treeMap.put(i[1], i[0]);
+            else treeMap.put(i[1], treeMap.get(i[1]) + i[0]);
+        }
+        int units = 0, count = 0;
+        for (Integer i : treeMap.descendingKeySet()) {
+            int boxes = treeMap.get(i);
+            while (boxes > 0) {
+                units += i;
+                boxes--;
+                count++;
+                if (count == truckSize) return units;
+            }
+        }
+        return units;
+    }
+
+    @Test
+    public void maximumUnitsTest() {
+        int[] box1 = new int[]{1, 3};
+        int[] box2 = new int[]{2, 2};
+        int[] box3 = new int[]{3, 1};
+        int[][] boxTypes = new int[3][];
+        boxTypes[0] = box1;
+        boxTypes[1] = box2;
+        boxTypes[2] = box3;
+
+        Assert.assertEquals(8, maximumUnits(boxTypes, 4));
+    }
+
 
 }
 

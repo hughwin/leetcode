@@ -6143,7 +6143,34 @@ public class Solutions {
         Assert.assertEquals("AA-AA", licenseKeyFormatting("--a-a-a-a--", 2));
         Assert.assertEquals("5F3Z-2E9W", licenseKeyFormatting("5F3Z-2e-9-w", 4));
         Assert.assertEquals("2-5G-3J", licenseKeyFormatting("2-5g-3-J", 2));
+    }
 
+    public int countWords(String[] words1, String[] words2) {
+        HashMap<String, Integer> words1HashMap = countWordsHelper(words1);
+        HashMap<String, Integer> words2HashMap = countWordsHelper(words2);
+        int res = 0;
+        for (String s : words1HashMap.keySet()) {
+            if (words1HashMap.containsKey(s) && words2HashMap.containsKey(s)) {
+                if (words1HashMap.get(s) == 1 && words2HashMap.get(s) == 1) res++;
+            }
+        }
+        return res;
+    }
+
+    public HashMap<String, Integer> countWordsHelper(String[] words) {
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        for (String s : words) {
+            if (!hashMap.containsKey(s)) hashMap.put(s, 1);
+            else hashMap.put(s, hashMap.get(s) + 1);
+        }
+        return hashMap;
+    }
+
+    @Test
+    public void countWordsTest() {
+        String[] words1 = new String[]{"leetcode", "is", "amazing", "as", "is"};
+        String[] words2 = new String[]{"amazing", "leetcode", "is"};
+        Assert.assertEquals(2, countWords(words1, words2));
     }
 
 

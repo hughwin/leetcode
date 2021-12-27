@@ -6220,6 +6220,18 @@ public class Solutions {
         Assert.assertEquals(6, mostWordsFound(array));
     }
 
+    public String firstPalindrome(String[] words) {
+        for (String s : words) {
+            if (s.equals(new StringBuilder(s).reverse().toString())) return s;
+        }
+        return "";
+    }
+
+    @Test
+    public void firstPalindromeTest() {
+        Assert.assertEquals("ada", firstPalindrome(new String[]{"abc", "car", "ada", "racecar", "cool"}));
+    }
+
 
 }
 

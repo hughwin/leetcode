@@ -6205,6 +6205,21 @@ public class Solutions {
         Assert.assertEquals(8, maximumUnits(boxTypes, 4));
     }
 
+    public int mostWordsFound(String[] sentences) {
+        int res = 0;
+        for (String s : sentences) {
+            String[] words = s.split(" ");
+            res = Math.max(words.length, res);
+        }
+        return res;
+    }
+
+    @Test
+    public void mostWordsFoundTest() {
+        String[] array = new String[]{"alice and bob love leetcode", "i think so too", "this is great thanks very much"};
+        Assert.assertEquals(6, mostWordsFound(array));
+    }
+
 
 }
 

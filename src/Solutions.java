@@ -6232,6 +6232,27 @@ public class Solutions {
         Assert.assertEquals("ada", firstPalindrome(new String[]{"abc", "car", "ada", "racecar", "cool"}));
     }
 
+    public int wateringPlants(int[] plants, int capacity) {
+        int steps = 0, pointer = 0, currentCapacity = capacity;
+        while (pointer < plants.length) {
+            if (plants[pointer] <= currentCapacity) {
+                currentCapacity -= plants[pointer];
+                steps++;
+                pointer++;
+            } else {
+                currentCapacity = capacity;
+                steps += pointer * 2;
+            }
+        }
+        return steps;
+    }
+
+    @Test
+    public void wateringPlantsTest() {
+        Assert.assertEquals(30, wateringPlants(new int[]{1, 1, 1, 4, 2, 3}, 4));
+        Assert.assertEquals(14, wateringPlants(new int[]{2, 2, 3, 3}, 5));
+    }
+
 
 }
 

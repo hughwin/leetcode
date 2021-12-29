@@ -6253,6 +6253,23 @@ public class Solutions {
         Assert.assertEquals(14, wateringPlants(new int[]{2, 2, 3, 3}, 5));
     }
 
+    public int oddSocks(int[] socks) {
+        Set<Integer> sockSet = new HashSet<>();
+        int res = 0;
+        for (int s : socks) {
+            if (sockSet.contains(s)) {
+                res++;
+                sockSet.remove(s);
+            } else sockSet.add(s);
+        }
+        return res;
+    }
+
+    @Test
+    public void oddsSocksTest() {
+        Assert.assertEquals(2, oddSocks(new int[]{1, 2, 1, 2, 1, 3, 2}));
+    }
+
 
 }
 

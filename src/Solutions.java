@@ -6273,22 +6273,20 @@ public class Solutions {
     public int minimumRefill(int[] plants, int capacityA, int capacityB) {
         int refills = 0, aPointer = 0, aCurrentWater = capacityA, bCurrentWater = capacityB, bPointer = plants.length - 1;
         while (aPointer < bPointer) {
-            if (aCurrentWater >= plants[aPointer]) {
-                aCurrentWater -= plants[aPointer];
-                aPointer++;
-            } else {
+            if (aCurrentWater < plants[aPointer]) {
                 refills++;
                 aCurrentWater = capacityA;
             }
-            if (bCurrentWater >= plants[bPointer]) {
-                bCurrentWater -= plants[bPointer];
-                bPointer--;
-            } else {
+            if (bCurrentWater < plants[bPointer]) {
                 refills++;
                 bCurrentWater = capacityB;
             }
+            aCurrentWater -= plants[aPointer];
+            bCurrentWater -= plants[bPointer];
+            bPointer--;
+            aPointer++;
         }
-        if (aPointer == bPointer && aCurrentWater >= plants[aPointer] || bCurrentWater >= plants[bPointer])
+        if (aPointer == bPointer && (aCurrentWater >= plants[aPointer] || bCurrentWater >= plants[bPointer]))
             return refills;
         else if (aPointer == bPointer) return refills + 1;
         return refills;

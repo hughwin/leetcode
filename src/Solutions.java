@@ -6270,6 +6270,35 @@ public class Solutions {
         Assert.assertEquals(2, oddSocks(new int[]{1, 2, 1, 2, 1, 3, 2}));
     }
 
+    public int minimumRefill(int[] plants, int capacityA, int capacityB) {
+        int refills = 0, aPointer = 0, aCurrentWater = capacityA, bCurrentWater = capacityB, bPointer = plants.length - 1;
+        while (aPointer < bPointer) {
+            if (aCurrentWater >= plants[aPointer]) {
+                aCurrentWater -= plants[aPointer];
+                aPointer++;
+            } else {
+                refills++;
+                aCurrentWater = capacityA;
+            }
+            if (bCurrentWater >= plants[bPointer]) {
+                bCurrentWater -= plants[bPointer];
+                bPointer--;
+            } else {
+                refills++;
+                bCurrentWater = capacityB;
+            }
+        }
+        if (aPointer == bPointer && aCurrentWater >= plants[aPointer] || bCurrentWater >= plants[bPointer])
+            return refills;
+        else if (aPointer == bPointer) return refills + 1;
+        return refills;
+    }
+
+    @Test
+    public void minimumRefillTest() {
+        Assert.assertEquals(1, minimumRefill(new int[]{2, 2, 3, 3}, 5, 5));
+    }
+
 
 }
 

@@ -6297,6 +6297,19 @@ public class Solutions {
         Assert.assertEquals(1, minimumRefill(new int[]{2, 2, 3, 3}, 5, 5));
     }
 
+    public String findDifferentBinaryString(String[] nums) {
+        int n = nums.length;
+        char[] ans = new char[n];
+        for (int i = 0; i < n; i++) {
+            ans[i] = nums[i].charAt(i) == '0' ? '1' : '0';
+        }
+        return String.valueOf(ans);
+    }
+
+    @Test
+    public void findDifferentBinaryString() {
+        Assert.assertEquals("00", findDifferentBinaryString(new String[]{"01", "10"}));
+    }
 
 }
 

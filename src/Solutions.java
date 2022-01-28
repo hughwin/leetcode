@@ -6329,6 +6329,23 @@ public class Solutions {
         Assert.assertEquals(1, dominantIndex(new int[]{3, 6, 1, 0}));
     }
 
+    public static long repeatedString(String s, long n) {
+        int count = 0, index = 0;
+        long numA = 0;
+        while (true) {
+            if (index == s.length()) index = 0;
+            if (count == n) return numA;
+            if (s.charAt(index) == 'a') numA++;
+            count++;
+            index++;
+        }
+    }
+
+    @Test
+    public void repeatedString() {
+        Assert.assertEquals(4, repeatedString("abcac", 10));
+    }
+
 }
 
 

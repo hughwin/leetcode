@@ -6346,6 +6346,30 @@ public class Solutions {
         Assert.assertEquals(4, repeatedString("abcac", 10));
     }
 
+    public String capitalizeTitle(String title) {
+        title = title.toLowerCase();
+        String[] words = title.split(" ");
+        int index = 0;
+        for (String word : words) {
+            if (word.length() > 2) {
+                char[] chars = word.toCharArray();
+                chars[0] = Character.toUpperCase(chars[0]);
+                words[index++] = String.valueOf(chars);
+            } else {
+                index++;
+            }
+        }
+        return String.join(" ", words).trim();
+    }
+
+    @Test
+    public void capitalizeTitleTest() {
+        Assert.assertEquals("This Should be in Title Case", capitalizeTitle("this should be in title case"));
+        Assert.assertEquals("i Love Leetcode", capitalizeTitle("I LOVE LEETCODE"));
+
+
+    }
+
 }
 
 

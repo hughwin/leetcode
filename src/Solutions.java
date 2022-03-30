@@ -6366,8 +6366,21 @@ public class Solutions {
     public void capitalizeTitleTest() {
         Assert.assertEquals("This Should be in Title Case", capitalizeTitle("this should be in title case"));
         Assert.assertEquals("i Love Leetcode", capitalizeTitle("I LOVE LEETCODE"));
+    }
 
 
+    public int prefixCount(String[] words, String pref) {
+        int length = pref.length(), count = 0;
+        for (String w : words) {
+            if (w.length() >= length && w.substring(0, length).equals(pref)) count++;
+        }
+        return count;
+    }
+
+    @Test
+    public void preFixCountTest() {
+        String[] tester = new String[]{"pay", "attention", "practice", "attend", "a"};
+        Assert.assertEquals(2, prefixCount(tester, "at"));
     }
 
 }

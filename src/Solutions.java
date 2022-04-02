@@ -6383,6 +6383,39 @@ public class Solutions {
         Assert.assertEquals(2, prefixCount(tester, "at"));
     }
 
+    public static List<Integer> rotLeft(List<Integer> a, int d) {
+        int rotate = d % a.size();
+        int[] res = new int[a.size()];
+        for (int i = 0; i < a.size(); i++) {
+            if (rotate >= a.size()) rotate = 0;
+            res[i] = a.get(rotate++);
+        }
+        ArrayList<Integer> returnList = new ArrayList<>();
+        for (int re : res) {
+            returnList.add(re);
+        }
+        return returnList;
+    }
+
+    @Test
+    public void rotLeftTest() {
+        ArrayList<Integer> input = new ArrayList<>();
+        input.add(1);
+        input.add(2);
+        input.add(3);
+        input.add(4);
+        input.add(5);
+
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.add(3);
+        expected.add(4);
+        expected.add(5);
+        expected.add(1);
+        expected.add(2);
+
+        Assert.assertEquals(expected, rotLeft(input, 2));
+    }
+
 }
 
 

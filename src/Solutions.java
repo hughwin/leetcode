@@ -6416,9 +6416,19 @@ public class Solutions {
         Assert.assertEquals(expected, rotLeft(input, 2));
     }
 
+    // https://www.hackerrank.com/challenges/the-hurdle-race/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign
     public static int hurdleRace(int k, List<Integer> height) {
         int result = Collections.max(height) - k;
         return Math.max(result, 0);
+    }
+
+    // https://www.hackerrank.com/challenges/designer-pdf-viewer/problem?utm_campaign=challenge-recommendation&utm_medium=email&utm_source=24-hour-campaign&h_r=next-challenge&h_v=zen
+    public static int designerPdfViewer(List<Integer> h, String word) {
+        int maxLetterHeight = -1;
+        for (char c : word.toCharArray()) {
+            if (h.get(c - 'a') > maxLetterHeight) maxLetterHeight = h.get(c - 'a');
+        }
+        return maxLetterHeight * word.length();
     }
 
 }

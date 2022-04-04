@@ -6416,6 +6416,11 @@ public class Solutions {
         Assert.assertEquals(expected, rotLeft(input, 2));
     }
 
+    public static int hurdleRace(int k, List<Integer> height) {
+        int result = Collections.max(height) - k;
+        return Math.max(result, 0);
+    }
+
 }
 
 

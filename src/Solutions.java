@@ -6415,6 +6415,24 @@ public class Solutions {
 
         Assert.assertEquals(expected, rotLeft(input, 2));
     }
+
+    public int maxProfit(int[] prices) {
+
+        int lowestSoFar = Integer.MAX_VALUE, largestProfit = 0, currentProfit;
+
+        for (int price : prices) {
+            if (price < lowestSoFar) lowestSoFar = price;
+            currentProfit = price - lowestSoFar;
+            if (currentProfit > largestProfit) largestProfit = currentProfit;
+        }
+        return largestProfit;
+    }
+
+    @Test
+    public void maxProfitTest() {
+        int[] input = new int[]{7, 1, 5, 3, 6, 4};
+        Assert.assertEquals(5, maxProfit(input));
+    }
 }
 
 

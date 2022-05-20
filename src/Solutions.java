@@ -6433,6 +6433,23 @@ public class Solutions {
         int[] input = new int[]{7, 1, 5, 3, 6, 4};
         Assert.assertEquals(5, maxProfit(input));
     }
+
+    public int maximumDifference(int[] nums) {
+        int lowestEncounteredSoFar = Integer.MAX_VALUE, maxDiff = 0;
+
+        for (int i : nums) {
+            if (i < lowestEncounteredSoFar) lowestEncounteredSoFar = i;
+            if (i - lowestEncounteredSoFar > maxDiff) maxDiff = i - lowestEncounteredSoFar;
+        }
+        return maxDiff;
+    }
+
+    @Test
+    public void maximumDifferenceTest() {
+        int[] input = new int[]{7, 1, 5, 4};
+        Assert.assertEquals(4, maximumDifference(input));
+    }
+
 }
 
 

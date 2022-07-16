@@ -6459,6 +6459,34 @@ public class Solutions {
             return Math.max(minDepth(root.left), minDepth(root.right)) + 1;
     }
 
+    public int canBeTypedWords(String text, String brokenLetters) {
+        int res = 0;
+        HashSet<Character> characterSet = new HashSet<>();
+        for (char c : brokenLetters.toCharArray()) characterSet.add(c);
+        String[] words = text.split(" ");
+
+        for (String s : words) {
+            res++;
+            for (char c : s.toCharArray()) {
+                if (characterSet.contains(c)) {
+                    res--;
+                }
+            }
+        }
+
+        return res;
+    }
+
+    @Test
+    public void canBeTypedTest() {
+        Assert.assertEquals(1, canBeTypedWords("leet code", "lt"));
+    }
+
+
+}
+
+
+
 }
 
 

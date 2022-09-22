@@ -5035,6 +5035,26 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{2, 1}, rotate(new int[]{1, 2}, 3));
     }
 
+    public int[] numberOfPairs(int[] nums) {
+        HashSet<Integer> hs = new HashSet<>();
+        int count = 0;
+        int[] res = new int[]{0, 0};
+        for (int i : nums) {
+            if (!hs.add(i)) {
+                hs.remove(i);
+                res[0]++;
+                count += 2;
+            }
+        }
+        res[1] = nums.length - count;
+        return res;
+    }
+
+    @Test
+    public void numberOfPairsTest() {
+        Assert.assertArrayEquals(new int[]{3, 1}, numberOfPairs(new int[]{1, 3, 2, 1, 3, 2, 2}));
+    }
+
 }
 
 

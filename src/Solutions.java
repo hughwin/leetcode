@@ -5203,7 +5203,7 @@ public class Solutions {
     }
 
     // https://leetcode.com/problems/remove-element/submissions/
-    public int removeElement(int[] nums, int val) {
+    public int removeElement2(int[] nums, int val) {
         int copyPointer = 0, counter = 0;
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] != val) {
@@ -5215,7 +5215,7 @@ public class Solutions {
     }
 
     @Test
-    public void removeElementTest() {
+    public void removeElementTest2() {
         Assert.assertEquals(2, removeElement(new int[]{3, 2, 2, 3}, 3));
         Assert.assertEquals(5, removeElement(new int[]{0, 1, 2, 2, 3, 0, 4, 2}, 2));
     }
@@ -6491,11 +6491,6 @@ public class Solutions {
     public void canBeTypedTest() {
         Assert.assertEquals(1, canBeTypedWords("leet code", "lt"));
     }
-
-
-}
-
-
 
     public int[] numberOfPairs(int[] nums) {
         HashSet<Integer> hs = new HashSet<>();

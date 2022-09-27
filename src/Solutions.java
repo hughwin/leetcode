@@ -1,8 +1,10 @@
+import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -4830,8 +4832,8 @@ public class Solutions {
     }
 
     public boolean isIsomorphic(String s, String t) {
-        // TODO: Finish
-        return false;
+        return true;
+        // TODO: Complete
     }
 
     @Test
@@ -5034,6 +5036,1466 @@ public class Solutions {
         Assert.assertArrayEquals(new int[]{2, 1}, rotate(new int[]{1, 2}, 1));
         Assert.assertArrayEquals(new int[]{2, 1}, rotate(new int[]{1, 2}, 3));
     }
+
+    public boolean canWinNim(int n) {
+        return n % 4 != 0;
+    }
+
+    @Test
+    public void canWinNimTest() {
+        Assert.assertTrue(canWinNim(1));
+        Assert.assertTrue(canWinNim(2));
+        Assert.assertFalse(canWinNim(4));
+    }
+
+    public boolean rotateString(String s, String goal) {
+        if (s.length() != goal.length()) return false;
+        s = s + s;
+        return s.contains(goal);
+    }
+
+    @Test
+    public void rotateStringTest() {
+        Assert.assertTrue(rotateString("cdeab", "abcde"));
+        Assert.assertFalse(rotateString("abcde", "abced"));
+    }
+
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        int n = nums.length;
+
+        // build the sliding window before using it
+        Set<Integer> seen = new HashSet<>();
+        for (int i = 0; i <= k && i < n; i++) {
+            if (!seen.add(nums[i])) return true;
+        }
+
+        // go through the nums array and check for duplicates in the window
+        for (int i = k + 1; i < n; i++) {
+            seen.remove(nums[i - k - 1]);
+            if (!seen.add(nums[i])) return true;
+        }
+
+        return false;
+    }
+
+    @Test
+    public void containsNearbyDuplicatesTest() {
+        Assert.assertTrue(containsNearbyDuplicate(new int[]{1, 2, 3, 1}, 3));
+        Assert.assertFalse(containsNearbyDuplicate(new int[]{1, 2, 3, 1, 2, 3}, 2));
+    }
+
+    public static int maxSubArray(int[] A) {
+        int maxSoFar = A[0], maxEndingHere = A[0];
+        for (int i = 1; i < A.length; ++i) {
+            maxEndingHere = Math.max(maxEndingHere + A[i], A[i]);
+            // MaxEndingHere is either A[i] plus the previous MaxEndingHere, or just A[i], whichever is larger.
+            maxSoFar = Math.max(maxSoFar, maxEndingHere);
+            // maxSoFar is the biggest out of the maxEndingHere and maxSoFar
+        }
+        return maxSoFar;
+    }
+
+    @Test
+    public void maxSubArray() {
+        Assert.assertEquals(6, maxSubArray(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
+        Assert.assertEquals(-1, maxSubArray(new int[]{-1}));
+        Assert.assertEquals(-1, maxSubArray(new int[]{-2, -1}));
+    }
+
+    public boolean makeEqual(String[] words) {
+        if (words.length == 1) return true;
+        HashMap<Character, Integer> counter = new HashMap<>();
+        for (String word : words) {
+            for (char c : word.toCharArray()) {
+                if (counter.containsKey(c)) {
+                    counter.put(c, counter.get(c) + 1);
+                } else {
+                    counter.put(c, 1);
+                }
+            }
+        }
+        for (Character c : counter.keySet()) {
+            if (counter.get(c) % words.length != 0) return false;
+        }
+        return true;
+    }
+
+    @Test
+    public void makeEqualTest() {
+        Assert.assertTrue(makeEqual(new String[]{"abc", "aabc", "bc"}));
+        Assert.assertFalse(makeEqual(new String[]{"ab", "a"}));
+        Assert.assertFalse(makeEqual(new String[]{"a", "b"}));
+        Assert.assertTrue(makeEqual(new String[]{"a", "a"}));
+        Assert.assertTrue(makeEqual(new String[]{"abc", "cba"}));
+        Assert.assertFalse(makeEqual(new String[]{"bc", "de"}));
+    }
+
+    int[] dp = new int[46];
+
+    public int climbStairs(int n) {
+        if (dp[n] != 0) return dp[n];
+
+        if (n == 1 || n == 2) return n;
+        dp[n] = climbStairs(n - 1) + climbStairs(n - 2);
+        return dp[n];
+    }
+
+    @Test
+    public void climbStairs() {
+        Assert.assertEquals(1, climbStairs(2));
+        Assert.assertEquals(3, climbStairs(3));
+    }
+
+    public String reverseVowels(String s) {
+        char[] charArray = s.toCharArray();
+        int frontPointer = 0;
+        int endPointer = charArray.length - 1;
+        while (frontPointer < endPointer) {
+
+            var frontPointerBol = charArray[frontPointer] == 'a' || charArray[frontPointer] == 'e' || charArray[frontPointer] == 'i'
+                    || charArray[frontPointer] == 'o' || charArray[frontPointer] == 'u' || charArray[frontPointer] == 'A' || charArray[frontPointer] == 'E' || charArray[frontPointer] == 'I'
+                    || charArray[frontPointer] == 'O' || charArray[frontPointer] == 'U';
+
+            var endPointerBol = charArray[endPointer] == 'a' || charArray[endPointer] == 'e' || charArray[endPointer] == 'i'
+                    || charArray[endPointer] == 'o' || charArray[endPointer] == 'u' || charArray[endPointer] == 'A' || charArray[endPointer] == 'E' || charArray[endPointer] == 'I'
+                    || charArray[endPointer] == 'O' || charArray[endPointer] == 'U';
+
+            if (frontPointerBol && endPointerBol) {
+                char temp = charArray[frontPointer];
+                charArray[frontPointer] = charArray[endPointer];
+                charArray[endPointer] = temp;
+                frontPointer++;
+                endPointer--;
+            } else if (frontPointerBol) {
+                endPointer--;
+            } else if (endPointerBol) {
+                frontPointer++;
+            } else {
+                frontPointer++;
+                endPointer--;
+            }
+        }
+        return String.valueOf(charArray);
+    }
+
+    @Test
+    public void reverseVoweslTest() {
+        Assert.assertEquals("holle", reverseVowels("hello"));
+        Assert.assertEquals("leotcede", reverseVowels("leetcode"));
+    }
+
+    public int findGCD(int[] nums) {
+        Arrays.sort(nums);
+        int divisor = nums[nums.length - 1];
+
+        while (divisor > 1) {
+            if (nums[0] % divisor == 0 && nums[nums.length - 1] % divisor == 0) {
+                return divisor;
+            }
+            divisor--;
+        }
+        return 1;
+    }
+
+    @Test
+    public void findGCDTest() {
+        Assert.assertEquals(2, findGCD(new int[]{2, 5, 6, 9, 10}));
+    }
+
+    // https://leetcode.com/problems/remove-element/submissions/
+    public int removeElement(int[] nums, int val) {
+        int copyPointer = 0, counter = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != val) {
+                nums[copyPointer++] = nums[i];
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    @Test
+    public void removeElementTest() {
+        Assert.assertEquals(2, removeElement(new int[]{3, 2, 2, 3}, 3));
+        Assert.assertEquals(5, removeElement(new int[]{0, 1, 2, 2, 3, 0, 4, 2}, 2));
+    }
+
+    public int countGoodSubstrings(String s) {
+        int count = 0;
+        char[] chars = s.toCharArray();
+        for (int i = 0; i < s.length() - 2; i++) {
+            if (chars[i] != chars[i + 1] && chars[i + 1] != chars[i + 2]
+                    && chars[i] != chars[i + 2]) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    @Test
+    public void countGoodSubstringsTest() {
+        Assert.assertEquals(1, countGoodSubstrings("xyzzaz"));
+        Assert.assertEquals(4, countGoodSubstrings("aababcabc"));
+    }
+
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+
+        int count = 0;
+        if (n == 0) return true;
+        if (flowerbed.length == 1) {
+            if (flowerbed[0] == 0) return n <= 1;
+            else {
+                return n <= 0;
+            }
+        }
+
+        if (flowerbed[0] == 0 && flowerbed[1] == 0) {
+            count++;
+            flowerbed[0] = 1;
+        }
+
+
+        for (int i = 1; i < flowerbed.length - 1; i++) {
+            if (flowerbed[i] == 0 && flowerbed[i - 1] == 0 && flowerbed[i + 1] == 0) {
+                flowerbed[i] = 1;
+                count++;
+            }
+        }
+
+        if (flowerbed[flowerbed.length - 1] == 0 & flowerbed[flowerbed.length - 2] == 0) {
+            count++;
+        }
+
+        return n <= count;
+    }
+
+    @Test
+    public void canPlaceFlowersTest() {
+        Assert.assertTrue(canPlaceFlowers(new int[]{1, 0, 0, 0, 1}, 1));
+        Assert.assertFalse(canPlaceFlowers(new int[]{1, 0, 0, 0, 1}, 2));
+        Assert.assertFalse(canPlaceFlowers(new int[]{1, 0, 1}, 1));
+        Assert.assertFalse(canPlaceFlowers(new int[]{0, 1, 0}, 1));
+    }
+
+
+    public boolean testZeroes(int n) {
+        while (n != 0) {
+            int d = n % 10;
+            if (d == 0) {
+                return false;
+            }
+            n /= 10;
+        }
+        return true;
+    }
+
+    @Test
+    public void testZeroesTest() {
+        Assert.assertTrue(testZeroes(111));
+        Assert.assertFalse(testZeroes(101));
+        Assert.assertFalse(testZeroes(1010));
+
+    }
+
+
+    public int[] getNoZeroIntegers(int n) {
+        int x = 1, y = n - 1;
+        while (!(testZeroes(y)) || !(testZeroes(x))) {
+            y--;
+            x++;
+        }
+        return new int[]{x, y};
+    }
+
+    @Test
+    public void getNoZeroIntegersTest() {
+        Assert.assertArrayEquals(new int[]{1, 68}, getNoZeroIntegers(69));
+        Assert.assertArrayEquals(new int[]{11, 999}, getNoZeroIntegers(1010));
+    }
+
+    public String thousandSeparator(int n) {
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+        while (n != 0) {
+            if (count == 3) {
+                count = 0;
+                sb.append('.');
+            } else {
+                count++;
+                int d = n % 10;
+                sb.append(d);
+                n /= 10;
+            }
+        }
+        return sb.reverse().toString();
+    }
+
+    @Test
+    public void thousandSeparatorTest() {
+        Assert.assertEquals("1.234", thousandSeparator(1234));
+    }
+
+    public int secondHighest(String s) {
+        Set<Integer> uniques = new TreeSet();
+        for (int i = 0; i < s.length(); i++) {
+            if (Character.isDigit(s.charAt(i))) {
+                uniques.add(Character.getNumericValue(s.charAt(i)));
+            }
+        }
+        if (uniques.size() == 1) return -1;
+        if (uniques.isEmpty()) return -1;
+        Object[] arr = uniques.toArray();
+        return (int) arr[uniques.size() - 2];
+    }
+
+    @Test
+    public void secondHighestTest() {
+        Assert.assertEquals(2, secondHighest("dfa12321afd"));
+        Assert.assertEquals(-1, secondHighest("dfa11111afd"));
+    }
+
+    public String convertToTitle(int n) {
+        return n == 0 ? "" : convertToTitle(--n / 26) + (char) ('A' + (n % 26));
+    }
+
+    @Test
+    public void convertToTitleTest() {
+        Assert.assertEquals("AA", convertToTitle(27));
+    }
+
+    public String makeGood(String s) {
+        int n = s.length();
+
+        for (int i = 0; i < n - 1; i++) {
+            if (Math.abs(s.charAt(i) - s.charAt(i + 1)) == 32) {
+                return makeGood(s.substring(0, i) + s.substring(i + 2));
+            }
+        }
+
+        return s;
+    }
+
+    @Test
+    public void makeGoodTest() {
+        Assert.assertEquals("leetcode", makeGood("leEeetcode"));
+        Assert.assertEquals("", makeGood("abBAcC"));
+    }
+
+    public char slowestKey(int[] releaseTimes, String keysPressed) {
+        if (releaseTimes.length == 0) return 0;
+
+        char charPress = keysPressed.charAt(0);
+        int longestPress = releaseTimes[0];
+
+        for (int i = 1; i < releaseTimes.length; i++) {
+            int releaseTime = releaseTimes[i] - releaseTimes[i - 1];
+            if (releaseTime > longestPress) {
+                longestPress = releaseTime;
+                charPress = keysPressed.charAt(i);
+            }
+            if (releaseTime == longestPress) {
+                charPress = keysPressed.charAt(i) > charPress ? keysPressed.charAt(i) : charPress;
+            }
+        }
+        return charPress;
+    }
+
+    @Test
+    public void slowestKey() {
+        Assert.assertEquals('c', slowestKey(new int[]{9, 29, 49, 50}, "cbcd"));
+        Assert.assertEquals('a', slowestKey(new int[]{12, 23, 36, 46, 62}, "spuda"));
+    }
+
+    public String reversePrefix(String word, char ch) {
+        String prefix = word.substring(0, word.indexOf(ch) + 1);
+        String suffix = word.substring(word.indexOf(ch) + 1);
+
+        StringBuilder sb = new StringBuilder(prefix);
+        sb.reverse();
+        sb.append(suffix);
+        return sb.toString();
+    }
+
+    @Test
+    public void reversePrefixTest() {
+        Assert.assertEquals("dcbaefd", reversePrefix("abcdefd", 'd'));
+    }
+
+    public boolean isLongPressedName(String name, String typed) {
+        int namePointer = 0;
+        for (int i = 0; i < typed.length(); i++) {
+            if (namePointer < name.length() - 1 &&
+                    (typed.charAt(i) != name.charAt(namePointer)
+                            || typed.charAt(i) != name.charAt(namePointer + 1))) return false;
+            if (namePointer == name.length()) {
+                if (typed.charAt(i) != name.charAt(name.length() - 1)) {
+                    return false;
+                }
+            } else if (typed.charAt(i) == name.charAt(namePointer)) {
+                namePointer++;
+            }
+        }
+        return namePointer == name.length();
+    }
+
+    @Test
+    public void isLongPressedName() {
+        Assert.assertTrue(isLongPressedName("alex", "aaleex"));
+        Assert.assertTrue(isLongPressedName("alex", "alex"));
+        Assert.assertFalse(isLongPressedName("alex", "aaleelx"));
+        Assert.assertTrue(isLongPressedName("vtkgn", "vttkgnn"));
+        Assert.assertFalse(isLongPressedName("alex", "aleexa"));
+        Assert.assertFalse(isLongPressedName("saeed", "ssaaedd"));
+    }
+
+    public int numDifferentIntegers(String word) {
+        for (char c : word.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                word = word.replace(c, ' ');
+            }
+        }
+        String[] numbers = word.split(" ");
+        HashSet<String> uniques = new HashSet<>();
+        for (String s : numbers) {
+            if (!s.isBlank()) {
+                uniques.add(trimLeadingZeros(s));
+            }
+        }
+        return uniques.size();
+    }
+
+    public static String trimLeadingZeros(String source) {
+        for (int i = 0; i < source.length(); ++i) {
+            char c = source.charAt(i);
+            if (c != '0') {
+                return source.substring(i);
+            }
+        }
+        return ""; // or return "0";
+    }
+
+
+    @Test
+    public void numDifferentIntegersTest() {
+        Assert.assertEquals(3, numDifferentIntegers("a123bc34d8ef34"));
+        Assert.assertEquals(1, numDifferentIntegers("a1b01c001"));
+        Assert.assertEquals(1, numDifferentIntegers("167278959591294"));
+    }
+
+    public boolean isPrefixString(String s, String[] words) {
+        StringBuilder sb = new StringBuilder();
+        for (String word : words) {
+            sb.append(word);
+            if (sb.toString().equals(s)) return true;
+        }
+        return false;
+    }
+
+    @Test
+    public void isPrefixStringTest() {
+        Assert.assertTrue(isPrefixString("iloveleetcode", new String[]{"i", "love", "leetcode", "apples"}));
+        Assert.assertFalse(isPrefixString("iloveleetcode", new String[]{"apples", "i", "love", "leetcode"}));
+        Assert.assertFalse(isPrefixString("a", new String[]{"aa", "aaaa", "banana"}));
+    }
+
+    public String maximumTime(String time) {
+        char[] times = time.toCharArray();
+        if (times[0] == '?') {
+            times[0] = times[1] <= '3' || times[1] == '?' ? '2' : '1';
+        }
+
+        if (times[1] == '?') {
+            times[1] = times[0] == '2' ? '3' : '9';
+        }
+
+        if (times[3] == '?') {
+            times[3] = '5';
+        }
+
+        if (times[4] == '?') {
+            times[4] = '9';
+        }
+
+        return new String(times);
+    }
+
+
+    @Test
+    public void maximumTimeTest() {
+        Assert.assertEquals("23:50", maximumTime("2?:?0"));
+        Assert.assertEquals("09:39", maximumTime("0?:3?"));
+        Assert.assertEquals("14:03", maximumTime("?4:03"));
+        Assert.assertEquals("15:13", maximumTime("?5:13"));
+        Assert.assertEquals("20:15", maximumTime("?0:15"));
+    }
+
+    public String makeFancyString(String s) {
+        char[] sChar = s.toCharArray();
+        for (int i = 0; i < sChar.length - 2; i++) {
+            if (sChar[i] == sChar[i + 1] && sChar[i + 1] == sChar[i + 2]) {
+                sChar[i] = 0;
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (char c : sChar) {
+            if (c != 0) {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+    @Test
+    public void makeFancyStringTest() {
+        Assert.assertEquals("leetcode", makeFancyString("leeetcode"));
+        Assert.assertEquals("aabaa", makeFancyString("aaabaaaa"));
+    }
+
+
+    public boolean areNumbersAscending(String s) {
+        int currentNumber = 0;
+        String[] words = s.split(" ");
+        for (String word : words) {
+            if (Character.isDigit(word.charAt(0))) {
+                if (Integer.parseInt(word) <= currentNumber) return false;
+                else currentNumber = Integer.parseInt(word);
+            }
+        }
+        return true;
+    }
+
+    @Test
+    public void areNumbersAscendingTest() {
+        Assert.assertTrue(areNumbersAscending("a puppy has 2 eyes 4 legs"));
+        Assert.assertFalse(areNumbersAscending("sunset is at 7 51 pm overnight lows will be in the low 50 and 60 s"));
+    }
+
+    public int largestSumAfterKNegations(int[] nums, int k) {
+        Arrays.sort(nums);
+        int count = 0;
+
+        int index = 0;
+        while (count < k) {
+            nums[index] = -nums[index++];
+            count++;
+            if (index == nums.length - 1 || nums[index] > 0) {
+                Arrays.sort(nums);
+                index = 0;
+            }
+        }
+        count = 0;
+        for (int i : nums) count += i;
+        return count;
+    }
+
+    @Test
+    public void largestSumAfterKNegationsTest() {
+        Assert.assertEquals(5, largestSumAfterKNegations(new int[]{4, 2, 3}, 1));
+        Assert.assertEquals(6, largestSumAfterKNegations(new int[]{3, -1, 0, 2}, 3));
+        Assert.assertEquals(53, largestSumAfterKNegations(new int[]{8, -7, -3, -9, 1, 9, -6, -9, 3}, 8));
+        Assert.assertEquals(5, largestSumAfterKNegations(new int[]{-4, -2, -3}, 4));
+    }
+
+    public int countKDifference(int[] nums, int k) {
+        int res = 0;
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i; j < nums.length; j++) {
+                if (j == i) continue;
+                if (Math.abs(nums[i] - nums[j]) == k) res++;
+            }
+        }
+        return res;
+    }
+
+    @Test
+    public void CountKDifferenceTest() {
+        Assert.assertEquals(4, countKDifference(new int[]{1, 2, 2, 1}, 1));
+    }
+
+
+    public boolean isSubsequence(String s, String t) {
+        if (s.isBlank()) return true;
+        int pointer = 0;
+        for (char c : t.toCharArray()) {
+            if (c == s.charAt(pointer)) pointer++;
+            if (pointer == s.length()) return true;
+        }
+        return false;
+    }
+
+    @Test
+    public void isSubsequenceTest() {
+        Assert.assertTrue(isSubsequence("abc", "ahbgdc"));
+    }
+
+    public List<Integer> twoOutOfThree(int[] nums1, int[] nums2, int[] nums3) {
+        Set<Integer> set1 = new HashSet<>(), set2 = new HashSet<>(), set3 = new HashSet<>(), set = new HashSet<>();
+        for (int i : nums1) {
+            set1.add(i);
+            set.add(i);
+        }
+        for (int i : nums2) {
+            set2.add(i);
+            set.add(i);
+        }
+        for (int i : nums3) {
+            set3.add(i);
+            set.add(i);
+        }
+        List<Integer> result = new ArrayList<>();
+        for (int i : set)
+            if (set1.contains(i) && set2.contains(i) || set2.contains(i) && set3.contains(i) || set1.contains(i) && set3.contains(i))
+                result.add(i);
+        return result;
+    }
+
+
+    public String kthDistinct(String[] arr, int k) {
+        LinkedHashSet<String> linkedHashSet = new LinkedHashSet<>();
+        HashSet<String> duplicates = new HashSet<>();
+        for (String s : arr) {
+            if (!duplicates.contains(s)) {
+                if (linkedHashSet.contains(s)) {
+                    linkedHashSet.remove(s);
+                    duplicates.add(s);
+                } else linkedHashSet.add(s);
+            }
+        }
+        int count = 1;
+        for (String s : linkedHashSet) {
+            if (count == k) {
+                return s;
+            }
+            count++;
+        }
+        return "";
+    }
+
+    @Test
+    public void kthDistinctTest() {
+        Assert.assertEquals("a", kthDistinct(new String[]{"d", "b", "c", "b", "c", "a"}, 2));
+        Assert.assertEquals("aaa", kthDistinct(new String[]{"aaa", "aa", "a"}, 1));
+    }
+
+    public int smallestEqual(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == i % 10) return i;
+        }
+        return -1;
+    }
+
+    @Test
+    public void smallestEqualTest() {
+        Assert.assertEquals(0, smallestEqual(new int[]{0, 1, 2}));
+        Assert.assertEquals(2, smallestEqual(new int[]{4, 3, 2, 1}));
+    }
+
+    public int finalValueAfterOperations(String[] operations) {
+        int res = 0;
+        for (String s : operations) {
+            if (s.charAt(1) == '+') res++;
+            else res--;
+        }
+        return res;
+    }
+
+    @Test
+    public void finalValueAfterOperationsTest() {
+        Assert.assertEquals(1, finalValueAfterOperations(new String[]{"--X", "X++", "X++"}));
+    }
+
+    public int numOfStrings(String[] patterns, String word) {
+        int count = 0;
+        for (String s : patterns) {
+            if (word.contains(s)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    @Test
+    public void numOfStringsTest() {
+        Assert.assertEquals(3, numOfStrings(new String[]{"a", "abc", "bc", "d"}, "abc"));
+    }
+
+    public boolean areOccurrencesEqual(String s) {
+        if (s.length() == 1) return true;
+        HashMap<Character, Integer> hashMap = new HashMap<>();
+        for (Character c : s.toCharArray()) {
+            if (!hashMap.containsKey(c)) {
+                hashMap.put(c, 1);
+            } else {
+                hashMap.put(c, hashMap.get(c) + 1);
+            }
+        }
+        int constantCount = 0;
+        for (Character c : hashMap.keySet()) {
+            if (constantCount == 0) {
+                constantCount = hashMap.get(c);
+            } else {
+                if (hashMap.get(c) != constantCount) return false;
+            }
+        }
+        return true;
+    }
+
+    @Test
+    public void areOccurrencesEqualTest() {
+        Assert.assertTrue(areOccurrencesEqual("abacbc"));
+        Assert.assertFalse(areOccurrencesEqual("aaabb"));
+    }
+
+
+    public boolean checkAlmostEquivalent(String word1, String word2) {
+        char[] word1Array = word1.toCharArray();
+        char[] word2Array = word2.toCharArray();
+
+
+        LinkedHashMap<Character, Integer> word1HashMap = new LinkedHashMap<>();
+        LinkedHashMap<Character, Integer> word2HashMap = new LinkedHashMap<>();
+
+        for (char c : word1Array) {
+            if (!word1HashMap.containsKey(c)) word1HashMap.put(c, 1);
+            if (!word2HashMap.containsKey(c)) word2HashMap.put(c, 0);
+            else if (word1HashMap.containsKey(c)) word1HashMap.put(c, word1HashMap.get(c) + 1);
+        }
+
+        for (char c : word2Array) {
+            if (!word2HashMap.containsKey(c)) word2HashMap.put(c, 1);
+            if (!word1HashMap.containsKey(c)) word1HashMap.put(c, 0);
+            else if (word2HashMap.containsKey(c)) word2HashMap.put(c, word2HashMap.get(c) + 1);
+        }
+
+        for (char c : word1HashMap.keySet()) {
+            if (Math.abs(word1HashMap.get(c) - word2HashMap.get(c)) > 3) return false;
+        }
+        return true;
+    }
+
+
+    @Test
+    public void checkAlmostEquivalentTest() {
+//        Assert.assertTrue(checkAlmostEquivalent("abcdeef", "abaaacc"));
+        Assert.assertTrue(checkAlmostEquivalent("cccddabba", "babababab"));
+    }
+
+    public boolean checkIfExist(int[] arr) {
+        HashSet<Integer> set = new HashSet<>();
+        for (int i : arr) {
+            if (set.contains(i * 2) || (i % 2 == 0 && set.contains((i / 2)))) return true;
+            set.add(i);
+        }
+        return false;
+    }
+
+    @Test
+    public void checkIfExistTest() {
+        Assert.assertTrue(checkIfExist(new int[]{10, 2, 5, 3}));
+        Assert.assertFalse(checkIfExist(new int[]{3, 1, 7, 11}));
+    }
+
+    public String reformatNumber(String number) {
+        StringBuilder sb = new StringBuilder();
+        for (char c : number.toCharArray()) {
+            if (Character.isDigit(c)) sb.append(c);
+        }
+        int i = 0;
+        while (i < sb.length() - 4) {
+            sb.insert(i + 3, '-');
+            i += 4;
+        }
+
+        if (sb.length() - i == 4) {
+            sb.insert(i + 2, '-');
+        }
+        return sb.toString();
+    }
+
+    @Test
+    public void reformatNumberTest() {
+        Assert.assertEquals("123-456", reformatNumber("1-23-45 6"));
+        Assert.assertEquals("123-45-67", reformatNumber("123 4-567"));
+    }
+
+    // https://leetcode.com/problems/pascals-triangle/submissions/
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (numRows == 0) return res;
+        int rowCounter = 1;
+        for (int i = 0; i < numRows; i++) {
+            List<Integer> tempList = new ArrayList<>();
+            for (int k = 0; k < rowCounter; k++) {
+                if (k == 0 || k == rowCounter - 1) tempList.add(1);
+                else tempList.add(res.get(i - 1).get(k) + res.get(i - 1).get(k - 1));
+            }
+            res.add(tempList);
+            rowCounter++;
+        }
+        return res;
+    }
+
+    @Test
+    public void generateTest() {
+        generate(7);
+    }
+
+    public int maxDistance(int[] colors) {
+        int n = colors.length, i = 0, j = n - 1;
+        while (colors[0] == colors[j]) j--;
+        while (colors[n - 1] == colors[i]) i++;
+        return Math.max(n - 1 - i, j);
+    }
+
+    @Test
+    public void maxDistanceTest() {
+        Assert.assertEquals(3, maxDistance(new int[]{1, 1, 1, 6, 1, 1, 1}));
+        Assert.assertEquals(4, maxDistance(new int[]{1, 8, 3, 8, 3}));
+    }
+
+    public String freqAlphabets(String s) {
+        int pointer = 0;
+        char[] alphabet = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+        StringBuilder res = new StringBuilder();
+        while (pointer < s.length()) {
+            if (pointer < s.length() - 2 && s.charAt(pointer + 2) == '#') {
+                res.append(alphabet[Integer.parseInt(s.substring(pointer, pointer + 2)) - 1]);
+                pointer += 3;
+            } else {
+                res.append(alphabet[Integer.parseInt(s.substring(pointer, pointer + 1)) - 1]);
+                pointer += 1;
+            }
+        }
+        return res.toString();
+    }
+
+    @Test
+    public void freqAlphabetsTest() {
+        Assert.assertEquals("jkab", freqAlphabets("10#11#12"));
+    }
+
+    public int timeRequiredToBuy(int[] tickets, int k) {
+        int count = 0;
+        int index = 0;
+        while (tickets[k] > 0) {
+            if (tickets[k] == 0) break;
+            else if (tickets[index] > 0) {
+                tickets[index] -= 1;
+                count++;
+            }
+            index++;
+            if (index == tickets.length) index = 0;
+        }
+        return count;
+    }
+
+    @Test
+    public void timeRequiredToBuyTest() {
+        Assert.assertEquals(154, timeRequiredToBuy(new int[]{84, 49, 5, 24, 70, 77, 87, 8}, 3));
+        Assert.assertEquals(6, timeRequiredToBuy(new int[]{2, 3, 2}, 2));
+        Assert.assertEquals(8, timeRequiredToBuy(new int[]{5, 1, 1, 1}, 0));
+    }
+
+    public boolean checkStraightLine(int[][] coordinates) {
+        int[] a = coordinates[0];
+        int[] b = coordinates[1];
+        int x1 = a[0];
+        int x2 = b[0];
+        int y1 = a[1];
+        int y2 = b[1];
+
+        for (int i = 2; i < coordinates.length; i++) {
+            int[] curr = coordinates[i];
+            int x3 = curr[0];
+            int y3 = curr[1];
+            if ((y2 - y1) * (x3 - x1) != (x2 - x1) * (y3 - y1)) return false;
+        }
+        return true;
+    }
+
+    @Test
+    public void checkStraightLineTestTrue() {
+        int[][] expected = new int[6][];
+        expected[0] = new int[]{1, 2};
+        expected[1] = new int[]{2, 3};
+        expected[2] = new int[]{3, 4};
+        expected[3] = new int[]{4, 5};
+        expected[4] = new int[]{5, 6};
+        expected[5] = new int[]{6, 7};
+        Assert.assertTrue(checkStraightLine(expected));
+    }
+
+    @Test
+    public void checkStraightLineTestTrueNegative() {
+        int[][] expected = new int[3][];
+        expected[0] = new int[]{0, 0};
+        expected[1] = new int[]{0, 1};
+        expected[2] = new int[]{0, -1};
+
+        Assert.assertTrue(checkStraightLine(expected));
+    }
+
+    @Test
+    public void checkStraightLineTestFalse() {
+        int[][] expected = new int[6][];
+        expected[0] = new int[]{1, 2};
+        expected[1] = new int[]{2, 2};
+        expected[2] = new int[]{3, 4};
+        expected[3] = new int[]{4, 5};
+        expected[4] = new int[]{5, 6};
+        expected[5] = new int[]{7, 4};
+        Assert.assertFalse(checkStraightLine(expected));
+    }
+
+    public int thirdMax(int[] nums) {
+        HashSet<Integer> hashSet = new HashSet<>();
+        for (int i : nums) {
+            hashSet.add(i);
+        }
+        int[] uniques = new int[hashSet.size()];
+
+        int index = 0;
+        for (int i : hashSet) {
+            uniques[index++] = i;
+        }
+        Arrays.sort(uniques);
+        if (uniques.length < 3) return uniques[uniques.length - 1];
+        else return uniques[uniques.length - 3];
+    }
+
+    @Test
+    public void thirdMaxTest() {
+        Assert.assertEquals(1, thirdMax(new int[]{2, 2, 3, 1}));
+        Assert.assertEquals(2, thirdMax(new int[]{1, 2}));
+        Assert.assertEquals(1, thirdMax(new int[]{3, 2, 1}));
+    }
+
+    public int[] buildArray(int[] nums) {
+        int[] res = nums.clone();
+        for (int i = 0; i < nums.length; i++) {
+            res[i] = nums[nums[i]];
+        }
+        return res;
+    }
+
+    @Test
+    public void buildArrayTest() {
+        Assert.assertArrayEquals(new int[]{0, 1, 2, 4, 5, 3}, buildArray(new int[]{0, 2, 1, 5, 3, 4}));
+    }
+
+    public List<Integer> targetIndices(int[] nums, int target) {
+        Arrays.sort(nums);
+        ArrayList<Integer> res = new ArrayList<>();
+        int index = 0;
+        for (int i : nums) {
+            if (i == target) res.add(index++);
+            else index++;
+        }
+        return res;
+    }
+
+    @Test
+    public void targetIndicesTest() {
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.add(1);
+        expected.add(2);
+        Assert.assertEquals(expected, targetIndices(new int[]{1, 2, 5, 2, 3}, 2));
+    }
+
+    public int[] decrypt(int @NotNull [] code, int k) {
+        int[] res = new int[code.length];
+        if (k == 0) {
+            for (int i = 0; i < code.length; i++) {
+                res[i] = 0;
+            }
+            return res;
+        }
+        if (k > 0) {
+            for (int i = 0; i < code.length; i++) {
+                int count = 0;
+                int index = i + 1;
+                int sum = 0;
+                while (count < k) {
+                    if (index > code.length - 1) {
+                        index = 0;
+                    }
+                    sum += code[index++];
+                    count++;
+                }
+                res[i] = sum;
+            }
+        } else {
+            for (int i = 0; i < code.length; i++) {
+                int count = k;
+                int index = i - 1;
+                int sum = 0;
+                while (count < 0) {
+                    if (index == -1) {
+                        index = code.length - 1;
+                    }
+                    sum += code[index--];
+                    count++;
+                }
+                res[i] = sum;
+            }
+        }
+        return res;
+    }
+
+    @Test
+    public void decryptTest() {
+        Assert.assertArrayEquals(new int[]{12, 10, 16, 13}, decrypt(new int[]{5, 7, 1, 4}, 3));
+        Assert.assertArrayEquals(new int[]{12, 5, 6, 13}, decrypt(new int[]{2, 4, 9, 3}, -2));
+    }
+
+    public int minStartValue(int @NotNull [] nums) {
+        int minVal = nums[0], sum = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            sum += nums[i];
+            if (sum < minVal) minVal = sum;
+        }
+        if (minVal < 0) return Math.abs(minVal) + 1;
+        else return 1;
+    }
+
+    @Test
+    public void startValue() {
+        Assert.assertEquals(5, minStartValue(new int[]{-3, 2, -3, 4, 2}));
+    }
+
+    public int daysBetweenDates(String date1, String date2) {
+        return Math.abs((int) ChronoUnit.DAYS.between(LocalDate.parse(date1), LocalDate.parse(date2)));
+    }
+
+    @Test
+    public void daysBetweenDatesTest() {
+        Assert.assertEquals(1, daysBetweenDates("2019-06-29", "2019-06-30"));
+    }
+
+    public int smallestRangeI(int[] range, int k) {
+        Arrays.sort(range);
+        return (range[range.length - 1] - k) <= (range[0] + k) ? 0 : (range[range.length - 1] - k) - (range[0] + k);
+    }
+
+    @Test
+    public void smallestRangeTest() {
+        Assert.assertEquals(6, smallestRangeI(new int[]{0, 10}, 2));
+    }
+
+    public int countPoints(String rings) {
+        HashSet<Character>[] poles = new HashSet[10];
+        for (int i = 0; i <= 9; i++) {
+            poles[i] = new HashSet<>();
+        }
+        for (int i = 0; i < rings.length(); i += 2) {
+            poles[Character.getNumericValue(rings.charAt(i + 1))].add(rings.charAt(i));
+        }
+        int count = 0;
+        for (Set<Character> set : poles) {
+            if (set.size() == 3) count++;
+        }
+        return count;
+    }
+
+    @Test
+    public void countPointsTest() {
+        Assert.assertEquals(1, countPoints("B0B6G0R6R0R6G9"));
+    }
+
+    public String largestOddNumber(String num) {
+        for (int i = num.length() - 1; i >= 0; i--) {
+            if (Character.getNumericValue(num.charAt(i)) % 2 != 0) return num.substring(0, i + 1);
+        }
+        return "";
+    }
+
+    @Test
+    public void largestOddNumberTest() {
+        Assert.assertEquals("5", largestOddNumber("52"));
+        Assert.assertEquals("", largestOddNumber("4206"));
+        Assert.assertEquals("3", largestOddNumber("3206"));
+    }
+
+    public int oddCells(int n, int m, int[][] indices) {
+        boolean[] r = new boolean[n];
+        boolean[] c = new boolean[m];
+        int row_odd = 0, col_odd = 0;
+
+        for (int[] index : indices) {
+            r[index[0]] = !r[index[0]];
+            c[index[1]] = !c[index[1]];
+            row_odd += r[index[0]] ? 1 : -1;
+            col_odd += c[index[1]] ? 1 : -1;
+        }
+
+        return (row_odd * m) + (col_odd * n) - (2 * row_odd * col_odd);
+    }
+
+    public String licenseKeyFormatting(String s, int k) {
+        StringBuilder sb = new StringBuilder();
+        int counter = 0;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (counter == k) {
+                sb.append('-');
+                counter = 0;
+            }
+            if (s.charAt(i) != '-') {
+                sb.append(s.charAt(i));
+                counter++;
+            }
+        }
+        if (sb.length() > 0 && sb.charAt(sb.length() - 1) == '-') sb.deleteCharAt(sb.length() - 1);
+        return sb.reverse().toString().toUpperCase();
+    }
+
+    @Test
+    public void licenseKeyFormattingTest() {
+        Assert.assertEquals("AA-AA", licenseKeyFormatting("--a-a-a-a--", 2));
+        Assert.assertEquals("5F3Z-2E9W", licenseKeyFormatting("5F3Z-2e-9-w", 4));
+        Assert.assertEquals("2-5G-3J", licenseKeyFormatting("2-5g-3-J", 2));
+    }
+
+    public int countWords(String[] words1, String[] words2) {
+        HashMap<String, Integer> words1HashMap = countWordsHelper(words1);
+        HashMap<String, Integer> words2HashMap = countWordsHelper(words2);
+        int res = 0;
+        for (String s : words1HashMap.keySet()) {
+            if (words1HashMap.containsKey(s) && words2HashMap.containsKey(s)) {
+                if (words1HashMap.get(s) == 1 && words2HashMap.get(s) == 1) res++;
+            }
+        }
+        return res;
+    }
+
+    public HashMap<String, Integer> countWordsHelper(String[] words) {
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        for (String s : words) {
+            if (!hashMap.containsKey(s)) hashMap.put(s, 1);
+            else hashMap.put(s, hashMap.get(s) + 1);
+        }
+        return hashMap;
+    }
+
+    @Test
+    public void countWordsTest() {
+        String[] words1 = new String[]{"leetcode", "is", "amazing", "as", "is"};
+        String[] words2 = new String[]{"amazing", "leetcode", "is"};
+        Assert.assertEquals(2, countWords(words1, words2));
+    }
+
+    public int maximumUnits(int[][] boxTypes, int truckSize) {
+        TreeMap<Integer, Integer> treeMap = new TreeMap<>();
+        for (int[] i : boxTypes) {
+            if (!treeMap.containsKey(i[1])) treeMap.put(i[1], i[0]);
+            else treeMap.put(i[1], treeMap.get(i[1]) + i[0]);
+        }
+        int units = 0, count = 0;
+        for (Integer i : treeMap.descendingKeySet()) {
+            int boxes = treeMap.get(i);
+            while (boxes > 0) {
+                units += i;
+                boxes--;
+                count++;
+                if (count == truckSize) return units;
+            }
+        }
+        return units;
+    }
+
+    @Test
+    public void maximumUnitsTest() {
+        int[] box1 = new int[]{1, 3};
+        int[] box2 = new int[]{2, 2};
+        int[] box3 = new int[]{3, 1};
+        int[][] boxTypes = new int[3][];
+        boxTypes[0] = box1;
+        boxTypes[1] = box2;
+        boxTypes[2] = box3;
+
+        Assert.assertEquals(8, maximumUnits(boxTypes, 4));
+    }
+
+    public int mostWordsFound(String[] sentences) {
+        int res = 0;
+        for (String s : sentences) {
+            String[] words = s.split(" ");
+            res = Math.max(words.length, res);
+        }
+        return res;
+    }
+
+    @Test
+    public void mostWordsFoundTest() {
+        String[] array = new String[]{"alice and bob love leetcode", "i think so too", "this is great thanks very much"};
+        Assert.assertEquals(6, mostWordsFound(array));
+    }
+
+    public String firstPalindrome(String[] words) {
+        for (String s : words) {
+            if (s.equals(new StringBuilder(s).reverse().toString())) return s;
+        }
+        return "";
+    }
+
+    @Test
+    public void firstPalindromeTest() {
+        Assert.assertEquals("ada", firstPalindrome(new String[]{"abc", "car", "ada", "racecar", "cool"}));
+    }
+
+    public int wateringPlants(int[] plants, int capacity) {
+        int steps = 0, pointer = 0, currentCapacity = capacity;
+        while (pointer < plants.length) {
+            if (plants[pointer] <= currentCapacity) {
+                currentCapacity -= plants[pointer];
+                steps++;
+                pointer++;
+            } else {
+                currentCapacity = capacity;
+                steps += pointer * 2;
+            }
+        }
+        return steps;
+    }
+
+    @Test
+    public void wateringPlantsTest() {
+        Assert.assertEquals(30, wateringPlants(new int[]{1, 1, 1, 4, 2, 3}, 4));
+        Assert.assertEquals(14, wateringPlants(new int[]{2, 2, 3, 3}, 5));
+    }
+
+    public int oddSocks(int[] socks) {
+        Set<Integer> sockSet = new HashSet<>();
+        int res = 0;
+        for (int s : socks) {
+            if (sockSet.contains(s)) {
+                res++;
+                sockSet.remove(s);
+            } else sockSet.add(s);
+        }
+        return res;
+    }
+
+    @Test
+    public void oddsSocksTest() {
+        Assert.assertEquals(2, oddSocks(new int[]{1, 2, 1, 2, 1, 3, 2}));
+    }
+
+    public int minimumRefill(int[] plants, int capacityA, int capacityB) {
+        int refills = 0, aPointer = 0, aCurrentWater = capacityA, bCurrentWater = capacityB, bPointer = plants.length - 1;
+        while (aPointer < bPointer) {
+            if (aCurrentWater < plants[aPointer]) {
+                refills++;
+                aCurrentWater = capacityA;
+            }
+            if (bCurrentWater < plants[bPointer]) {
+                refills++;
+                bCurrentWater = capacityB;
+            }
+            aCurrentWater -= plants[aPointer];
+            bCurrentWater -= plants[bPointer];
+            bPointer--;
+            aPointer++;
+        }
+        if (aPointer == bPointer && (aCurrentWater >= plants[aPointer] || bCurrentWater >= plants[bPointer]))
+            return refills;
+        else if (aPointer == bPointer) return refills + 1;
+        return refills;
+    }
+
+    @Test
+    public void minimumRefillTest() {
+        Assert.assertEquals(1, minimumRefill(new int[]{2, 2, 3, 3}, 5, 5));
+    }
+
+    public String findDifferentBinaryString(String[] nums) {
+        int n = nums.length;
+        char[] ans = new char[n];
+        for (int i = 0; i < n; i++) {
+            ans[i] = nums[i].charAt(i) == '0' ? '1' : '0';
+        }
+        return String.valueOf(ans);
+    }
+
+    @Test
+    public void findDifferentBinaryString() {
+        Assert.assertEquals("00", findDifferentBinaryString(new String[]{"01", "10"}));
+    }
+
+    public int dominantIndex(int[] nums) {
+        int max = -1, index = -1, second = -1;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > max) {
+                second = max;
+                max = nums[i];
+                index = i;
+            } else if (nums[i] > second)
+                second = nums[i];
+        }
+        return second * 2 <= max ? index : -1;
+    }
+
+    @Test
+    public void dominantIndexTest() {
+        Assert.assertEquals(1, dominantIndex(new int[]{3, 6, 1, 0}));
+    }
+
+    public static long repeatedString(String s, long n) {
+        int count = 0, index = 0;
+        long numA = 0;
+        while (true) {
+            if (index == s.length()) index = 0;
+            if (count == n) return numA;
+            if (s.charAt(index) == 'a') numA++;
+            count++;
+            index++;
+        }
+    }
+
+    @Test
+    public void repeatedString() {
+        Assert.assertEquals(4, repeatedString("abcac", 10));
+    }
+
+    public String capitalizeTitle(String title) {
+        title = title.toLowerCase();
+        String[] words = title.split(" ");
+        int index = 0;
+        for (String word : words) {
+            if (word.length() > 2) {
+                char[] chars = word.toCharArray();
+                chars[0] = Character.toUpperCase(chars[0]);
+                words[index++] = String.valueOf(chars);
+            } else {
+                index++;
+            }
+        }
+        return String.join(" ", words).trim();
+    }
+
+    @Test
+    public void capitalizeTitleTest() {
+        Assert.assertEquals("This Should be in Title Case", capitalizeTitle("this should be in title case"));
+        Assert.assertEquals("i Love Leetcode", capitalizeTitle("I LOVE LEETCODE"));
+    }
+
+
+    public int prefixCount(String[] words, String pref) {
+        int length = pref.length(), count = 0;
+        for (String w : words) {
+            if (w.length() >= length && w.substring(0, length).equals(pref)) count++;
+        }
+        return count;
+    }
+
+    @Test
+    public void preFixCountTest() {
+        String[] tester = new String[]{"pay", "attention", "practice", "attend", "a"};
+        Assert.assertEquals(2, prefixCount(tester, "at"));
+    }
+
+    public static List<Integer> rotLeft(List<Integer> a, int d) {
+        int rotate = d % a.size();
+        int[] res = new int[a.size()];
+        for (int i = 0; i < a.size(); i++) {
+            if (rotate >= a.size()) rotate = 0;
+            res[i] = a.get(rotate++);
+        }
+        ArrayList<Integer> returnList = new ArrayList<>();
+        for (int re : res) {
+            returnList.add(re);
+        }
+        return returnList;
+    }
+
+    @Test
+    public void rotLeftTest() {
+        ArrayList<Integer> input = new ArrayList<>();
+        input.add(1);
+        input.add(2);
+        input.add(3);
+        input.add(4);
+        input.add(5);
+
+        ArrayList<Integer> expected = new ArrayList<>();
+        expected.add(3);
+        expected.add(4);
+        expected.add(5);
+        expected.add(1);
+        expected.add(2);
+
+        Assert.assertEquals(expected, rotLeft(input, 2));
+    }
+
+    public int maxProfit(int[] prices) {
+
+        int lowestSoFar = Integer.MAX_VALUE, largestProfit = 0, currentProfit;
+
+        for (int price : prices) {
+            if (price < lowestSoFar) lowestSoFar = price;
+            currentProfit = price - lowestSoFar;
+            if (currentProfit > largestProfit) largestProfit = currentProfit;
+        }
+        return largestProfit;
+    }
+
+    @Test
+    public void maxProfitTest() {
+        int[] input = new int[]{7, 1, 5, 3, 6, 4};
+        Assert.assertEquals(5, maxProfit(input));
+    }
+
+    public int maximumDifference(int[] nums) {
+        int lowestEncounteredSoFar = Integer.MAX_VALUE, maxDiff = 0;
+
+        for (int i : nums) {
+            if (i < lowestEncounteredSoFar) lowestEncounteredSoFar = i;
+            if (i - lowestEncounteredSoFar > maxDiff) maxDiff = i - lowestEncounteredSoFar;
+        }
+        return maxDiff;
+    }
+
+    @Test
+    public void maximumDifferenceTest() {
+        int[] input = new int[]{7, 1, 5, 4};
+        Assert.assertEquals(4, maximumDifference(input));
+    }
+
+    public int minDepth(TreeNode root) {
+        if (root == null)
+            return 0;
+        if (root.left != null && root.right != null)
+            return Math.min(minDepth(root.left), minDepth(root.right)) + 1;
+        else
+            return Math.max(minDepth(root.left), minDepth(root.right)) + 1;
+    }
+
+    public int canBeTypedWords(String text, String brokenLetters) {
+        int res = 0;
+        HashSet<Character> characterSet = new HashSet<>();
+        for (char c : brokenLetters.toCharArray()) characterSet.add(c);
+        String[] words = text.split(" ");
+
+        for (String s : words) {
+            res++;
+            for (char c : s.toCharArray()) {
+                if (characterSet.contains(c)) {
+                    res--;
+                }
+            }
+        }
+
+        return res;
+    }
+
+    @Test
+    public void canBeTypedTest() {
+        Assert.assertEquals(1, canBeTypedWords("leet code", "lt"));
+    }
+
+
+}
+
+
 
     public int[] numberOfPairs(int[] nums) {
         HashSet<Integer> hs = new HashSet<>();
